@@ -1,0 +1,413 @@
+/*
+
+    INFO:
+        - This File Includes the Functions Replacing certain parts of the Airdrop
+
+    TODO:
+		- More Funny Killstreaks
+		- Killstreaks to maybe add:
+			- Turret that is useable, like the ones in the edit
+			- Drone Strike or something similar to it like bo2
+
+    DONE:
+        - Total Weight of Assault Airdrops is 100 so percentages are not decimal point numbers
+		- Added EMP, Remote UAV, Juggernaut, Helicopter Flock ( littlebird flock ), to assault and trap airdrop
+		- Added Randomness to the sentry airdrop allowing it to drop a nuke ( 1 / 100000 ) or a same turret ( 1 / 1000 )
+        
+*/
+
+init()
+{
+    replacefunc( maps\mp\killstreaks\_airdrop::airDropMarkerActivate, ::_airDropMarkerActivate);
+    replacefunc( maps\mp\killstreaks\_airdrop::airdropDetonateOnStuck, ::_airdropDetonateOnStuck);
+    replacefunc( maps\mp\killstreaks\_airdrop::getcratetypefordroptype, ::on_getcratetypefordroptype );
+
+	level.crateTypes = [];
+	
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"ims",						14,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"predator_missile",			14,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"sentry",					14,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"ammo",			            8,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"remote_mg_turret",			6,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"airdrop_trap",			    6,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault", 				"remote_uav", 				5, 		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"precision_airstrike",		4,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"stealth_airstrike",		4,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"helicopter",				4,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"littlebird_support",		3,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"littlebird_flock",			3,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"remote_mortar",			3,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"harrier_airstrike",		2,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"helicopter_flares",		2,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"remote_tank",			    2,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"ac130",			        2,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault", 				"airdrop_juggernaut", 		2, 		maps\mp\killstreaks\_airdrop::juggernautcratethink );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"osprey_gunner",			1,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault", 				"emp", 						1, 		::killstreakCrateThink_edit );
+
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"ims",						20,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"predator_missile",			20,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"sentry",					20,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"remote_mg_turret",			10,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"stealth_airstrike",		6,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"precision_airstrike",		8,		::killstreakCrateThink_edit );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"remote_tank",				2,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"ac130",			        1,		::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"remote_mortar",			1,		::killstreakCrateThink_edit );
+
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"ims",						14,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"predator_missile",			14,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"sentry",					14,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"ammo",			            8,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"remote_mg_turret",			6,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"airdrop_trap",			    6,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"remote_uav", 				5, 		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"precision_airstrike",		4,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"stealth_airstrike",		4,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"helicopter",				4,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"littlebird_support",		3,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"littlebird_flock",			3,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"remote_mortar",			3,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"harrier_airstrike",		2,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"helicopter_flares",		2,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"remote_tank",			    2,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"ac130",			        2,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"airdrop_juggernaut", 		2, 		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",			"osprey_gunner",			1,		maps\mp\killstreaks\_airdrop::trapNullFunc );
+    maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"emp", 						1, 		maps\mp\killstreaks\_airdrop::trapNullFunc );
+
+	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_sentry_minigun",		"sentry",					100,	::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_sentry_minigun", 		"sam_turret", 				100, 	::killstreakCrateThink_edit );
+    maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_sentry_minigun", 		"nuke", 					100, 	::killstreakCrateThink_edit );
+
+	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_juggernaut",			"airdrop_juggernaut",		100,	::killstreakCrateThink_edit );
+	
+	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_juggernaut_recon",	"airdrop_juggernaut_recon",	100,	::killstreakCrateThink_edit );
+
+	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_trophy",				"airdrop_trophy",			100,	maps\mp\killstreaks\_airdrop::trophyCrateThink );
+
+	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_trap",				"airdrop_trap",				100,	maps\mp\killstreaks\_airdrop::trapCrateThink );
+
+	maps\mp\killstreaks\_airdrop::addCrateType(  "littlebird_support",			"littlebird_support",		100,	::killstreakCrateThink_edit );
+
+	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_remote_tank",			"remote_tank"		,		100,	::killstreakCrateThink_edit );
+
+    foreach ( var_10, var_6 in level.cratetypes )
+    {
+        level.cratemaxval[var_10] = 0;
+
+        foreach ( var_9, var_8 in level.cratetypes[var_10] )
+        {
+            if ( !var_8 )
+                continue;
+
+            level.cratemaxval[var_10] += var_8;
+            level.cratetypes[var_10][var_9] = level.cratemaxval[var_10];
+        }
+    }
+
+	tdmSpawns = getEntArray( "mp_tdm_spawn" , "classname" );
+	lowSpawn = undefined;
+
+	foreach(lspawn in tdmSpawns) {
+		if (!isDefined( lowSpawn ) || lspawn.origin[2] < lowSpawn.origin[2])
+			lowSpawn = lspawn;
+	}
+
+	level.lowSpawn = lowSpawn;
+}
+
+_airdropDetonateOnStuck()
+{
+	self endon ( "death" );
+	self waittill( "missile_stuck" );
+
+	self notify("yeetus", self.origin);
+
+	fx = SpawnFX( level._effect["ac130_flare"], self.origin );
+    TriggerFX( fx );
+}
+
+_airDropMarkerActivate( type, lifeId ) {
+	self notify("airDropMarkerActivate");
+	self endon("airDropMarkerActivate");
+
+	self waittill("yeetus", position);
+
+	owner = self.owner;
+
+	if(!isDefined(owner))
+		return;
+
+	if(owner maps\mp\_utility::isAirDenied())
+		return;
+
+    lower_type = tolower( type );
+
+	if(IsSubStr( lower_type, "escort_airdrop" ) && isDefined( level.chopper ) )
+	{
+		return;
+	}
+
+	if( IsSubStr( lower_type, "escort_airdrop" ) && IsDefined( level.chopper_fx[ "smoke" ][ "signal_smoke_30sec" ] ) )
+	{
+		PlayFX( level.chopper_fx[ "smoke" ][ "signal_smoke_30sec" ], position, ( 0, 0, -1 ) );
+	}
+
+	wait .05;
+
+	if( IsSubStr( lower_type, "escort_airdrop" ) )
+	{
+		owner maps\mp\killstreaks\_escortairdrop::finishSupportEscortUsage(lifeId, position, randomFloat(360), "escort_airdrop");
+	}
+	
+    else if( lower_type == "airdrop_assault" || lower_type == "airdrop_sentry_minigun") 
+    {
+        if( distance( owner.origin, position ) > 300 )
+        {
+            if( owner.sessionteam == "axis" )
+            {
+                owner IPrintLnBold( "^2Nice try :D" );
+
+                self delete();
+            }
+            else
+            {
+                owner maps\mp\killstreaks\_killstreaks::giveKillstreak( type, false, false, self.owner, true );
+
+                owner IPrintLnBold( "^1Nope to far away!" );
+
+                maps\mp\_utility::decrementFauxVehicleCount();
+				
+                PlayFX( level.money, self.origin );
+				
+                owner playLocalSound( "item_nightvision_off" );
+				
+                self delete();
+            }
+        }
+        else
+        {
+			self detonate();
+
+            level maps\mp\killstreaks\_airdrop::doflyby( owner, position, randomfloat( 360 ), type );
+        }
+    }
+
+    else
+    {
+		self detonate();
+
+        level maps\mp\killstreaks\_airdrop::doflyby( owner, position, randomfloat( 360 ), type );
+    }
+}
+
+on_getcratetypefordroptype( type )
+{   
+    switch ( type )
+    {
+        case "airdrop_sentry_minigun":
+            {
+                if( RandomInt( 100000 ) == 5 ) // This guy got hella lucky
+                    return "nuke";
+				else if( RandomInt( 1000 ) == 1 )
+					return "sam_turret";
+                else
+                    return "sentry";
+            }
+        case "airdrop_predator_missile":
+            return "predator_missile";
+        case "airdrop_juggernaut":
+            return "airdrop_juggernaut";
+        case "airdrop_juggernaut_def":
+            return "airdrop_juggernaut_def";
+        case "airdrop_juggernaut_gl":
+            return "airdrop_juggernaut_gl";
+        case "airdrop_juggernaut_recon":
+            return "airdrop_juggernaut_recon";
+        case "airdrop_trap":
+            return "airdrop_trap";
+        case "airdrop_trophy":
+            return "airdrop_trophy";
+        case "airdrop_remote_tank":
+            return "remote_tank";
+        case "airdrop_assault":
+        case "airdrop_mega":
+        case "airdrop_escort":
+        case "airdrop_support":
+        case "airdrop_grnd":
+        case "airdrop_grnd_mega":
+        default:
+            return  maps\mp\killstreaks\_airdrop::getrandomcratetype( type );
+    }
+}
+
+
+refill_ammo() {
+	if(self.team == "allies") {
+		weapons = self GetWeaponsListAll();
+		foreach(weap in weapons) {
+			if(maps\mp\_utility::isKillstreakWeapon( weap ))
+				continue;
+
+			self SetWeaponAmmoStock(weap, 400);
+			self SetWeaponAmmoclip(weap, 400);
+		}
+	}
+	else {
+		self GiveWeapon( "defaultweapon_mp" );
+		self SetWeaponAmmoStock( "defaultweapon_mp" , 0);
+		self SetWeaponAmmoclip( "defaultweapon_mp" , 5);
+		self SwitchToWeapon( "defaultweapon_mp" );
+	}
+}
+
+killstreakCrateThink_edit(dropType) {
+	self endon("death");
+		
+	crateHint = &"PLATFORM_GET_KILLSTREAK";
+	if( isDefined(game["strings"][self.crateType + "_hint"] ) )
+		crateHint = game["strings"][self.crateType + "_hint"];
+
+    if(self.crateType == "ammo")
+	{
+        crateSetupForUse_edit(crateHint, "all", "waypoint_ammo_friendly");
+	}
+	else if(self.crateType == "airdrop_trap")
+    {
+        crateSetupForUse_edit(crateHint, "all", "dpad_killstreak_airdrop_trap");
+    }
+	else
+    {
+        crateSetupForUse_edit(crateHint, "all", maps\mp\killstreaks\_killstreaks::getKillstreakCrateIcon(self.crateType));
+	}
+
+	self thread maps\mp\killstreaks\_airdrop::crateOtherCaptureThink();
+	self thread maps\mp\killstreaks\_airdrop::crateOwnerCaptureThink();
+
+	for(;;) 
+	{
+		self waittill("captured", player);
+
+		if( isDefined(self.owner) && player != self.owner ) 
+		{
+			if( !level.teamBased || player.team != self.team ) 
+			{
+				switch(dropType) 
+				{
+                    case "airdrop_assault":
+                    case "airdrop_support":
+                    case "airdrop_escort":
+                    case "airdrop_osprey_gunner":
+                        player thread maps\mp\gametypes\_missions::genericChallenge( "hijacker_airdrop" );
+                        player thread maps\mp\killstreaks\_airdrop::hijackNotify( self, "airdrop" );
+                        break;
+                    case "airdrop_sentry_minigun":
+                        player thread maps\mp\gametypes\_missions::genericChallenge( "hijacker_airdrop" );
+                        player thread maps\mp\killstreaks\_airdrop::hijackNotify( self, "sentry" );
+                        break;
+                    case "airdrop_remote_tank":
+                        player thread maps\mp\gametypes\_missions::genericChallenge( "hijacker_airdrop" );
+                        player thread maps\mp\killstreaks\_airdrop::hijackNotify( self, "remote_tank" );
+                        break;
+                }
+			}
+			else 
+			{
+				self.owner thread maps\mp\gametypes\_rank::giveRankXP( "killstreak_giveaway", Int(( maps\mp\killstreaks\_killstreaks::getStreakCost( self.crateType ) / 10 ) * 50) );
+				self.owner thread maps\mp\gametypes\_hud_message::SplashNotifyDelayed( "sharepackage", Int(( maps\mp\killstreaks\_killstreaks::getStreakCost( self.crateType ) / 10 ) * 50) );
+			}
+		}
+
+		player playLocalSound( "ammo_crate_use" );
+
+		if(self.crateType == "ammo")
+		{
+			player thread [[level.killStreakFuncs["ammo"]]]();
+		}
+		else
+		{
+			player thread maps\mp\killstreaks\_killstreaks::giveKillstreak( self.crateType, 0, 0, self.owner );
+		}
+
+		self maps\mp\killstreaks\_airdrop::deleteCrate();
+	}
+}
+
+crateSetupForUse_edit(hintString, mode, _icon) {
+	self setCursorHint( "HINT_NOICON" );
+	self setHintString( hintString );
+	self makeUsable();
+	self.mode = mode;
+
+	if (level.teamBased || IsDefined(self.owner)) {
+		curObjID = maps\mp\gametypes\_gameobjects::getNextObjID();
+		objective_add(curObjID, "invisible", (0,0,0));
+		objective_position( curObjID, self.origin );
+		objective_state( curObjID, "active" );
+
+		shaderName = "compass_objpoint_ammo_friendly";
+		if( mode == "trap" )
+			shaderName = "compass_objpoint_trap_friendly";
+		objective_icon( curObjID, shaderName );
+
+		if ( !level.teamBased && IsDefined( self.owner ) )
+			Objective_PlayerTeam( curObjId, self.owner GetEntityNumber() );
+		else
+			Objective_Team( curObjID, self.team );
+
+		self.objIdFriendly = curObjID;
+	}
+
+	curObjID = maps\mp\gametypes\_gameobjects::getNextObjID();
+	objective_add( curObjID, "invisible", (0,0,0) );
+	objective_position( curObjID, self.origin );
+	objective_state( curObjID, "active" );
+	objective_icon( curObjID, "compass_objpoint_ammo_enemy");
+
+	if(!level.teamBased && IsDefined(self.owner))
+		Objective_PlayerEnemyTeam( curObjId, self.owner GetEntityNumber() );
+	else
+		Objective_Team( curObjID, level.otherTeam[self.team] );
+
+	self.objIdEnemy = curObjID;
+
+	if ( mode == "trap" ) 
+	{
+		self thread maps\mp\killstreaks\_airdrop::crateUseTeamUpdater( maps\mp\_utility::getOtherTeam( self.team ) );
+	}
+	else 
+	{
+		self thread maps\mp\killstreaks\_airdrop::crateUseTeamUpdater();
+
+		if( isSubStr( self.crateType, "juggernaut" ) ) 
+		{
+			foreach( player in level.players )
+			{
+				if( player maps\mp\_utility::isJuggernaut() )
+				{
+					self thread maps\mp\killstreaks\_airdrop::crateUsePostJuggernautUpdater( player );
+				}
+			}
+		}
+        else 
+		{
+			icon = spawnstruct();
+			icon.showto = self.team;
+			icon.icon = _icon;
+			icon.offset = ( 0.0, 0.0, 24.0 );
+			icon.width = 14;
+			icon.height = 14;
+			icon.archived = 0;
+			icon.delay = undefined;
+			icon.constantsize = undefined;
+			icon.pintoscreenedge = 0;
+			icon.fadeoutpinnedicon = undefined;
+			icon.is3d = 0;
+			
+			self maps\mp\_entityheadicons::setheadicon( icon.showto, icon.icon, icon.offset, icon.width, icon.height, icon.archived, icon.delay, icon.constantsize, icon.pintoscreenedge, icon.fadeoutpinnedicon, icon.is3d );
+        }
+	}
+
+	self thread maps\mp\killstreaks\_airdrop::crateUseJuggernautUpdater();
+}
