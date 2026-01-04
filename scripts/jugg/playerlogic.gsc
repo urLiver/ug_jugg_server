@@ -252,7 +252,7 @@ on_spawned() {
 				self SetWeaponAmmoClip("at4_mp", 1);
                 self SetWeaponAmmoStock("at4_mp", 1);
                 self setspawnweapon("at4_mp");
-				self thread [[level.roll_items["exp_tk"].function]]();
+				self thread scripts\jugg\infected::ExplosiveKnife();
 				self setperk("specialty_fastreload", 1, 1);
             }
 

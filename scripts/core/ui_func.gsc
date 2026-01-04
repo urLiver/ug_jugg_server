@@ -21,7 +21,7 @@ init()
 
 fade_out( time, alpha )
 {
-    if( !isdefined( alpha ) )
+    if( ! isdefined( alpha ) )
         alpha = 0;
 
     self.alpha = 1;
@@ -31,7 +31,7 @@ fade_out( time, alpha )
 
 fade_in( time, alpha )
 {
-    if( !isdefined( alpha ) )
+    if( ! isdefined( alpha ) )
         alpha = 1;
 
     self.alpha = 0;

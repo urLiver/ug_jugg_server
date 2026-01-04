@@ -25,15 +25,25 @@ init()
     level.roll_items = [];
     level.roll_cur_percent = 0.0;
 
-    add_roll( 0.40, "Nothing!", "You got nothing! Better luck next time", undefined, maps\mp\gametypes\_globallogic::blank, undefined );
-    add_roll( 2.40, "Push Launcher", "You have a Push Launcher, Use it Scoped or Non Scoped!", undefined, ::push_xm, undefined );
     add_roll( 1.40, "SMAW", "You have a SMAW rocket launcher", undefined, ::Give_Param_Weapon, array( "iw5_smaw_mp", 1, 0) );
     add_roll( 1.80, "M320", "You have a Noob Tube", undefined, ::Give_Param_Weapon, array( "m320_mp", 1, 0) );
-    add_roll( 4.40, "Smoke Launcher", "You have a Smoke Launcher", undefined, ::M_320_smoke, undefined );
     add_roll( 2.10, "Javelin", "You have a Javelin", ( 0, 0, .5 ), ::Give_Param_Weapon, array( "javelin_mp") );
     add_roll( 2.40, "RPG", "You have an RPG", undefined, ::Give_Param_Weapon, array( "rpg_mp", 1, 1) );
     add_roll( 1.40, "AT4", "You have an AT4", undefined, ::Give_Param_Weapon, array( "at4_mp", 1, 0) );
     add_roll( 1.60, "Stinger", "You have a Stinger rocket launcher", undefined, ::Give_Param_Weapon, array( "stinger_mp") );
+    add_roll( 6.20, "Riotshield", "You have a Riotshield.", undefined, ::Give_Param_Weapon, array( "riotshield_mp") );
+    add_roll( 1.30, "Akimbo", "You have Akimbo Pistols", undefined, ::Give_Param_Weapon, array( "iw5_usp45_mp_akimbo", undefined, 0, 1) );
+    add_roll( 1.60, ".44 Magnum", "You have a .44 Magnum with 6 bullets", undefined, ::Give_Param_Weapon, array( "iw5_44magnum_mp", undefined, 0) );
+
+    add_roll( 2.50, "C4", "You have a C4, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "c4_mp") );
+    add_roll( 5.50, "Flash Bang", "You have 2 Flash Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "flash_grenade_mp") );
+    add_roll( 5.90, "Concussion Grenade", "You have 2 Concussion Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "concussion_grenade_mp") );
+    add_roll( 5.50, "EMP Grenade", "You have an EMP Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "emp_grenade_mp") );
+    add_roll( 5.50, "Smoke Grenade", "You have a Smoke Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "smoke_grenade_mp") );
+
+    add_roll( 0.40, "Nothing!", "You got nothing! Better luck next time", undefined, maps\mp\gametypes\_globallogic::blank, undefined );
+    add_roll( 2.40, "Push Launcher", "You have a Push Launcher, Use it Scoped or Non Scoped!", undefined, ::push_xm, undefined );
+    add_roll( 4.40, "Smoke Launcher", "You have a Smoke Launcher", undefined, ::M_320_smoke, undefined );
     add_roll( 4.30, "Extra Speed", "Increased Movement Speed", undefined, ::ExtraSpeed, undefined );
     add_roll( 2.80, "Increased Speed, Reduced Health", "You have less Health, but move much Faster", ( .5, 0, 0 ), ::lowhealthquick, undefined );
     add_roll( 4.10, "Ballistic Vest", "You have a Ballistic Vest (200 HP).", ( 0, 0, .5 ), level.killStreakFuncs["light_armor"], undefined );
@@ -43,15 +53,7 @@ init()
     add_roll( 1.20, "Explosive Juggernaut", "You're a powerful & explosive, Juggernaut (500 HP).", ( .5, 0, 0 ), ::juggernaut_suicide, undefined );
     add_roll( 2.40, "Smoker", "Wait a min, this aint Left 4 Dead", ( 0, .5, .2 ), ::roll_smoker, undefined );
     add_roll( 0.70, "Godmode for 5 seconds", "Temporarily grants invincibility for 5 seconds", ( .5, .5, 0 ), ::GodMode, undefined );
-    add_roll( 6.20, "Riotshield", "You have a Riotshield.", undefined, ::Give_Param_Weapon, array( "riotshield_mp") );
     add_roll( 1.40, "Black Hole Grenade!", "Throw a Grenade that creates a Black Hole, ^7Press ^:[{+actionslot 4}] ^7To Use It", ( .6, 0, .6 ), ::blackholegrenade, undefined );
-    add_roll( 2.50, "C4", "You have a C4, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "c4_mp") );
-    add_roll( 5.50, "Flash Bang", "You have 2 Flash Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "flash_grenade_mp") );
-    add_roll( 5.90, "Concussion Grenade", "You have 2 Concussion Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "concussion_grenade_mp") );
-    add_roll( 5.50, "EMP Grenade", "You have an EMP Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "emp_grenade_mp") );
-    add_roll( 5.50, "Smoke Grenade", "You have a Smoke Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::Give_Param_Nade, array( "smoke_grenade_mp") );
-    add_roll( 1.30, "Akimbo", "You have Akimbo Pistols", undefined, ::Give_Param_Weapon, array( "iw5_usp45_mp_akimbo", undefined, 0, 1) );
-    add_roll( 1.60, ".44 Magnum", "You have a .44 Magnum with 6 bullets", undefined, ::Give_Param_Weapon, array( "iw5_44magnum_mp", undefined, 0) );
     add_roll( 1.20, "One Bullet", "You have a Sniper with One Bullet", undefined, ::OneBullet, undefined );
     add_roll( 1.20, "Extra Knifes", "You have Additional Throwing Knifes.", undefined, ::UnlimitedKnifes, undefined );
     add_roll( 2.40, "Exploding Throwingknife", "You have an Explosive Throwing Knife.", undefined, ::ExplosiveKnife, undefined );
@@ -116,16 +118,22 @@ roll_random_effect()
     }
 
     roll = get_random_roll();
-    if( ! isdefined( level.roll_items[ roll ].paramlist ) )
+    if( ! isdefined( roll ) )
     {
-        self thread [ [ level.roll_items[ roll ].function ] ]( );
+        print( "^1roll_random_effect: Roll = undefined" );
+        return;
+    }
+
+    if( ! isdefined( roll.paramlist ) )
+    {
+        self thread [ [ roll.function ] ]( );
     }
     else
     {
-        self thread [ [ level.roll_items[ roll ].function ] ]( level.roll_items[ roll ].paramlist );
+        self thread [ [ roll.function ] ]( roll.paramlist );
     }
 
-    self thread scripts\core\ui::send_hud_notification_handler(level.roll_items[ roll ].rollname, level.roll_items[ roll ].description, level.roll_items[ roll ].color );
+    self thread scripts\core\ui::send_hud_notification_handler(roll.rollname, roll.description, roll.color );
 }
 
 explosiveknife() {
@@ -867,7 +875,7 @@ jump_boost()
             cur = self GetVelocity();
             self SetVelocity( ( cur[ 0 ], cur[ 1 ], 420 ) );
 
-            wait 1.5;
+            wait 0.5;
         }
         else
         {
@@ -898,7 +906,7 @@ roll_frogjump()
             
             self SetVelocity( ( cur[ 0 ] * 3, cur[ 1 ] * 3, 300 ) );
 
-            wait 1.5;
+            wait 0.5;
         }
         else
         {

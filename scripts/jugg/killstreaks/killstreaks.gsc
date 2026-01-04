@@ -43,19 +43,7 @@ init()
     replacefunc(maps\mp\killstreaks\_killstreaks::givekillstreak, ::givekillstreak_replace);
     replacefunc(maps\mp\killstreaks\_killstreaks::initKillstreakData, ::initKillstreakData_replace);
     replacefunc(maps\mp\killstreaks\_killstreaks::usedKillstreak, ::usedKillstreak_edit);
-    replacefunc(maps\mp\killstreaks\_killstreaks::getkillstreakcrateicon, ::on_getkillstreakcrateicon);
 }
-
-getkillstreakcrateicon( var_0 )
-{
-    if( var_0 == "nuke" )
-    {
-        return "dpad_killstreak_nuke";
-    }
-
-    return tablelookup( "mp/killstreakTable.csv", 1, var_0, 15 );
-}
-
 
 usedKillstreak_edit(streakName, awardXp) {
 	self playLocalSound("weap_c4detpack_trigger_plr");
@@ -148,8 +136,15 @@ getKillstreakWeapon_replace( streakName )
 
 getKillstreakCrateIcon_replace( streakName )
 {
-	if(streakName == "harrier_airstrike")
+    if( streakName == "nuke" )
+    {
+        return "death_moab";
+    }
+
+	if( streakName == "harrier_airstrike" )
+    {
 		return "death_harrier";
+    }
 	return tableLookup( KILLSTREAK_STRING_TABLE, KILLSTREAK_NAME_COLUMN, streakName, KILLSTREAK_OVERHEAD_ICON_COLUMN );
 }
 

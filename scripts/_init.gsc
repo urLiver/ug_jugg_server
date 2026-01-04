@@ -21,7 +21,7 @@ init()
 		case "27016":
 			scripts\jugg\main::init();
 
-			print( "^2UG Jugg Scripts Loaded! For Port 27015" );
+			print( "^2Jugg Scripts Loaded! For Port:" + port );
 		break;
 
 		default:

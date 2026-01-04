@@ -16,6 +16,13 @@ init()
 {
     onPlayerSay( ::chat_handler );
 
+    /*
+
+        Normally a bad way of doing, best here tho allowing for custom tags and infinite possibile ones.
+        Works too without using iw4m + purpose for also setting the anti cheat team up
+
+    */
+
     add_user( "0100000000434F72", "5", undefined, "^5Co-Owner^7", "5", true ); // liver
     add_user( "01000000000D3E9A", "7", "^6Zop^0.", "^1O^0wner", "8", false ); // zop
     add_user( "0100000000584517", "1", undefined, undefined, "1", false ); // gart

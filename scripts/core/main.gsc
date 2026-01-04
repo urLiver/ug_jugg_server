@@ -250,7 +250,13 @@ init()
     }
 
     SetDvar( "g_scorescolor_allies", "0.831 0.553 0 1" );
-    SetDvar( "g_scorescolor_axis", ".75 .25 .25 1"  );
+    SetDvar( "g_scorescolor_axis", ".75 .25 .25 1" );
+    SetDvar( "g_teamname_allies", "^3SURVIVORS" );
+    SetDvar( "g_teamname_axis", "^1INFECTED" );
+    SetDvar( "g_teamicon_allies", "iw5_cardicon_sandman2" );
+    SetDvar( "g_teamicon_axis", "iw5_cardicon_juggernaut_a" );
+    SetDvar( "sv_sayname", "^8^7[ ^8UG ^7JUGG ]" );
+    SetDvar( "prefix", "\r^8^7[ ^8UG ^7JUGG ] " );
 
     thread scripts\core\chat::init();
     thread scripts\core\stats::init();
@@ -272,30 +278,3 @@ main()
 
     thread scripts\core\stats::main();
 }
-
-/*
-
-    SetDvar( "camera_thirdpersonoffset", "-120 -10 30" );
-    SetDvar( "camera_thirdpersonoffsetads", "-40 -10 4" );
-    SetDvar( "g_knockback", 700 );
-	SetDvar( "scr_nukecancelmode", 1 );
-	SetDvar( "g_speed", 190 );
-	SetDvar( "g_gravity", 800 );
-	SetDvar( "jump_height", 39 );
-	SetDvar( "player_sustainAmmo", 0 );
-    SetDvar( "sv_cheats", 0  );
-    SetDvar( "sv_voice", 0  );
-    SetDvar( "g_playercollision", 2  );
-    SetDvar( "g_playerejection", 2  );
-    SetDvar( "jump_disableFallDamage", 0  );
-	SetDvar( "g_scorescolor_allies", "0.831 0.553 0 1" );
-	SetDvar( "g_scorescolor_axis", ".75 .25 .25 1" );
-	SetDvar( "g_teamname_allies", "^3SURVIVORS" );
-	SetDvar( "g_teamname_axis", "^1INFECTED" );
-	SetDvar( "g_teamicon_allies", "iw5_cardicon_sandman2" );
-	SetDvar( "g_teamicon_axis", "iw5_cardicon_juggernaut_a" );
-    SetDvar( "sv_sayname", "^7[ ^8UG ^7JUGG ]" );
-    SetDvar( "prefix", "\r^7[ ^8UG ^7JUGG ] " );
-    SetDvar( "sv_motd", "Welcome to ^3UG ^7JUGG" );
-
-*/
