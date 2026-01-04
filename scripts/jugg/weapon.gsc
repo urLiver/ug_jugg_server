@@ -69,11 +69,11 @@ init()
     addsurvivorweaponroll( "FAD", "iw5_fad", Rifles_Scopes, Rifles_Attachments3 );
 
     //SMGs
-    SMG_Attachments = [ "silencer", "rof", "xmags", "akimbo" ];
+    SMG_Attachments = [ "silencer", "rof", "xmags" ];
     SMG_Scopes = [ "reflex", "acog", "eotech", "thermal" ];
     addsurvivorweaponroll( "MP5", "iw5_mp5", SMG_Scopes, SMG_Attachments );
     addsurvivorweaponroll( "UMP45", "iw5_ump45", SMG_Scopes, SMG_Attachments );
-    addsurvivorweaponroll( "PP90M1", "iw5_pp90m1", SMG_Scopes, SMG_Attachments );
+    addsurvivorweaponroll( "PP90M1", "iw5_pp90m1", SMG_Scopes, [ "silencer", "rof", "xmags", "akimbo" ] );
     addsurvivorweaponroll( "P90", "iw5_p90", SMG_Scopes, SMG_Attachments );
     addsurvivorweaponroll( "PM-9", "iw5_m9", SMG_Scopes, SMG_Attachments );
     addsurvivorweaponroll( "MW2 - Vector", "iw4_kriss_mp", Empty_List, [ "iw4_krissacog_mp", "iw4_krisseotech_mp", "iw4_krissreflex_mp", "iw4_krissthermal_mp", "iw4_krisssilencer_mp", "iw4_krissrof_mp" ] );
