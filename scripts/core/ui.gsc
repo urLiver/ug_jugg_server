@@ -16,6 +16,35 @@ init()
 
 }
 
+ui_nuke()
+{
+    level endon( "nuke_cancelled" );
+
+	if( isdefined( level.nuke_timer_ui ) ) {
+		level.nuke_timer_ui destroy();
+	}
+
+    level.nuke_timer_ui = maps\mp\gametypes\_hud_util::createservertimer( "bigfixed", 0.8 );
+    level.nuke_timer_ui maps\mp\gametypes\_hud_util::setpoint( "CENTER", "TOP", 0, 60 );
+    level.nuke_timer_ui.label = &"Impact in: ^1";
+    level.nuke_timer_ui settimer( 10 );
+    level.nuke_timer_ui.alpha = 0;
+    level.nuke_timer_ui fadeovertime( 1.0 );
+    level.nuke_timer_ui.alpha = 1;
+    level.nuke_timer_ui.archived = 1;
+    level.nuke_timer_ui.hidewheninmenu = 1;
+}
+
+ui_nuke_hide()
+{
+    if( isdefined( level.nuke_timer_ui ) )
+    {
+        level.nuke_timer_ui.alpha = 1;
+        level.nuke_timer_ui fadeovertime( 1.0 );
+        level.nuke_timer_ui.alpha = 0;
+    }
+}
+
 ui_kickwarning() 
 {
 	self endon("disconnect");
@@ -98,6 +127,8 @@ ui_killhudandxp()
     {
         self.hud_elements[ "text_info_right" ] destroy();
     }
+
+    ui_nuke_hide();
 }
 
 ui_xp()

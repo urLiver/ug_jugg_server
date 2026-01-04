@@ -80,35 +80,6 @@ do_nuke_run( user )
     self thread do_main_plane_run( 11, startorigin, endorigin );
 }
 
-do_nuke_ui()
-{
-    level endon( "nuke_cancelled" );
-
-	if( isdefined( level.nuke_timer_ui ) ) {
-		level.nuke_timer_ui destroy();
-	}
-
-    level.nuke_timer_ui = maps\mp\gametypes\_hud_util::createservertimer( "bigfixed", 0.8 );
-    level.nuke_timer_ui maps\mp\gametypes\_hud_util::setpoint( "CENTER", "TOP", 0, 60 );
-    level.nuke_timer_ui.label = &"Impact in: ^1";
-    level.nuke_timer_ui settimer( 10 );
-    level.nuke_timer_ui.alpha = 0;
-    level.nuke_timer_ui fadeovertime( 1.0 );
-    level.nuke_timer_ui.alpha = 1;
-    level.nuke_timer_ui.archived = 1;
-    level.nuke_timer_ui.hidewheninmenu = 1;
-}
-
-hide_nuke_ui()
-{
-    if( isdefined( level.nuke_timer_ui ) )
-    {
-        level.nuke_timer_ui.alpha = 1;
-        level.nuke_timer_ui fadeovertime( 1.0 );
-        level.nuke_timer_ui.alpha = 0;
-    }
-}
-
 build_objects()
 {
     level endon( "nuke_cancelled" );
@@ -291,12 +262,7 @@ cancle_nuke_ondeath( user )
         iPrintLnBold("^2" + user.name + "^7 M.O.A.B got ^3Cancelled");
     }
 
-    if( isdefined( level.nuke_timer_ui ) )
-    {
-        level.nuke_timer_ui.alpha = 1;
-        level.nuke_timer_ui fadeovertime( 1.0 );
-        level.nuke_timer_ui.alpha = 0;
-    }
+    thread scripts\core\ui::ui_nuke_hide();
     
     level.nukeincoming = undefined;
 
@@ -315,14 +281,14 @@ do_nuke( user )
 
     thread cancle_nuke_ondeath( user );
 
-    thread do_nuke_ui();
+    thread scripts\core\ui::ui_nuke();
     thread do_nuke_tiking();
 
     maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( 10 );
 
     level notify( "end_nuke_tiking" );
 
-    thread hide_nuke_ui();
+    thread scripts\core\ui::ui_nuke_hide();
     thread do_nuke_impact();
 
     thread do_nuke_dust();
