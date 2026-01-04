@@ -220,6 +220,7 @@ init()
 	precacheShader("waypoint_ammo_friendly");
 	precacheShader("dpad_killstreak_airdrop_trap");
     precacheshader( "death_moab" );
+    precacheshader( "death_harrier" );
 
 	precacheheadicon("waypoint_ammo_friendly");
 	precacheheadicon("dpad_killstreak_airdrop_trap");

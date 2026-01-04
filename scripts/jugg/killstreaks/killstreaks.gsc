@@ -145,6 +145,7 @@ getKillstreakCrateIcon_replace( streakName )
     {
 		return "death_harrier";
     }
+    
 	return tableLookup( KILLSTREAK_STRING_TABLE, KILLSTREAK_NAME_COLUMN, streakName, KILLSTREAK_OVERHEAD_ICON_COLUMN );
 }
 
