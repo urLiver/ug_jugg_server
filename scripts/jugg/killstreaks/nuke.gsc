@@ -7,6 +7,7 @@
         - Maybe add back slowmo and fully the vision
         - Change timer to OG Timer but unsure for now
         - Give remote on use
+        - Something causes that infected cant use airstrikes with a msg of "Moab Fallout 60s" never heard of it
 
     DONE:
         - Replaces the Nuke fully, calls in two jets and a b2 bomber before going off
