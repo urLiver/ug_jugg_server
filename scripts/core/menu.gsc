@@ -105,7 +105,7 @@ on_onmenuresponse()
             continue;
         }
 
-        if ( !level.console )
+        if ( ! level.console )
         {
             if( var_0 == "quickcommands" ) 
             {
