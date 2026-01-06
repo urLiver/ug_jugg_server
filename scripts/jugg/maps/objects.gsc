@@ -83,6 +83,7 @@ delete_remote_spawnpoints() {
 
 createAirDropCrate_edit( owner, dropType, crateType, startPos )
 {
+	print( "debug" );
 	dropCrate = spawn( "script_model", startPos );
 	
 	dropCrate.curProgress = 0;
@@ -274,7 +275,7 @@ waitfordropcratemsg_edit(dropPoint, crate, var_1, var_2, var_3) {
 		
         normal_system = true;
 		crate thread detect_no_prone();
-		// crate CloneBrushmodelToScriptmodel( level.airDropCrateCollision );
+		// crate CloneBrushmodelToScriptmodel( level.airdropcratecollision );
 		
 		var_5 = distance(crate.origin, crate.trace[ "position" ]);
 	    var_6 = var_5 / 800;
@@ -285,7 +286,7 @@ waitfordropcratemsg_edit(dropPoint, crate, var_1, var_2, var_3) {
 	else {
         // print("^3system physics");
         physics_system  = true;
-		crate CloneBrushmodelToScriptmodel( level.airDropCrateCollision );
+		//crate CloneBrushmodelToScriptmodel( level.airdropcratecollision );
 		crate physicslaunchserver((0, 0, 0), var_1);
     }
 
@@ -1314,7 +1315,7 @@ spawnCrate(origin, angles, model) {
     else if(isdefined(model))
     	entity setmodel(model);
     entity.angles = angles;
-    entity CloneBrushmodelToScriptmodel(level.airDropCrateCollision);
+    entity CloneBrushmodelToScriptmodel(level.airdropcratecollision);
 
     if(!isdefined(level.lowest_crate))
 		level.lowest_crate = origin[2];
@@ -2015,7 +2016,9 @@ monitorCrateJackingreplace() {
 		challengeName = "ch_hijacker";
 
         if(owner.sessionteam != self.sessionteam)
-            say_raw("^4^7[ ^4Information^7 ] ^2" + self.name + " ^7Stole ^1" + owner.name + "^7's Carepackage!");
+		{
+            // say_raw("^4^7[ ^4Information^7 ] ^2" + self.name + " ^7Stole ^1" + owner.name + "^7's Carepackage!");
+		}
 
 		switch( crateType ) {
 			case "sentry":
@@ -2665,7 +2668,7 @@ manually_add_check_map_model(model, brushmodel_col) {
 	level.check_models[level.check_models_index] = spawn("script_model", level.check_models[0].origin + ( level.check_models_distance_2 * level.check_models_stack_2, 0 , level.check_models_distance * level.check_models_stack ));
 	level.check_models[level.check_models_index] setmodel(model);
 	if(isdefined(brushmodel_col)) {
-		level.check_models[level.check_models_index] CloneBrushmodelToScriptmodel(level.airDropCrateCollision);
+		level.check_models[level.check_models_index] CloneBrushmodelToScriptmodel(level.airdropcratecollision);
 	}
 	level.check_models_triggers[level.check_models_index] = spawn("script_origin", level.check_models[level.check_models_index].origin);
 	level.check_models_triggers[level.check_models_index] thread hint_on_trigger(model);

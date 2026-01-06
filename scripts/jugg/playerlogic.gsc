@@ -539,7 +539,7 @@ track_chicken_damage()
 
 			if( isdefined( self.origin ) )
 			{
-				self thread scripts\jugg\killstreaks\nuke::do_money_death();
+				self thread do_money_death();
 			}
 
             break;

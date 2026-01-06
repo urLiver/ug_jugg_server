@@ -31,7 +31,7 @@ init()
 	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"sentry",               	34, 	maps\mp\killstreaks\_airdrop::killstreakcratethink );
 	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"ammo",                 	20, 	maps\mp\killstreaks\_airdrop::killstreakcratethink );
 	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"remote_mg_turret",     	14, 	maps\mp\killstreaks\_airdrop::killstreakcratethink );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"airdrop_trap",         	14, 	maps\mp\killstreaks\_airdrop::trapCrateThink );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"airdrop_trap",         	14, 	maps\mp\killstreaks\_airdrop::killstreakcratethink );
 	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"remote_uav",           	12, 	maps\mp\killstreaks\_airdrop::killstreakcratethink );
 	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"precision_airstrike",  	8,  	maps\mp\killstreaks\_airdrop::killstreakcratethink );
 	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_assault",				"stealth_airstrike",    	6,  	maps\mp\killstreaks\_airdrop::killstreakcratethink );
@@ -57,30 +57,28 @@ init()
     maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"ac130",			        1,		maps\mp\killstreaks\_airdrop::killstreakcratethink );
     maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_osprey_gunner",		"remote_mortar",			1,		maps\mp\killstreaks\_airdrop::killstreakcratethink );
 
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "ims",                  			34, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "predator_missile",     			34, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "sentry",               			34, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "ammo",                 			20, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "remote_mg_turret",     			14, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "airdrop_trap",         			14, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "remote_uav",           			12, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "precision_airstrike",  			8,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "stealth_airstrike",    			6,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "helicopter",           			5,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "littlebird_support",   			3,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "littlebird_flock",     			3,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "remote_mortar",        			3,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "harrier_airstrike",    			2,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "helicopter_flares",    			2,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "remote_tank",          			2,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "ac130",                			1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "airdrop_juggernaut",   			1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "osprey_gunner",        			1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
-	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", "emp",                  			1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"ims",                  	34, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"predator_missile",     	34, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",	 		"sentry",               	34, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"ammo",                 	20, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"remote_mg_turret",     	14, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"airdrop_trap",        		14, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"remote_uav",          		12, 	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"precision_airstrike", 		8,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"stealth_airstrike",    	6,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"helicopter",           	5,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"littlebird_support",   	3,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"littlebird_flock",    		3,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"remote_mortar",        	3,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"harrier_airstrike",    	2,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"helicopter_flares",    	2,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"remote_tank",          	2,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"ac130",                	1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"airdrop_juggernaut",   	1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents",	 		"osprey_gunner",        	1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
+	maps\mp\killstreaks\_airdrop::addCrateType( "airdrop_trapcontents", 		"emp",                  	1,  	maps\mp\killstreaks\_airdrop::trapNullFunc );
 
 	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_sentry_minigun",		"sentry",					100,	maps\mp\killstreaks\_airdrop::killstreakcratethink );
-    maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_sentry_minigun", 		"sam_turret", 				100, 	maps\mp\killstreaks\_airdrop::killstreakcratethink );
-    maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_sentry_minigun", 		"nuke", 					100, 	maps\mp\killstreaks\_airdrop::killstreakcratethink );
 
 	maps\mp\killstreaks\_airdrop::addCrateType(  "airdrop_juggernaut",			"airdrop_juggernaut",		100,	maps\mp\killstreaks\_airdrop::killstreakcratethink );
 	
@@ -109,17 +107,18 @@ init()
             level.cratetypes[ var_10 ][ var_9 ] = level.cratemaxval[ var_10 ];
         }
     }
-
-	spawn_lowest = undefined;
-	foreach( spawn in getEntArray( "mp_tdm_spawn" , "classname" ) ) 
+	
+	tdmSpawns = getEntArray( "mp_tdm_spawn" , "classname" );
+	lowSpawn = undefined;
+	foreach( lspawn in tdmSpawns ) 
 	{
-		if ( ! isDefined( spawn_lowest ) || spawn.origin[ 2 ] < spawn_lowest.origin[ 2 ] )
+		if ( ! isDefined( lowSpawn ) || lspawn.origin[ 2 ] < lowSpawn.origin[ 2 ] )
 		{
-			spawn_lowest = spawn;
+			lowSpawn = lspawn;
 		}
 	}
 
-	level.lowSpawn = spawn_lowest;
+	level.lowSpawn = lowSpawn;
 }
 
 on_airdropDetonateOnStuck()
@@ -215,20 +214,7 @@ on_getcratetypefordroptype( type )
     switch ( type )
     {
         case "airdrop_sentry_minigun":
-            {
-                if( RandomInt( 100000 ) == 5 ) // This guy got hella lucky
-				{
-                    return "nuke";
-				}
-				else if( RandomInt( 1000 ) == 1 )
-				{
-					return "sam_turret";
-				}
-                else
-				{
-                    return "sentry";
-				}
-            }
+            return "sentry";
         case "airdrop_predator_missile":
             return "predator_missile";
         case "airdrop_juggernaut":
@@ -294,6 +280,10 @@ on_killstreakcratethink( dropType )
     if( self.crateType == "ammo" )
 	{
         maps\mp\killstreaks\_airdrop::crateSetupForUse( crateHint, "all", "waypoint_ammo_friendly" );
+	}
+	else if(self.crateType == "airdrop_trap")
+	{
+        maps\mp\killstreaks\_airdrop::crateSetupForUse( crateHint, "all", "dpad_killstreak_airdrop_trap" );
 	}
 	else
     {

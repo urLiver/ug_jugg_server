@@ -235,14 +235,14 @@ ui_hud()
 	if( ! isdefined( self.hud_elements[ "kills_ui" ] ) ) 
     {
 		self.hud_elements[ "kills_ui" ] = scripts\core\ui_func::client_text( self, "", "bigfixed", .35, 220, 2, "center", "top", "fullscreen", "fullscreen", 0, 0, ( 1, 1, 1 ), undefined, 0, 1 );
-        self.hud_elements[ "kills_ui" ].label = &"Nukestreak: ^8";
+        self.hud_elements[ "kills_ui" ].label = &"Assists: ^8";
         self.hud_elements[ "kills_ui" ] scripts\core\ui_func::fade_in( 1.0 );
 	}
 
 	if( ! isdefined( self.hud_elements[ "killsstreak_ui" ] ) ) 
     {
 		self.hud_elements[ "killsstreak_ui" ] = scripts\core\ui_func::client_text( self, "", "bigfixed", .35, 155, 2, "left", "top", "fullscreen", "fullscreen", 0, 0, ( 1, 1, 1 ), undefined, 0, 1 );
-        self.hud_elements[ "killsstreak_ui" ].label = &"Killstreak: ^8";
+        self.hud_elements[ "killsstreak_ui" ].label = &"Kills: ^8";
         self.hud_elements[ "killsstreak_ui" ] scripts\core\ui_func::fade_in( 1.0 );
 	}
 
@@ -257,7 +257,7 @@ ui_hud()
         if( isdefined( self.hud_elements["killsstreak_ui" ] ) ) 
 		{
             self.hud_elements["killsstreak_ui"]         setValue( self.pers[ "cur_kill_streak" ] );
-            self.hud_elements["kills_ui"]               setvalue( self.pers[ "cur_kill_streak_for_nuke" ] );
+            self.hud_elements["kills_ui"]               setvalue( self.pers[ "assistsToKill" ] );
             self.hud_elements["health_ui"]              setvalue( self.health );
         }
 

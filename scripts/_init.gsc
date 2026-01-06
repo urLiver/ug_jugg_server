@@ -5,7 +5,7 @@ main()
 
 add_port( str_port, init )
 {
-    level.ports[ str_port ] = [];
+    level.ports[ str_port ] = SpawnStruct();
     level.ports[ str_port].init = init;
 }
 

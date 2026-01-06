@@ -25,15 +25,8 @@ init()
     level.callbackPlayerKilled = scripts\jugg\playerlogic::on_player_killed;
 	level.callbackPlayerDamage = scripts\jugg\playerlogic::on_player_damage;
     level.killstreakfuncs["nuke"] =  scripts\jugg\killstreaks\nuke::tryusenuke;
-    level.killStreakFuncs["strike_run"] = scripts\jugg\killstreaks\harrier::strike_run;
-	level.killStreakFuncs["guardian"] = scripts\jugg\killstreaks\harrier::guardian;
 	level.killStreakFuncs["ammo"] = scripts\jugg\killstreaks\airdrop::refill_ammo;
 
-	level.guardian_settings = spawnstruct();
-	level.guardian_settings.basemodel =				"sentry_minigun_weak";
-	level.guardian_settings.modelPlacement =		"sentry_minigun_weak_obj";
-	level.guardian_settings.modelPlacementFailed = 	"sentry_minigun_weak_obj_red";
-	level.guardian_settings.hintString =			&"SENTRY_PICKUP";
     level.sentrySettings["sentry_minigun"].timeOut                = 45;
 	level.sentrySettings["sentry_minigun"].maxHealth              = 400;
     level.turretSettings[ "mg_turret" ].maxHealth                 =	400;

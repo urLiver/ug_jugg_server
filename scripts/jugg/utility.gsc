@@ -167,9 +167,9 @@ on_handleNormalDeath( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath )
 
 	attacker.pers[ "cur_death_streak" ] = 0;
 	if( attacker.pers[ "cur_kill_streak" ] > attacker maps\mp\gametypes\_persistence::statGetChild( "round", "killStreak") )
-	[
+	{
 		attacker maps\mp\gametypes\_persistence::statSetChild( "round", "killStreak", attacker.pers[ "cur_kill_streak" ] );
-	]
+	}
 
 	if( attacker.pers[ "cur_kill_streak" ] > attacker.kill_streak ) 
 	{
@@ -294,9 +294,9 @@ on_handleSuicideDeath( sMeansOfDeath, sHitLoc )
 	self.suicides = self maps\mp\_utility::getPersStat( "suicides" );
 
 	if ( sMeansOfDeath == "MOD_SUICIDE" && sHitLoc == "none" && isDefined( self.throwingGrenade ) )
-	[
+	{
 		self.lastGrenadeSuicideTime = gettime();
-	]
+	}
 }
 
 on_doFinalKillcam() 
@@ -340,9 +340,9 @@ on_doFinalKillcam()
 	}
 
 	if ( isDefined( attacker ) )
-	[
+	{
 		attacker.finalKill = true;
-	]
+	}
 
 	postDeathDelay = ( ( getTime() - victim.deathTime ) / 1000 );
 
@@ -393,14 +393,17 @@ on_glowsticksetupandwaitfordeath( var_0 )
     thread maps\mp\perks\_perkfunctions::glowstickenemyuselistener( var_0 );
     thread maps\mp\perks\_perkfunctions::glowstickuselistener( var_0 );
     thread maps\mp\perks\_perkfunctions::glowstickteamupdater( level.otherteam[self.team], level.spawnglow["enemy"], var_0 );
+   
     var_1 = spawn( "script_model", self.origin + ( 0.0, 0.0, 0.0 ) );
     var_1.angles = self.angles;
     var_1 setmodel( level.precachemodel["friendly"] );
     var_1 setcontents( 0 );
     var_1 thread maps\mp\perks\_perkfunctions::glowstickteamupdater( self.team, level.spawnglow["friendly"], var_0 );
     var_1 playloopsound( "emt_road_flare_burn" );
-    self waittill( "death" );
-    var_1 stoploopsound();
+    
+	self waittill( "death" );
+    
+	var_1 stoploopsound();
     var_1 delete();
 }
 
