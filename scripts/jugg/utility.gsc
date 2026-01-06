@@ -13,16 +13,17 @@
 
 init() 
 {
-    replacefunc( maps\mp\_utility::isKillstreakWeapon, ::isKillstreakWeapon_Replace );
+    replacefunc( maps\mp\_utility::isKillstreakWeapon, ::on_isKillstreakWeapon );
 
-    replacefunc( maps\mp\gametypes\_killcam::doFinalKillCamFX, ::disableDoFinalKillCamFX );
+    replacefunc( maps\mp\gametypes\_killcam::doFinalKillCamFX, ::on_doFinalKillCamFX );
 
-	replacefunc( maps\mp\perks\_perkfunctions::GlowStickDamageListener, ::GlowStickDamageListener_replace );
+	replacefunc( maps\mp\perks\_perkfunctions::GlowStickDamageListener, ::on_GlowStickDamageListener );
+	replacefunc( maps\mp\perks\_perkfunctions::glowsticksetupandwaitfordeath, ::on_glowsticksetupandwaitfordeath );
 
-	replacefunc( maps\mp\gametypes\_damage::doFinalKillcam, ::doFinalKillcam_edit );
-    replacefunc( maps\mp\gametypes\_damage::handleNormalDeath, ::handleNormalDeath_edit );
-	replacefunc( maps\mp\gametypes\_damage::handleSuicideDeath, ::handleSuicideDeath_edit );
-    replacefunc( maps\mp\gametypes\_damage::Callback_PlayerDamage, ::Callback_PlayerDamage_hook );
+	replacefunc( maps\mp\gametypes\_damage::doFinalKillcam, ::on_doFinalKillcam );
+    replacefunc( maps\mp\gametypes\_damage::handleNormalDeath, ::on_handleNormalDeath );
+	replacefunc( maps\mp\gametypes\_damage::handleSuicideDeath, ::on_handleSuicideDeath );
+    replacefunc( maps\mp\gametypes\_damage::Callback_PlayerDamage, ::on_Callback_PlayerDamage );
 
     replacefunc( maps\mp\gametypes\_deathicons::adddeathicon, ::on_adddeathicon );
 }
@@ -39,12 +40,14 @@ on_adddeathicon( var_0, var_1, var_2, var_3 )
     maps\mp\_utility::waittillslowprocessallowed();
 
     if ( isdefined( self.lastdeathicon ) )
+	{
         self.lastdeathicon destroy();
+	}
 
     var_5 = newteamhudelem( var_2 );
-    var_5.x = var_4[0];
-    var_5.y = var_4[1];
-    var_5.z = var_4[2] + 54;
+    var_5.x = var_4[ 0 ];
+    var_5.y = var_4[ 1 ];
+    var_5.z = var_4[ 2 ] + 54;
     var_5.alpha = 0.61;
     var_5.archived = 1;
     var_5 setshader( "headicon_dead", 7, 7 );
@@ -69,44 +72,59 @@ destroyslowly( var_0 )
 	self destroy();
 }
 
-Callback_PlayerDamage_hook(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime) {
-    if(level.lastopfer != self.name) {
+on_Callback_PlayerDamage( eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime ) 
+{
+    if( level.lastopfer != self.name ) 
+	{
 	    maps\mp\gametypes\_damage::Callback_PlayerDamage_internal( eInflictor, eAttacker, self, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime );
-        level.lastopfer = self.name;
-        wait .05;
-        level.lastopfer = "";
+        
+		level.lastopfer = self.name;
+        
+		wait .05;
+        
+		level.lastopfer = "";
     }
 }
 
-handleNormalDeath_edit( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath ) {
+on_handleNormalDeath( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath ) 
+{
 	attacker thread maps\mp\_events::killedPlayer( lifeId, self, sWeapon, sMeansOfDeath );
 
-    self setclientdvars("ui_playercard_prestige", attacker.player_settings["prestige"], "playercard_type", attacker.player_settings["conv_card"]);
-    attacker setclientdvars("ui_playercard_prestige", self.player_settings["prestige"], "playercard_type", self.player_settings["conv_card"]);
-
+    self setclientdvars( "ui_playercard_prestige", attacker.player_settings[ "prestige" ], "playercard_type", attacker.player_settings[ "conv_card" ] );
+	self SetCardDisplaySlot( attacker, 7 );
+	self openMenu( "killedby_card_display" );
+	
+    attacker setclientdvars( "ui_playercard_prestige", self.player_settings[ "prestige" ], "playercard_type", self.player_settings[ "conv_card" ] );
 	attacker SetCardDisplaySlot( self, 8 );
 	attacker openMenu( "youkilled_card_display" );
 
-	self SetCardDisplaySlot( attacker, 7 );
-	self openMenu( "killedby_card_display" );
-
-	if ( sMeansOfDeath == "MOD_HEAD_SHOT" ) {
+	if ( sMeansOfDeath == "MOD_HEAD_SHOT" ) 
+	{
 		attacker maps\mp\_utility::incPersStat( "headshots", 1 );
 		attacker.headshots = attacker maps\mp\_utility::getPersStat( "headshots" );
 		attacker maps\mp\_utility::incPlayerStat( "headshots", 1 );
 
 		if ( isDefined( attacker.lastStand ) )
+		{
 			value = maps\mp\gametypes\_rank::getScoreInfoValue( "kill" ) * 2;
+		}
 		else
+		{
 			value = undefined;
+		}
 
 		attacker playLocalSound( "bullet_impact_headshot_2" );
 	}
-	else {
+	else 
+	{
 		if ( isDefined( attacker.lastStand ) )
+		{
 			value = maps\mp\gametypes\_rank::getScoreInfoValue( "kill" ) * 2;
+		}
 		else
+		{
 			value = undefined;
+		}
 	}
 
 	attacker thread maps\mp\gametypes\_rank::giveRankXP( "kill", value, sWeapon, sMeansOfDeath );
@@ -117,62 +135,78 @@ handleNormalDeath_edit( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath ) {
 	attacker maps\mp\gametypes\_persistence::statSetChild( "round", "kills", attacker.kills );
 	attacker maps\mp\_utility::incPlayerStat( "kills", 1 );
 
-	lastKillStreak = attacker.pers["cur_kill_streak"];
+	lastKillStreak = attacker.pers[ "cur_kill_streak" ];
 
-	if ( isAlive( attacker ) || attacker.streakType == "support" ) {
-		if ( attacker maps\mp\_utility::killShouldAddToKillstreak( sWeapon ) ) {
+	if ( isAlive( attacker ) || attacker.streakType == "support" ) 
+	{
+		if ( attacker maps\mp\_utility::killShouldAddToKillstreak( sWeapon ) ) 
+		{
 			attacker thread maps\mp\killstreaks\_killstreaks::giveAdrenaline( "kill" );
-			attacker.pers["cur_kill_streak"]++;
+			attacker.pers[ "cur_kill_streak" ]++;
 
-			if( !maps\mp\_utility::isKillstreakWeapon( sWeapon ) )
+			if( ! maps\mp\_utility::isKillstreakWeapon( sWeapon ) )
+			{
 				attacker.pers["cur_kill_streak_for_nuke"]++;
+			}
 
-			numKills = 24;
-			if( !maps\mp\_utility::isKillstreakWeapon( sWeapon ) && attacker.pers["cur_kill_streak_for_nuke"] == numKills && !isdefined(attacker.hasnuke)) {
+			if( ! maps\mp\_utility::isKillstreakWeapon( sWeapon ) && attacker.pers["cur_kill_streak_for_nuke"] == 24 && ! isdefined( attacker.hasnuke ) ) 
+			{
                 attacker.hasnuke = 1;
 				attacker thread maps\mp\killstreaks\_killstreaks::giveKillstreak( "nuke", false, true, attacker, true );
-				attacker thread maps\mp\gametypes\_hud_message::killstreakSplashNotify( "nuke", numKills );
+				attacker thread maps\mp\gametypes\_hud_message::killstreakSplashNotify( "nuke", 24 );
 			}
 		}
 
-		attacker maps\mp\_utility::setPlayerStatIfGreater( "killstreak", attacker.pers["cur_kill_streak"] );
+		attacker maps\mp\_utility::setPlayerStatIfGreater( "killstreak", attacker.pers[ "cur_kill_streak" ] );
 
-		if ( attacker.pers["cur_kill_streak"] > attacker maps\mp\_utility::getPersStat( "longestStreak" ) )
-			attacker maps\mp\_utility::setPersStat( "longestStreak", attacker.pers["cur_kill_streak"] );
+		if ( attacker.pers[ "cur_kill_streak" ] > attacker maps\mp\_utility::getPersStat( "longestStreak" ) )
+		{
+			attacker maps\mp\_utility::setPersStat( "longestStreak", attacker.pers[ "cur_kill_streak" ] );
+		}
 	}
 
-	attacker.pers["cur_death_streak"] = 0;
+	attacker.pers[ "cur_death_streak" ] = 0;
+	if( attacker.pers[ "cur_kill_streak" ] > attacker maps\mp\gametypes\_persistence::statGetChild( "round", "killStreak") )
+	[
+		attacker maps\mp\gametypes\_persistence::statSetChild( "round", "killStreak", attacker.pers[ "cur_kill_streak" ] );
+	]
 
-	if(attacker.pers["cur_kill_streak"] > attacker maps\mp\gametypes\_persistence::statGetChild( "round", "killStreak") )
-		attacker maps\mp\gametypes\_persistence::statSetChild( "round", "killStreak", attacker.pers["cur_kill_streak"] );
-
-	if(attacker.pers["cur_kill_streak"] > attacker.kill_streak) {
-		attacker maps\mp\gametypes\_persistence::statSet( "killStreak", attacker.pers["cur_kill_streak"] );
-		attacker.kill_streak = attacker.pers["cur_kill_streak"];
+	if( attacker.pers[ "cur_kill_streak" ] > attacker.kill_streak ) 
+	{
+		attacker maps\mp\gametypes\_persistence::statSet( "killStreak", attacker.pers[ "cur_kill_streak" ] );
+		attacker.kill_streak = attacker.pers[ "cur_kill_streak" ];
 	}
 
 	maps\mp\gametypes\_gamescore::givePlayerScore( "kill", attacker, self );
 	maps\mp\_skill::processKill( attacker, self );
 
 	if ( isDefined( level.ac130player ) && level.ac130player == attacker )
+	{
 		level notify( "ai_killed", self );
+	}
 
-	//if ( lastKillStreak != attacker.pers["cur_kill_streak"] )
-	level notify ( "player_got_killstreak_" + attacker.pers["cur_kill_streak"], attacker );
-	attacker notify( "got_killstreak" , attacker.pers["cur_kill_streak"] );
+	level notify ( "player_got_killstreak_" + attacker.pers[ "cur_kill_streak" ], attacker );
 
+	attacker notify( "got_killstreak" , attacker.pers[ "cur_kill_streak" ] );
 	attacker notify ( "killed_enemy" );
 
-	if(isDefined(self.UAVRemoteMarkedBy)) {
+	if( isDefined( self.UAVRemoteMarkedBy ) ) 
+	{
 		if ( self.UAVRemoteMarkedBy != attacker )
+		{
 			self.UAVRemoteMarkedBy thread maps\mp\killstreaks\_remoteuav::remoteUAV_processTaggedAssist( self );
+		}
+
 		self.UAVRemoteMarkedBy = undefined;
 	}
 
 	if ( isDefined( level.onNormalDeath ) && attacker.pers[ "team" ] != "spectator" )
-		[[ level.onNormalDeath ]]( self, attacker, lifeId );
+	{
+		[ [ level.onNormalDeath ] ]( self, attacker, lifeId );
+	}
 
-	if ( !level.teamBased ) {
+	if ( ! level.teamBased ) 
+	{
 		self.attackers = [];
 		return;
 	}
@@ -184,22 +218,13 @@ handleNormalDeath_edit( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath ) {
 		if ( getTime() - self.lastAttackedShieldTime < 2500 )
 		{
 			self.lastAttackedShieldPlayer thread maps\mp\gametypes\_gamescore::processShieldAssist( self );
+			self.lastAttackedShieldPlayer.pers[ "assistsToKill" ]++;
 
-			// if you are using the assists perk, then every assist is a kill towards a killstreak
-			if( self.lastAttackedShieldPlayer maps\mp\_utility::_hasPerk( "specialty_assists" ) )
+			if( ! ( self.lastAttackedShieldPlayer.pers[ "assistsToKill" ] % 2 ) )
 			{
-				self.lastAttackedShieldPlayer.pers["assistsToKill"]++;
-
-				if( !( self.lastAttackedShieldPlayer.pers["assistsToKill"] % 2 ) )
-				{
-					self.lastAttackedShieldPlayer maps\mp\gametypes\_missions::processChallenge( "ch_hardlineassists" );
-					self.lastAttackedShieldPlayer maps\mp\killstreaks\_killstreaks::giveAdrenaline( "kill" );
-					self.lastAttackedShieldPlayer.pers["cur_kill_streak"]++;
-				}
-			}
-			else
-			{
-				self.lastAttackedShieldPlayer.pers["assistsToKill"] = 0;
+				self.lastAttackedShieldPlayer maps\mp\gametypes\_missions::processChallenge( "ch_hardlineassists" );
+				self.lastAttackedShieldPlayer maps\mp\killstreaks\_killstreaks::giveAdrenaline( "kill" );
+				self.lastAttackedShieldPlayer.pers[ "cur_kill_streak" ]++;
 			}
 		}
 		else if ( isAlive( self.lastAttackedShieldPlayer ) && getTime() - self.lastAttackedShieldTime < 5000 )
@@ -210,70 +235,71 @@ handleNormalDeath_edit( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath ) {
 			if ( vectorDot( shieldVec, forwardVec ) > 0.925 )
 			{
 				self.lastAttackedShieldPlayer thread maps\mp\gametypes\_gamescore::processShieldAssist( self );
+				self.lastAttackedShieldPlayer.pers[ "assistsToKill" ]++;
 
-				if( self.lastAttackedShieldPlayer maps\mp\_utility::_hasPerk( "specialty_assists" ) )
+				if( !( self.lastAttackedShieldPlayer.pers[ "assistsToKill" ] % 2 ) )
 				{
-					self.lastAttackedShieldPlayer.pers["assistsToKill"]++;
-
-					if( !( self.lastAttackedShieldPlayer.pers["assistsToKill"] % 2 ) )
-					{
-						self.lastAttackedShieldPlayer maps\mp\gametypes\_missions::processChallenge( "ch_hardlineassists" );
-						self.lastAttackedShieldPlayer maps\mp\killstreaks\_killstreaks::giveAdrenaline( "kill" );
-						self.lastAttackedShieldPlayer.pers["cur_kill_streak"]++;
-					}
-				}
-				else
-				{
-					self.lastAttackedShieldPlayer.pers["assistsToKill"] = 0;
+					self.lastAttackedShieldPlayer maps\mp\gametypes\_missions::processChallenge( "ch_hardlineassists" );
+					self.lastAttackedShieldPlayer maps\mp\killstreaks\_killstreaks::giveAdrenaline( "kill" );
+					self.lastAttackedShieldPlayer.pers[ "cur_kill_streak" ]++;
 				}
 			}
 		}
 	}
 
-	if ( isDefined( self.attackers )) {
-		foreach ( player in self.attackers ) {
-			if ( !isDefined( player ) )
+	if ( isDefined( self.attackers ) ) 
+	{
+		foreach ( player in self.attackers ) 
+		{
+			if ( ! isDefined( player ) )
+			{
 				continue;
-
+			}
+			
 			if ( player == attacker )
+			{
 				continue;
+			}
 
 			player thread maps\mp\gametypes\_gamescore::processAssist( self );
+			player.pers[ "assistsToKill" ]++;
 
-			player.pers["assistsToKill"]++;
-
-			if( !( player.pers["assistsToKill"] % 2 ) ) {
+			if( ! ( player.pers[ "assistsToKill" ] % 2 ) ) 
+			{
 				player maps\mp\gametypes\_missions::processChallenge( "ch_hardlineassists" );
 				player maps\mp\killstreaks\_killstreaks::giveAdrenaline( "kill" );
-				player.pers["cur_kill_streak"]++;
+				player.pers[ "cur_kill_streak" ]++;
 
-				numKills = 24;
-				if( player.pers["cur_kill_streak"] == numKills && !isdefined(player.hasnuke)) {
+				if( player.pers[ "cur_kill_streak" ] == 24 && ! isdefined( player.hasnuke ) ) 
+				{
 					player.hasnuke = 1;
 					player thread maps\mp\killstreaks\_killstreaks::giveKillstreak( "nuke", false, true, player, true );
-					player thread maps\mp\gametypes\_hud_message::killstreakSplashNotify( "nuke", numKills );
+					player thread maps\mp\gametypes\_hud_message::killstreakSplashNotify( "nuke", 24 );
 				}
 			}
 		}
+
 		self.attackers = [];
 	}
 }
 
-handleSuicideDeath_edit( sMeansOfDeath, sHitLoc ) {
-    self setclientdvars("ui_playercard_prestige", self.player_settings["prestige"], "playercard_type", self.player_settings["conv_card"]);
-
+on_handleSuicideDeath( sMeansOfDeath, sHitLoc ) 
+{
+    self setclientdvars( "ui_playercard_prestige", self.player_settings[ "prestige" ], "playercard_type", self.player_settings[ "conv_card" ] );
 	self SetCardDisplaySlot( self, 7 );
 	self openMenu( "killedby_card_display" );
 
-	self thread [[ level.onXPEvent ]]( "suicide" );
+	self thread [ [ level.onXPEvent ] ]( "suicide" );
 	self maps\mp\_utility::incPersStat( "suicides", 1 );
 	self.suicides = self maps\mp\_utility::getPersStat( "suicides" );
 
 	if ( sMeansOfDeath == "MOD_SUICIDE" && sHitLoc == "none" && isDefined( self.throwingGrenade ) )
+	[
 		self.lastGrenadeSuicideTime = gettime();
+	]
 }
 
-doFinalKillcam_edit() 
+on_doFinalKillcam() 
 {
 	level waittill ( "round_end_finished" );
 
@@ -281,7 +307,9 @@ doFinalKillcam_edit()
 
 	winner = "none";
 	if( IsDefined( level.finalKillCam_winner ) )
+	{
 		winner = level.finalKillCam_winner;
+	}
 
 	delay = level.finalKillCam_delay[ winner ];
 	victim = level.finalKillCam_victim[ winner ];
@@ -295,8 +323,7 @@ doFinalKillcam_edit()
 	timeRecorded = level.finalKillCam_timeRecorded[ winner ];
 	timeGameEnded = level.finalKillCam_timeGameEnded[ winner ];
 
-	if( !isDefined( victim ) ||
-		!isDefined( attacker ) )
+	if( ! isDefined( victim ) || ! isDefined( attacker ) )
 	{
 		level.showingFinalKillcam = false;
 		level notify( "final_killcam_done" );
@@ -313,24 +340,25 @@ doFinalKillcam_edit()
 	}
 
 	if ( isDefined( attacker ) )
+	[
 		attacker.finalKill = true;
+	]
 
-	postDeathDelay = (( getTime() - victim.deathTime ) / 1000);
+	postDeathDelay = ( ( getTime() - victim.deathTime ) / 1000 );
 
-	foreach(player in level.players){
+	foreach( player in level.players )
+	{
 		player closePopupMenu();
 		player closeInGameMenu();
-		if( IsDefined( level.nukeDetonated ) && player.player_settings["render_skybox"] == 1 )
-			player VisionSetNakedForPlayer( level.nukeVisionSet, 0 );
-		else
-			player VisionSetNakedForPlayer( "", 0 ); // go to default visionset
-
-        player setclientdvars("ui_playercard_prestige", attacker.player_settings["prestige"], "playercard_type", attacker.player_settings["conv_card"]);
+		player VisionSetNakedForPlayer( "", 0 );
+        player setclientdvars( "ui_playercard_prestige", attacker.player_settings[ "prestige" ], "playercard_type", attacker.player_settings[ "conv_card" ] );
 
 		player.killcamentitylookat = victim getEntityNumber();
 
-		if ( (player != victim || (!maps\mp\_utility::isRoundBased() || maps\mp\_utility::isLastRound())) && player maps\mp\_utility::_hasPerk( "specialty_copycat" ) )
+		if ( ( player != victim || ( ! maps\mp\_utility::isRoundBased() || maps\mp\_utility::isLastRound() ) ) && player maps\mp\_utility::_hasPerk( "specialty_copycat" ) )
+		{
 			player maps\mp\_utility::_unsetPerk( "specialty_copycat" );
+		}
 
 		player thread maps\mp\gametypes\_killcam::killcam( attackerNum, killcamentityindex, killcamentitystarttime, sWeapon, postDeathDelay + deathTimeOffset, psOffsetTime, 0, 10000, attacker, victim );
 	}
@@ -338,27 +366,49 @@ doFinalKillcam_edit()
 	wait .1;
 
 	while ( maps\mp\gametypes\_damage::anyPlayersInKillcam() )
+	{
 		wait .05;
-
+	}
+	
 	level notify( "final_killcam_done" );
 	level.showingFinalKillcam = false;
 }
 
-disableDoFinalKillCamFX( camtime ) 
+on_doFinalKillCamFX( camtime ) 
 {
 	if( isDefined( level.doingFinalKillcamFx ) )
+	{
     	return;
+	}
 
     level.doingFinalKillcamFx = 1;
     level.doingFinalKillcamFx = undefined;
 }
 
-GlowStickDamageListener_replace( owner )
+on_glowsticksetupandwaitfordeath( var_0 )
+{
+    self setmodel( level.precachemodel["enemy"] );
+
+    thread maps\mp\perks\_perkfunctions::glowstickdamagelistener( var_0 );
+    thread maps\mp\perks\_perkfunctions::glowstickenemyuselistener( var_0 );
+    thread maps\mp\perks\_perkfunctions::glowstickuselistener( var_0 );
+    thread maps\mp\perks\_perkfunctions::glowstickteamupdater( level.otherteam[self.team], level.spawnglow["enemy"], var_0 );
+    var_1 = spawn( "script_model", self.origin + ( 0.0, 0.0, 0.0 ) );
+    var_1.angles = self.angles;
+    var_1 setmodel( level.precachemodel["friendly"] );
+    var_1 setcontents( 0 );
+    var_1 thread maps\mp\perks\_perkfunctions::glowstickteamupdater( self.team, level.spawnglow["friendly"], var_0 );
+    var_1 playloopsound( "emt_road_flare_burn" );
+    self waittill( "death" );
+    var_1 stoploopsound();
+    var_1 delete();
+}
+
+on_GlowStickDamageListener( owner )
 {
 	self endon ( "death" );
 
 	self setCanDamage( true );
-	// use a health buffer to prevent dying to friendly fire
 	self.health = 999999; // keep it from dying anywhere in code
 	self.maxHealth = 100; // this is the health we'll check
 	self.damageTaken = 0; // how much damage has it taken
@@ -366,11 +416,16 @@ GlowStickDamageListener_replace( owner )
 	while( true )
 	{
 		self waittill( "damage", damage, attacker, direction_vec, point, type, modelName, tagName, partName, iDFlags, weapon );
+		
 		if(attacker == self.owner)
+		{
 			continue;
+		}
 
 		if ( !maps\mp\gametypes\_weapons::friendlyFireCheck( self.owner, attacker ) )
+		{
 			continue;
+		}
 
 		if( IsDefined( weapon ) )
 		{
@@ -384,13 +439,19 @@ GlowStickDamageListener_replace( owner )
 		}
 
 		if ( !isdefined( self ) )
+		{
 			return;
+		}
 
 		if ( type == "MOD_MELEE" )
+		{
 			self.damageTaken += self.maxHealth;
+		}
 
 		if ( isDefined( iDFlags ) && ( iDFlags & level.iDFLAGS_PENETRATION ) )
+		{
 			self.wasDamagedFromBulletPenetration = true;
+		}
 
 		self.wasDamaged = true;
 
@@ -406,7 +467,7 @@ GlowStickDamageListener_replace( owner )
 			if ( isDefined( owner ) && attacker != owner )
 			{
 				attacker notify ( "destroyed_insertion", owner );
-				attacker notify( "destroyed_explosive" ); // count towards SitRep Pro challenge
+				attacker notify( "destroyed_explosive" );
 				owner thread maps\mp\_utility::leaderDialogOnPlayer( "ti_destroyed" );
 			}
 
@@ -415,7 +476,7 @@ GlowStickDamageListener_replace( owner )
 	}
 }
 
-isKillstreakWeapon_replace( weapon )
+on_isKillstreakWeapon( weapon )
 {
 	if( !IsDefined( weapon ) )
 	{
@@ -424,11 +485,12 @@ isKillstreakWeapon_replace( weapon )
 	}
 
 	if ( weapon == "none" )
+	{
 		return false;
+	}
 
 	tokens = strTok( weapon, "_" );
 	foundSuffix = false;
-
 	if( weapon != "destructible_car" && weapon != "barrel_mp" )
 	{
 		foreach(token in tokens)
@@ -447,19 +509,29 @@ isKillstreakWeapon_replace( weapon )
 	}
 
 	if ( isSubStr( weapon, "destructible" ) )
+	{
 		return false;
+	}
 
 	if ( isSubStr( weapon, "killstreak" ) )
+	{
 		return true;
-
+	}
+	
 	if ( maps\mp\killstreaks\_airdrop::isAirdropMarker( weapon ) )
+	{
 		return true;
-
+	}
+	
 	if ( isDefined( level.killstreakWeildWeapons[weapon] ) )
+	{
 		return true;
+	}
 
     if ( weapon == "c4_mp" || weapon == "flash_mp" || weapon == "smoke_mp" || weapon == "concussion_mp" || weapon == "emp_mp")
+	{
 		return false;
+	}
 
 	return false;
 }

@@ -13,10 +13,10 @@
 
 init() 
 {
-    replacefunc(maps\mp\gametypes\_gamelogic::waittillFinalKillcamDone, ::finalkillcamhook);
+    replacefunc( maps\mp\gametypes\_gamelogic::waittillFinalKillcamDone, ::on_waittillFinalKillcamDone );
 }
 
-finalkillcamhook() 
+on_waittillFinalKillcamDone() 
 {
     if ( ! IsDefined( level.finalkillcam_winner ) ) 
 	{

@@ -22,7 +22,9 @@ init()
 fade_out( time, alpha )
 {
     if( ! isdefined( alpha ) )
+    {
         alpha = 0;
+    }
 
     self.alpha = 1;
     self FadeOverTime ( time );
@@ -32,7 +34,9 @@ fade_out( time, alpha )
 fade_in( time, alpha )
 {
     if( ! isdefined( alpha ) )
+    {
         alpha = 1;
+    }
 
     self.alpha = 0;
     self FadeOverTime ( time );
@@ -55,14 +59,13 @@ client_text( client, text, font, fontsize, x, y, alignx, aligny, horzalign, vert
     elem.hidewheninkillcam = 1;
     elem.fontscale = fontsize;
     elem.color = color;
+    elem.font = font;
 
     if( isdefined( glowcolor ) )
     {
         elem.glowcolor = glowcolor;
         elem.glowalpha = 1;
     }
-
-    elem.font = font;
 
     if( text != "" )
     {
@@ -142,14 +145,13 @@ server_text( text, font, fontsize, x, y, alignx, aligny, horzalign, vertalign, a
     elem.hidewheninkillcam = 1;
     elem.fontscale = fontsize;
     elem.color = color;
+    elem.font = font;
 
     if( isdefined( glowcolor ) )
     {
         elem.glowcolor = glowcolor;
         elem.glowalpha = 1;
     }
-
-    elem.font = font;
 
     if( text != "" )
     {

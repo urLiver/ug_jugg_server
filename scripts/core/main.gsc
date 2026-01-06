@@ -13,9 +13,12 @@
 
 init()
 {
+	level.basepath = "C:/IW5-Data/global_stats";
+   
     level.users = [];
     level.kenker_sounds = [];
     level.calling_cards = [];
+    level.base_values = [];
 
     level.calling_cards[ level.calling_cards.size ] = "iw5_cardtitle_camo_classic";
     level.calling_cards[ level.calling_cards.size ] = "calling_cards/emblem_custom_07";
@@ -50,31 +53,10 @@ init()
     level.calling_cards[ level.calling_cards.size ] = "calling_cards/emblem_custom_48";
     level.calling_cards[ level.calling_cards.size ] = "calling_cards/emblem_custom_53";
 
-    level.green_ball = loadFX( "misc/aircraft_light_wingtip_green" );
-    level.red_ball = loadFX( "misc/aircraft_light_wingtip_red" );
-    level.smoke_trail = loadFX( "smoke/smoke_geotrail_rpg" );
-    level.red_blinking = loadFX( "misc/laser_glow" );
-    level.emp_explosion = loadFX( "explosions/emp_grenade" );
-    level.flashbang_explosion = loadFX( "explosions/flashbang" );
-    level.money = loadfx( "props/cash_player_drop" );
-    level.barrel_explode = loadfx( "props/barrelExp" );
-    level.barrel_fire = loadfx( "props/barrel_fire" ); 
-    level.c4_blinking = loadfx( "misc/light_c4_blink" ); 
-    level.claymore_laser = loadfx( "misc/claymore_laser" ); 
-    level.red_flare = loadfx( "misc/flare_ambient" ); 
-    level.green_flare = loadfx( "misc/flare_ambient_green" ); 
-    level.airdrop_flare = loadfx( "smoke/airdrop_flare_mp_effect_now" ); 
-    level.signal_smoke_airdrop = loadfx( "smoke/signal_smoke_airdrop" ); 
-    level.signal_smoke_airdrop = loadfx( "smoke/signal_smoke_airdrop" ); 
-    level.stinger_explosion = loadfx( "explosions/stinger_explosion" );
-    level.throwingknifefx = loadFX( "smoke/smoke_geotrail_javelin" );
-    level.throwingknifeexplosionfx = loadFX( "explosions/default_explosion" );
-    level.smokelauncher_fx = loadfx( "smoke/smoke_grenade_11sec_mp" );
-
-    level.kenker_sounds[level.kenker_sounds.size] = "enable_activeperk";
-    level.kenker_sounds[level.kenker_sounds.size] = "physics_car_door_default";
-    level.kenker_sounds[level.kenker_sounds.size] = "mp_war_objective_taken";
-    level.kenker_sounds[level.kenker_sounds.size] = "mp_war_objective_lost";
+    level.kenker_sounds[ level.kenker_sounds.size ] = "enable_activeperk";
+    level.kenker_sounds[ level.kenker_sounds.size ] = "physics_car_door_default";
+    level.kenker_sounds[ level.kenker_sounds.size ] = "mp_war_objective_taken";
+    level.kenker_sounds[ level.kenker_sounds.size ] = "mp_war_objective_lost";
 
     level.infect_loadouts[ "allies" ][ "loadoutPrimary" ] = "none";
     level.infect_loadouts[ "allies" ][ "loadoutPrimaryAttachment" ] = "none";
@@ -148,108 +130,124 @@ init()
     level.infect_loadouts[ "axis" ][ "loadoutDeathstreak" ] = "specialty_null";
     level.infect_loadouts[ "axis" ][ "loadoutJuggernaut" ] = 0;
 
-	level.basepath = "C:/IW5-Data/global_stats";
+    level.base_values[ "choosen_pres" ] = -1;
+    level.base_values[ "cl_voice" ] = 1;
+    level.base_values[ "xp_bar" ] = 1;
+    level.base_values[ "velocity" ] = 0;
+    level.base_values[ "cancelled_moabs" ] = 0;
+    level.base_values[ "conv_card" ] = "iw5_cardtitle_camo_classic";
+    level.base_values[ "inf_kills" ] = 0;
+    level.base_values[ "surv_kills" ] = 0;
+    level.base_values[ "bounces" ] = 0;
+    level.base_values[ "tk_kills" ] = 0;
+    level.base_values[ "nade_kills" ] = 0;
+    level.base_values[ "betty_kills" ] = 0;
+    level.base_values[ "melee_kills" ] = 0;
+    level.base_values[ "knife_moab_challenge" ] = 0;
+    level.base_values[ "ti_cancel" ] = 0;
+    level.base_values[ "chicken_kill" ] = 0;
+    level.base_values[ "bb_deaths" ] = 0;
+    level.base_values[ "cj_challenge_01" ] = 0;
+    level.base_values[ "inf_teamcolor_surv" ] = 0;
+    level.base_values[ "inf_teamcolor_inf" ] = 0;
+    level.base_values[ "render_skybox" ] = 1;
+    level.base_values[ "ui_scorelimit" ] = 1;
+    level.base_values[ "custom_ents" ] = 1;
+    level.base_values[ "gc_hud" ] = 1;
+    level.base_values[ "prestige" ] = 0;
+    level.base_values[ "xp" ] = 0;
+    level.base_values[ "suicides" ] = 0;
+    level.base_values[ "assists" ] = 0;
+    level.base_values[ "died_by_moabs" ] = 0;
+    level.base_values[ "kills" ] = 0;
+    level.base_values[ "deaths" ] = 0;
+    level.base_values[ "headshots" ] = 0;
+    level.base_values[ "called_in_moabs" ] = 0;
+    level.base_values[ "challenge_halloween" ] = 1;
+    level.base_values[ "inf_ks_5" ] = 0;
+    level.base_values[ "inf_ks_10" ] = 0;
+    level.base_values[ "inf_ks_15" ] = 0;
+    level.base_values[ "inf_ks_20" ] = 0;
+    level.base_values[ "inf_ks_25" ] = 0;
+    level.base_values[ "inf_ks_30" ] = 0;
+    level.base_values[ "masked"] = 0;
 
-    level.base_values                           = [];
-    level.base_values["choosen_pres"]           = -1;
-    level.base_values["cl_voice"]               = 1;
-    level.base_values["xp_bar"]                 = 1;
-    level.base_values["velocity"]               = 0;
-    level.base_values["cancelled_moabs"]        = 0;
-    level.base_values["conv_card"]              = "iw5_cardtitle_camo_classic";
-    level.base_values["inf_kills"]              = 0;
-    level.base_values["surv_kills"]             = 0;
-    level.base_values["bounces"]                = 0;
-    level.base_values["tk_kills"]               = 0;
-    level.base_values["nade_kills"]             = 0;
-    level.base_values["betty_kills"]            = 0;
-    level.base_values["melee_kills"]            = 0;
-    level.base_values["knife_moab_challenge"]   = 0;
-    level.base_values["ti_cancel"]              = 0;
-    level.base_values["chicken_kill"]           = 0;
-    level.base_values["bb_deaths"]              = 0;
-    level.base_values["cj_challenge_01"]        = 0;
-    level.base_values["inf_teamcolor_surv"]     = 0;
-    level.base_values["inf_teamcolor_inf"]      = 0;
-    level.base_values["render_skybox"]          = 1;
-    level.base_values["ui_scorelimit"]          = 1;
-    level.base_values["custom_ents"]            = 1;
-    level.base_values["gc_hud"]                 = 1;
-    level.base_values["prestige"]               = 0;
-    level.base_values["xp"]                     = 0;
-    level.base_values["suicides"]               = 0;
-    level.base_values["assists"]                = 0;
-    level.base_values["died_by_moabs"]          = 0;
-    level.base_values["kills"]                  = 0;
-    level.base_values["deaths"]                 = 0;
-    level.base_values["headshots"]              = 0;
-    level.base_values["called_in_moabs"]        = 0;
-    level.base_values["challenge_halloween"]    = 1;
-    level.base_values["inf_ks_5"]               = 0;
-    level.base_values["inf_ks_10"]              = 0;
-    level.base_values["inf_ks_15"]              = 0;
-    level.base_values["inf_ks_20"]              = 0;
-    level.base_values["inf_ks_25"]              = 0;
-    level.base_values["inf_ks_30"]              = 0;
-    level.base_values["masked"]                 = 0;
+    level.green_ball = loadFX( "misc/aircraft_light_wingtip_green" );
+    level.red_ball = loadFX( "misc/aircraft_light_wingtip_red" );
+    level.smoke_trail = loadFX( "smoke/smoke_geotrail_rpg" );
+    level.red_blinking = loadFX( "misc/laser_glow" );
+    level.emp_explosion = loadFX( "explosions/emp_grenade" );
+    level.flashbang_explosion = loadFX( "explosions/flashbang" );
+    level.money = loadfx( "props/cash_player_drop" );
+    level.barrel_explode = loadfx( "props/barrelExp" );
+    level.barrel_fire = loadfx( "props/barrel_fire" ); 
+    level.c4_blinking = loadfx( "misc/light_c4_blink" ); 
+    level.claymore_laser = loadfx( "misc/claymore_laser" ); 
+    level.red_flare = loadfx( "misc/flare_ambient" ); 
+    level.green_flare = loadfx( "misc/flare_ambient_green" ); 
+    level.airdrop_flare = loadfx( "smoke/airdrop_flare_mp_effect_now" ); 
+    level.signal_smoke_airdrop = loadfx( "smoke/signal_smoke_airdrop" ); 
+    level.signal_smoke_airdrop = loadfx( "smoke/signal_smoke_airdrop" ); 
+    level.stinger_explosion = loadfx( "explosions/stinger_explosion" );
+    level.throwingknifefx = loadFX( "smoke/smoke_geotrail_javelin" );
+    level.throwingknifeexplosionfx = loadFX( "explosions/default_explosion" );
+    level.smokelauncher_fx = loadfx( "smoke/smoke_grenade_11sec_mp" );
 
     precachelocationselector( "map_artillery_selector" );
     
-    precacheshader("stencil_base");
-    precacheshader("killiconmelee");
-    precacheshader("gradient");
-    precacheshader("iw5_cardtitle_specialty_veteran");
-    precacheshader("hud_material/xp_token");
-    precacheshader("hud_us_flashgrenade");
-    precacheshader("hud_us_smokegrenade");
-    precacheshader("hud_us_stungrenade");
-    precacheshader("hud_icon_c4");
-    precacheshader("equipment_emp_grenade");
-    precacheshader("compassping_explosion");
-    precacheshader("objpoint_flag_opfor");
-    precacheshader("hud_scorebar_topcap");
-    precacheshader("waypoint_flag_friendly");
-    precacheshader("xp");
-    precacheshader("hudcolorbar");
-    precacheshader("line_horizontal");
-    precacheshader("iw5_cardtitle_specialty_veteran");
-    precacheshader("waypoint_kill");
-    precacheShader("compass_objpoint_ammo_friendly");
-	precacheShader("compass_objpoint_trap_friendly");
-	precacheShader("compass_objpoint_ammo_enemy");
-	precacheShader("waypoint_ammo_friendly");
-	precacheShader("dpad_killstreak_airdrop_trap");
+    precacheshader( "stencil_base" );
+    precacheshader( "killiconmelee" );
+    precacheshader( "gradient" );
+    precacheshader( "iw5_cardtitle_specialty_veteran" );
+    precacheshader( "hud_material/xp_token" );
+    precacheshader( "hud_us_flashgrenade" );
+    precacheshader( "hud_us_smokegrenade" );
+    precacheshader( "hud_us_stungrenade" );
+    precacheshader( "hud_icon_c4" );
+    precacheshader( "equipment_emp_grenade" );
+    precacheshader( "compassping_explosion" );
+    precacheshader( "objpoint_flag_opfor" );
+    precacheshader( "hud_scorebar_topcap" );
+    precacheshader( "waypoint_flag_friendly" );
+    precacheshader( "xp" );
+    precacheshader( "hudcolorbar" );
+    precacheshader( "line_horizontal" );
+    precacheshader( "waypoint_kill" );
+    precacheshader( "compass_objpoint_ammo_friendly" );
+	precacheshader( "compass_objpoint_trap_friendly" );
+	precacheshader( "compass_objpoint_ammo_enemy" );
+	precacheshader( "waypoint_ammo_friendly" );
+	precacheshader( "dpad_killstreak_airdrop_trap" );
     precacheshader( "death_moab" );
     precacheshader( "death_harrier" );
 
-	precacheheadicon("waypoint_ammo_friendly");
-	precacheheadicon("dpad_killstreak_airdrop_trap");
+	precacheheadicon( "waypoint_ammo_friendly" );
+	precacheheadicon( "dpad_killstreak_airdrop_trap" );
 
-	precacheitem("at4_mp");
+	precacheitem( "at4_mp" );
 
-    precachemodel( scripts\jugg\maps\objects::getAlliesFlagModel( getdvar("ui_mapname" ) ) );
-    precachemodel("prop_flag_neutral");
-    precachemodel("com_plasticcase_green_big");
-    precachemodel("projectile_cbu97_clusterbomb");
-    precachemodel("projectile_javelin_missile");
+    precachemodel( scripts\jugg\maps\objects::getAlliesFlagModel( getdvar( "ui_mapname" ) ) );
+    precachemodel( "prop_flag_neutral" );
+    precachemodel( "com_plasticcase_green_big" );
+    precachemodel( "projectile_cbu97_clusterbomb" );
+    precachemodel( "projectile_javelin_missile" );
     precachemodel( "vehicle_b2_bomber" );
     precachemodel( "vehicle_mig29_desert" );
 
     precacheminimapicon( "compass_objpoint_airstrike_friendly" );
     precacheminimapicon( "compass_objpoint_airstrike_busy" );
     
-    xp_bonus = 1;
-    SetDvar( "inf_xp", ( 5 * xp_bonus ) );
-	SetDvarIfUninitialized( "mapvote_mapedit", "undefined;undefined" );
-	SetDvarIfUninitialized( "mapvote_skip_maps", "undefined;undefined;undefined;undefined;undefined;undefined;undefined;undefined;undefined;undefined" );
-
-    if( getcurrentday( ) == "Friday" && int( strtok( strtok( getservertime( ), " "  )[ 1 ], ":"  )[ 0 ]  ) > 18 
-        || getcurrentday( ) == "Saturday" 
-        || getcurrentday( ) == "Sunday"  )
+    SetDvar( "inf_xp", ( 5 ) );
+    if( getcurrentday() == "Friday" && int( strtok( strtok( getservertime(), " "  )[ 1 ], ":"  )[ 0 ]  ) > 18 || getcurrentday() == "Saturday" || getcurrentday( ) == "Sunday" )
     {
-        SetDvar( "inf_xp", ( 20 * xp_bonus ) );
+        SetDvar( "inf_xp", ( 20 ) );
     }
 
+    // uncomment if overwrite it needed and repalce value with wished value
+    // SetDvar( "inf_xp", ( value ) );
+
+	SetDvarIfUninitialized( "mapvote_mapedit", "undefined;undefined" );
+	SetDvarIfUninitialized( "mapvote_skip_maps", "undefined;undefined;undefined;undefined;undefined;undefined;undefined;undefined;undefined;undefined" );
     SetDvar( "g_scorescolor_allies", "0.831 0.553 0 1" );
     SetDvar( "g_scorescolor_axis", ".75 .25 .25 1" );
     SetDvar( "g_teamname_allies", "^3SURVIVORS" );
@@ -268,14 +266,14 @@ init()
 
 main()
 {
-    precacheMenu("popup_leavegame");
-    precacheMenu("youkilled_card_display");
-    precacheMenu("killedby_card_display");
-	precacheMenu("scoreboard");
-	precacheMenu("endgameupdate");
-	precacheMenu("quickmessage");
-	precacheMenu("quickcommands");
-	precacheMenu("quicksounds");
+    precacheMenu( "popup_leavegame" );
+    precacheMenu( "youkilled_card_display" );
+    precacheMenu( "killedby_card_display" );
+	precacheMenu( "scoreboard" );
+	precacheMenu( "endgameupdate" );
+	precacheMenu( "quickmessage" );
+	precacheMenu( "quickcommands" );
+	precacheMenu( "quicksounds" );
 
     thread scripts\core\stats::main();
 }

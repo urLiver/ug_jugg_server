@@ -84,13 +84,13 @@ build_objects()
 {
     level endon( "nuke_cancelled" );
     
-    if( !isdefined( level.nuke_soundobject ) )
+    if( ! isdefined( level.nuke_soundobject ) )
     {
         level.nuke_soundobject = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
         level.nuke_soundobject hide();
     }
 
-    if( !isdefined( level.nuke_clockobject ) )
+    if( ! isdefined( level.nuke_clockobject ) )
     {
         level.nuke_clockobject = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
         level.nuke_clockobject hide();
@@ -146,11 +146,11 @@ do_nuke_dust()
     foreach ( player in level.players )
     {
         var_2 = anglestoforward( player.angles );
-        var_2 = ( var_2[0], var_2[1], 0 );
+        var_2 = ( var_2[ 0 ], var_2[ 1 ], 0 );
         var_2 = vectornormalize( var_2 );
         var_4 = spawn( "script_model", player.origin + var_2 * 5000 );
         var_4 setmodel( "tag_origin" );
-        var_4.angles = ( 0, player.angles[1] + 180, 90 );
+        var_4.angles = ( 0, player.angles[ 1 ] + 180, 90 );
         var_4 thread do_nuke_effect( player );
     }
 }
@@ -185,7 +185,7 @@ do_nuke_aftermath()
     level waittill( "spawning_intermission" );
  
     var_0 = getentarray( "mp_global_intermission", "classname" );
-    var_0 = var_0[0];
+    var_0 = var_0[ 0 ];
     var_1 = anglestoup( var_0.angles );
     var_2 = anglestoright( var_0.angles );
  
@@ -196,18 +196,6 @@ do_nuke_earhtquacke()
 {
     level endon( "game_ended" );
     level endon( "nuke_cancelled" );
-}
-
-do_money_death()
-{
-    level endon( "game_ended" );
-
-    fx = SpawnFX( level.money, self.origin );
-    TriggerFX( fx );
-
-    wait 2;
-
-    fx delete();
 }
 
 do_nuke_kill( user )
@@ -236,9 +224,8 @@ do_nuke_kill( user )
 
         player.nuked = 1;
 
-        if ( isalive( player ) && !isdefined( self.godmode ) )
+        if ( isalive( player ) && ! isdefined( self.godmode ) )
         {
-            // player thread do_money_death();
             player thread maps\mp\gametypes\_damage::finishplayerdamagewrapper( level.nukeinfo.player, level.nukeinfo.player, 999999, 0, "MOD_EXPLOSIVE", "nuke_mp", player.origin, player.origin, "none", 0, 0 );
         }
     }
@@ -316,7 +303,7 @@ tryusenuke( var_0, var_1 )
         return 0;
     }
 
-    if ( maps\mp\_utility::isusingremote() && ( !isdefined( level.gtnw ) || !level.gtnw ) )
+    if ( maps\mp\_utility::isusingremote() && ( ! isdefined( level.gtnw ) || !level.gtnw ) )
         return 0;
     
     level.nukeinfo.player = self;

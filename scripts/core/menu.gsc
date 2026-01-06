@@ -20,8 +20,8 @@ quicksound_cooldown()
 {
     self endon( "disconnect" );
 
-	self notify("quicksound_cooldownfunc");
-	self endon("quicksound_cooldownfunc");
+	self notify( "quicksound_cooldownfunc" );
+	self endon( "quicksound_cooldownfunc" );
 
 	self.quicksound_cooldown = 5;
 
@@ -45,11 +45,11 @@ on_onmenuresponse()
 
             if ( maps\mp\gametypes\_menus::isoptionsmenu( var_0 ) )
             {
-                if ( self.pers["team"] == "allies" )
-                    self openpopupmenu( game["menu_class_allies"] );
+                if ( self.pers[ "team" ] == "allies" )
+                    self openpopupmenu( game[ "menu_class_allies" ] );
 
-                if ( self.pers["team"] == "axis" )
-                    self openpopupmenu( game["menu_class_axis"] );
+                if ( self.pers[ "team "] == "axis" )
+                    self openpopupmenu( game[ "menu_class_axis" ] );
             }
 
             continue;
@@ -59,14 +59,14 @@ on_onmenuresponse()
         {
             self closepopupmenu();
             self closeingamemenu();
-            self openpopupmenu( game["menu_team"] );
+            self openpopupmenu( game[ "menu_team" ] );
         }
 
         if ( var_1 == "changeclass_marines" )
         {
             self closepopupmenu();
             self closeingamemenu();
-            self openpopupmenu( game["menu_changeclass_allies"] );
+            self openpopupmenu( game[ "menu_changeclass_allies" ] );
             continue;
         }
 
@@ -74,76 +74,34 @@ on_onmenuresponse()
         {
             self closepopupmenu();
             self closeingamemenu();
-            self openpopupmenu( game["menu_changeclass_axis"] );
+            self openpopupmenu( game[ "menu_changeclass_axis" ] );
             continue;
         }
 
         if ( var_1 == "changeclass_marines_splitscreen" )
+        {
             self openpopupmenu( "changeclass_marines_splitscreen" );
+        }
 
         if ( var_1 == "changeclass_opfor_splitscreen" )
+        {
             self openpopupmenu( "changeclass_opfor_splitscreen" );
-
-        if ( var_1 == "endgame" )
+        }
+        
+        if ( var_1 == "endround" || var_1 == "endgame" )
         {
-            /*
-            if ( level.splitscreen )
-            {
-                endparty();
-
-                if ( !level.gameended )
-                    level thread maps\mp\gametypes\_gamelogic::forceend();
-            }
-            */
-            
             continue;
         }
 
-        if ( var_1 == "endround" )
-        {
-            /*
-            if ( !level.gameended )
-                level thread maps\mp\gametypes\_gamelogic::forceend();
-            else
-            {
-                self closepopupmenu();
-                self closeingamemenu();
-                self iprintln( &"MP_HOST_ENDGAME_RESPONSE" );
-            }
-            */
-
-            continue;
-        }
-
-        if ( var_0 == game["menu_team"] )
+        if ( var_0 == game[ "menu_team" ] )
         {
             kick( self getentitynumber() );
-            //switch ( var_1 )
-            //{
-            //    case "allies":
-            //        self [[ level.allies ]]();
-            //        break;
-            //    case "axis":
-            //        self [[ level.axis ]]();
-            //        break;
-            //    case "autoassign":
-            //        self [[ level.autoassign ]]();
-            //        break;
-            //    case "spectator":
-            //        self [[ level.spectator ]]();
-            //        break;
-            //}
-
             continue;
         }
 
-        if ( var_0 == game["menu_changeclass"] || isdefined( game["menu_changeclass_defaults_splitscreen"] ) && var_0 == game["menu_changeclass_defaults_splitscreen"] || isdefined( game["menu_changeclass_custom_splitscreen"] ) && var_0 == game["menu_changeclass_custom_splitscreen"] )
+        if ( var_0 == game[ "menu_changeclass" ] || isdefined( game[ "menu_changeclass_defaults_splitscreen" ] ) && var_0 == game["menu_changeclass_defaults_splitscreen"] || isdefined( game["menu_changeclass_custom_splitscreen"] ) && var_0 == game["menu_changeclass_custom_splitscreen"] )
         {
             kick( self getentitynumber() );
-            //self closepopupmenu();
-            //self closeingamemenu();
-            //self.selectedclass = 1;
-            //self [[ level.class ]]( var_1 );
             continue;
         }
 
@@ -160,6 +118,7 @@ on_onmenuresponse()
                 {
                     self suicide();
                 }
+
                 continue;
             }
             
@@ -173,22 +132,6 @@ on_onmenuresponse()
 
                 continue;
             }
-            /*
-            if ( var_0 == game["menu_quickcommands"] )
-            {
-                maps\mp\gametypes\_quickmessages::quickcommands( var_1 );
-                continue;
-            }
-
-            if ( var_0 == game["menu_quickstatements"] )
-            {
-                maps\mp\gametypes\_quickmessages::quickstatements( var_1 );
-                continue;
-            }
-
-            if ( var_0 == game["menu_quickresponses"] )
-                maps\mp\gametypes\_quickmessages::quickresponses( var_1 );
-            */  
         }
     }
 }

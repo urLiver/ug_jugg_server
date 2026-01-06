@@ -31,27 +31,23 @@ on_emp_jamteam( var_0 )
         var_2 playlocalsound( "emp_activate" );
 
         if ( var_2.team != var_0 )
+        {
             continue;
+        }
 
         if ( var_2 maps\mp\_utility::_hasperk( "specialty_localjammer" ) )
+        {
             var_2 radarjamoff();
+        }
     }
 
     visionsetnaked( "coup_sunblind", 0.1 );
     thread maps\mp\killstreaks\_emp::empeffects();
     wait 0.1;
     visionsetnaked( "coup_sunblind", 0 );
-
-    /*
-    if ( isdefined( level.nukedetonated ) )
-        visionsetnaked( level.nukevisionset, 3.0 );
-    else
-        visionsetnaked( "", 3.0 );
-    */
-
     visionsetnaked( "", 3.0 );
 
-    level.teamemped[var_0] = 1;
+    level.teamemped[ var_0 ] = 1;
     level notify( "emp_update" );
     level maps\mp\killstreaks\_emp::destroyactivevehicles( self, var_0 );
     level thread maps\mp\killstreaks\_emp::keepemptimeremaining();
@@ -60,15 +56,19 @@ on_emp_jamteam( var_0 )
     maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( level.emptimeout );
     level.infected_jammed = undefined;
 
-    level.teamemped[var_0] = 0;
+    level.teamemped[ var_0 ] = 0;
 
     foreach ( var_2 in level.players )
     {
         if ( var_2.team != var_0 )
+        {
             continue;
+        }
 
         if ( var_2 maps\mp\_utility::_hasperk( "specialty_localjammer" ) )
+        {
             var_2 radarjamon();
+        }
     }
 
     level notify( "emp_update" );
@@ -84,24 +84,20 @@ on_emp_jamplayers( var_0 )
         var_2 playlocalsound( "emp_activate" );
 
         if ( var_2 == var_0 )
+        {
             continue;
+        }
 
         if ( var_2 maps\mp\_utility::_hasperk( "specialty_localjammer" ) )
+        {
             var_2 radarjamoff();
+        }
     }
 
     visionsetnaked( "coup_sunblind", 0.1 );
     thread maps\mp\killstreaks\_emp::empeffects();
     wait 0.1;
     visionsetnaked( "coup_sunblind", 0 );
-
-    /*
-    if ( isdefined( level.nukedetonated ) )
-        visionsetnaked( level.nukevisionset, 3.0 );
-    else
-        visionsetnaked( "", 3.0 );
-    */
-
     visionsetnaked( "", 3.0 );
 
     level notify( "emp_update" );
@@ -118,10 +114,14 @@ on_emp_jamplayers( var_0 )
     foreach ( var_2 in level.players )
     {
         if ( var_2 == var_0 )
+        {
             continue;
+        }
 
         if ( var_2 maps\mp\_utility::_hasperk( "specialty_localjammer" ) )
+        {
             var_2 radarjamon();
+        }
     }
 
     level.empplayer = undefined;

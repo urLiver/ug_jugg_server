@@ -19,7 +19,8 @@ init()
 
 }
 
-minecraft_edit1() {
+minecraft_edit1()
+{
 	minimap_corner = spawn("script_origin", (800, 300, 800));
 	minimap_corner.targetname = "minimap_corner";
 	minimap_corner = spawn("script_origin", (800, 300, 800) + (-3000,-3000,0));
@@ -151,7 +152,8 @@ minecraft_edit1() {
 	spawncrate((425, -2106, 331) , (0, 0, -45) , "com_plasticcase_friendly");
 }
 
-poolparty_edit1() {
+poolparty_edit1()
+{
 
 	arrow_array = [];
 	arrow_array[arrow_array.size] = ((408.806, -680.641, 42.1275));
@@ -7520,7 +7522,8 @@ lockout_h2_edit1(){
 }
 
 
-lockout_h2_edit2() {
+lockout_h2_edit2()
+{
 	arrow_array = [];
 	arrow_array[arrow_array.size] = ((2955.06, 2552.78, 3279.13));
 	arrow_array[arrow_array.size] = ((2955.08, 2880.71, 3183.13));
@@ -9179,7 +9182,8 @@ oasis_edit1(){
 	spawncrate((-3845, 614, 144), (0, 0, 0));
 }
 
-showdown_edit1() {
+showdown_edit1()
+{
 	
 	level.meat_playable_bounds = [
 		(-853.197, -1611.95, 382.886),
@@ -9556,7 +9560,8 @@ showdown_edit1() {
 	CreateDeathRegion((-29, -3079, 246), (-478, -3397, 305));
 }
 
-rust_edit1() {
+rust_edit1()
+{
 	CreateTP((1752, 1659, -129),(715, 992, 268), ( 0 , 135 , 0 ));
 
 	//spawnkill block rocks
@@ -9903,7 +9908,8 @@ rust_edit1() {
 	CreateDeathRegion((1134, 463, -500), (926, 686, 60));
 }
 
-DerRiese_edit1() {
+DerRiese_edit1()
+{
 
 	CreateDeathRegion((-195, 400, 180),(74, 700, 350));
 	moveac130position((334, -1557, 0));
@@ -9926,7 +9932,8 @@ DerRiese_edit1() {
 	createTP((-588, -81, 63), (21.8, -969.9, 70), (0,334,0), 1, undefined);
  }
 
- firingrange_edit1() {
+ firingrange_edit1()
+{
 
 	mp_global_intermission = getentarray( "mp_global_intermission", "classname" );
 	mp_global_intermission[0].origin = (-2, -84, -70);

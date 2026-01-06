@@ -3,29 +3,29 @@ main()
 	scripts\core\main::main();
 }
 
-init() 
+add_port( str_port, init )
 {
-	port = getdvar( "net_port" );
+    level.ports[ str_port ] = [];
+    level.ports[ str_port].init = init;
+}
 
-	if( ! isdefined( port ) ) 
-	{
-		print( "^1No Port found!" );
-		return;
-	}
+init()
+{
+    level.ports = [];
+    add_port( "27015", scripts\jugg\main::init );
+    add_port( "27016", scripts\jugg\main::init );
 
-	scripts\core\main::init();
+    port = getdvar( "net_port" );
+    if( ! isdefined( port ) ) 
+    {
+        print( "^1No Port found!" );
+        return;
+    }
 
-	switch( port )
-	{
-		case "27015":
-		case "27016":
-			scripts\jugg\main::init();
+    scripts\core\main::init();
 
-			print( "^2Jugg Scripts Loaded! For Port:" + port );
-		break;
-
-		default:
-			print( "^1Port defined, but we dont have a server case for it ! \nPort: " + port );
-		break;
-	}
+    if( isdefined( level.ports[ port ] ) && isdefined( level.ports[ port ].init ) )
+    {
+        [ [ level.ports[ port ].init ] ]();
+    }
 }

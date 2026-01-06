@@ -465,17 +465,6 @@ player_settings_main() {
     players_dir = level.basepath + "/players/" + self.guid + "/infected_data.csv";
     player_csv_data = readFile(players_dir);
 
-    clippy_files                        = [];
-    clippy_files["deaths"]              = 1;
-    clippy_files["saved_experience"]    = 1;
-    clippy_files["saved_prestige"]      = 1;
-    clippy_files["suicides"]            = 1;
-    clippy_files["headshots"]           = 1;
-    clippy_files["kills"]               = 1;
-    clippy_files["called_in_moabs"]     = 1;
-    clippy_files["assists"]             = 1;
-    clippy_files["died_by_moabs"]       = 1;
-
     self.player_settings                = [];
     needs_update                        = undefined;
 
@@ -497,22 +486,6 @@ player_settings_main() {
                 self.player_settings[i_column] = level.base_values[i_column];
 
                 needs_update = 1;
-
-                if(isdefined(clippy_files[i_column]) && fileexists(level.basepath + "/players/" + self.guid + "/" + i_column + ".csv")) {
-                    self.player_settings[i_column] = readfile(level.basepath + "/players/" + self.guid + "/" + i_column + ".csv");
-                    deletefile(level.basepath + "/players/" + self.guid + "/" + i_column + ".csv");
-                }
-                else if(i_column == "xp" && fileexists(level.basepath + "/players/" + self.guid + "/saved_experience.csv")) {
-                    self.player_settings[i_column] = readfile(level.basepath + "/players/" + self.guid + "/saved_experience.csv");
-                    deletefile(level.basepath + "/players/" + self.guid + "/saved_experience.csv");
-                }
-                else if(i_column == "prestige" && fileexists(level.basepath + "/players/" + self.guid + "/saved_prestige.csv")) {
-                    self.player_settings[i_column] = readfile(level.basepath + "/players/" + self.guid + "/saved_prestige.csv");
-                    deletefile(level.basepath + "/players/" + self.guid + "/saved_prestige.csv");
-                }
-
-                if(fileexists(level.basepath + "/players/" + self.guid + "/global_stats.csv"))
-                    deletefile(level.basepath + "/players/" + self.guid + "/global_stats.csv");
             }
         }
     }

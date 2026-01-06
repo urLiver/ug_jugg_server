@@ -11,86 +11,82 @@
         
 */
 
-KILLSTREAK_STRING_TABLE = "mp/killstreakTable.csv";
-STREAKCOUNT_MAX_COUNT = 3;
-KILLSTREAK_NAME_COLUMN = 1;
-KILLSTREAK_KILLS_COLUMN = 4;
-KILLSTREAK_EARNED_HINT_COLUMN = 6;
-KILLSTREAK_SOUND_COLUMN = 7;
-KILLSTREAK_EARN_DIALOG_COLUMN = 8;
-KILLSTREAK_ENEMY_USE_DIALOG_COLUMN = 11;
-KILLSTREAK_WEAPON_COLUMN = 12;
-KILLSTREAK_ICON_COLUMN = 14;
-KILLSTREAK_OVERHEAD_ICON_COLUMN = 15;
-KILLSTREAK_DPAD_ICON_COLUMN = 16;
-
-NUM_KILLS_GIVE_ALL_PERKS = 8;
-
-KILLSTREAK_GIMME_SLOT = 0;
-KILLSTREAK_SLOT_1 = 1;
-KILLSTREAK_SLOT_2 = 2;
-KILLSTREAK_SLOT_3 = 3;
-KILLSTREAK_ALL_PERKS_SLOT = 4;
-KILLSTREAK_STACKING_START_SLOT = 5;
-
 init()
 {
-    replacefunc(maps\mp\killstreaks\_killstreaks::getKillstreakInformEnemy, ::getKillstreakInformEnemy_replace);
-    replacefunc(maps\mp\killstreaks\_killstreaks::getKillstreakSound, ::getKillstreakSound_replace);
-    replacefunc(maps\mp\killstreaks\_killstreaks::getKillstreakWeapon, ::getKillstreakWeapon_replace);
-    replacefunc(maps\mp\killstreaks\_killstreaks::getKillstreakCrateIcon, ::getKillstreakCrateIcon_replace);
-    replacefunc(maps\mp\killstreaks\_killstreaks::getKillstreakIndex, ::getKillstreakIndex_replace);
-    replacefunc(maps\mp\killstreaks\_killstreaks::givekillstreak, ::givekillstreak_replace);
-    replacefunc(maps\mp\killstreaks\_killstreaks::initKillstreakData, ::initKillstreakData_replace);
-    replacefunc(maps\mp\killstreaks\_killstreaks::usedKillstreak, ::usedKillstreak_edit);
+    replacefunc( maps\mp\killstreaks\_killstreaks::getKillstreakInformEnemy, ::on_getKillstreakInformEnemy );
+    replacefunc( maps\mp\killstreaks\_killstreaks::getKillstreakSound, ::on_getKillstreakSound );
+    replacefunc( maps\mp\killstreaks\_killstreaks::getKillstreakWeapon, ::on_getKillstreakWeapon );
+    replacefunc( maps\mp\killstreaks\_killstreaks::getKillstreakCrateIcon, ::on_getKillstreakCrateIcon );
+    replacefunc( maps\mp\killstreaks\_killstreaks::getKillstreakIndex, ::on_getKillstreakIndex );
+    replacefunc( maps\mp\killstreaks\_killstreaks::givekillstreak, ::on_givekillstreak );
+    replacefunc( maps\mp\killstreaks\_killstreaks::initKillstreakData, ::on_initKillstreakData );
+    replacefunc( maps\mp\killstreaks\_killstreaks::usedKillstreak, ::on_usedKillstreak );
 }
 
-usedKillstreak_edit(streakName, awardXp) {
-	self playLocalSound("weap_c4detpack_trigger_plr");
+on_usedKillstreak( streakName, awardXp ) 
+{
+	self playLocalSound( "weap_c4detpack_trigger_plr" );
 
-	if(awardXp) {
-		self thread [[ level.onXPEvent ]]( "killstreak_" + streakName);
-		self thread maps\mp\gametypes\_missions::useHardpoint(streakName);
+	if( awardXp )
+    {
+		self thread [ [ level.onXPEvent ] ]( "killstreak_" + streakName );
+		self thread maps\mp\gametypes\_missions::useHardpoint( streakName );
 	}
 
     self.used_streak_team = self.team;
 
-	awardref = maps\mp\_awards::getKillstreakAwardRef(streakName);
-	if(IsDefined(awardref))
-		self thread maps\mp\_utility::incPlayerStat(awardref, 1);
+	awardref = maps\mp\_awards::getKillstreakAwardRef( streakName );
+	if( IsDefined( awardref ) )
+    {
+		self thread maps\mp\_utility::incPlayerStat( awardref, 1 );
+    }
 
-	if(maps\mp\killstreaks\_killstreaks::isAssaultKillstreak(streakName))
-		self thread maps\mp\_utility::incPlayerStat("assaultkillstreaksused", 1);
-	else if(maps\mp\killstreaks\_killstreaks::isSupportKillstreak(streakName))
-		self thread maps\mp\_utility::incPlayerStat("supportkillstreaksused", 1);
-	else if(maps\mp\killstreaks\_killstreaks::isSpecialistKillstreak(streakName)) {
-		self thread maps\mp\_utility::incPlayerStat("specialistkillstreaksearned", 1);
+	if( maps\mp\killstreaks\_killstreaks::isAssaultKillstreak( streakName ) )
+    {
+		self thread maps\mp\_utility::incPlayerStat( "assaultkillstreaksused", 1 );
+    }
+	else if( maps\mp\killstreaks\_killstreaks::isSupportKillstreak( streakName ) )
+    {
+		self thread maps\mp\_utility::incPlayerStat( "supportkillstreaksused", 1 );
+    }
+	else if( maps\mp\killstreaks\_killstreaks::isSpecialistKillstreak( streakName ) )
+    {
+		self thread maps\mp\_utility::incPlayerStat( "specialistkillstreaksearned", 1 );
 		return;
 	}
 
 	team = self.team;
-	if(level.teamBased) {
+	if( level.teamBased ) 
+    {
 		thread maps\mp\_utility::leaderDialog( team + "_friendly_" + streakName + "_inbound", team );
 
-		if(maps\mp\killstreaks\_killstreaks::getKillstreakInformEnemy(streakName))
+		if( maps\mp\killstreaks\_killstreaks::getKillstreakInformEnemy( streakName ) )
+        {
 			thread maps\mp\_utility::leaderDialog( team + "_enemy_" + streakName + "_inbound", level.otherTeam[ team ] );
+        }
 	}
-	else {
+	else 
+    {
 		self thread maps\mp\_utility::leaderDialogOnPlayer( team + "_friendly_" + streakName + "_inbound" );
 
-		if(maps\mp\killstreaks\_killstreaks::getKillstreakInformEnemy(streakName)) {
-			excludeList[0] = self;
+		if( maps\mp\killstreaks\_killstreaks::getKillstreakInformEnemy( streakName) ) 
+        {
+			excludeList[ 0 ] = self;
 			thread maps\mp\_utility::leaderDialog( team + "_enemy_" + streakName + "_inbound", undefined, undefined, excludeList );
 		}
 	}
 }
 
-build_killstreak_data(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11) {
-	game["dialog"][arg_1] = arg_3;
+build_killstreak_data( arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11 ) 
+{
+	game[ "dialog" ][ arg_1 ] = arg_3;
 
-	if(isdefined(arg_2)) {
-		if(arg_2 == "Loc_String")
+	if( isdefined( arg_2 ) ) 
+    {
+		if( arg_2 == "Loc_String" )
+        {
 			arg_2 = tablelookupistring( "mp/killstreakTable.csv", 1, arg_1, 6 );
+        }
 
 		precachestring( arg_2 );
 	}
@@ -99,42 +95,62 @@ build_killstreak_data(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, ar
 	game["dialog"]["allies_enemy_" + arg_1 + "_inbound"] = "enemy_" + arg_4;
 	game["dialog"]["axis_friendly_" + arg_1 + "_inbound"] = "use_" + arg_5;
 	game["dialog"]["axis_enemy_" + arg_1 + "_inbound"] = "enemy_" + arg_5;
+
 	precacheitem( arg_6 );
+
 	maps\mp\gametypes\_rank::registerscoreinfo( "killstreak_" + arg_1, arg_7 );
+
 	precacheshader( arg_8 );
 
 	arg_8 = tablelookup( "mp/killstreakTable.csv", 1, arg_1, 14 );
 
-	if(isdefined(arg_9))
+	if( isdefined( arg_9 ) )
+    {
 		precacheshader( arg_9 );
-	if(isdefined(arg_10))
+    }
+
+	if( isdefined( arg_10 ) )
+    {
 		precacheshader( arg_10 );
-	if(isdefined(arg_11))
+    }
+
+	if( isdefined( arg_11 ) )
+    {
 		precacheshader( arg_11 );
+    }
 }
 
-getKillstreakInformEnemy_replace( streakName )
+on_getKillstreakInformEnemy( streakName )
 {
-	if(streakName == "harrier_airstrike")
+	if( streakName == "harrier_airstrike" )
+    {
 		return 1;
-	return int( tableLookup( KILLSTREAK_STRING_TABLE, KILLSTREAK_NAME_COLUMN, streakName, KILLSTREAK_ENEMY_USE_DIALOG_COLUMN ) );
+    }
+
+	return int( tableLookup( "mp/killstreakTable.csv", 1, streakName, 11 ) );
 }
 
-getKillstreakSound_replace( streakName )
+on_getKillstreakSound( streakName )
 {
-	if(streakName == "harrier_airstrike")
+	if( streakName == "harrier_airstrike" )
+    {
 		return "mp_killstreak_jet";
-	return tableLookup( KILLSTREAK_STRING_TABLE, KILLSTREAK_NAME_COLUMN, streakName, KILLSTREAK_SOUND_COLUMN );
+    }
+
+	return tableLookup( "mp/killstreakTable.csv", 1, streakName, 7 );
 }
 
-getKillstreakWeapon_replace( streakName )
+on_getKillstreakWeapon( streakName )
 {
-	if(streakName == "harrier_airstrike")
+	if( streakName == "harrier_airstrike" )
+    {
 		return "killstreak_precision_airstrike_mp";
-	return tableLookup( KILLSTREAK_STRING_TABLE, KILLSTREAK_NAME_COLUMN, streakName, KILLSTREAK_WEAPON_COLUMN );
+    }
+
+	return tableLookup( "mp/killstreakTable.csv", 1, streakName, 12 );
 }
 
-getKillstreakCrateIcon_replace( streakName )
+on_getKillstreakCrateIcon( streakName )
 {
     if( streakName == "nuke" )
     {
@@ -146,51 +162,62 @@ getKillstreakCrateIcon_replace( streakName )
 		return "death_harrier";
     }
     
-	return tableLookup( KILLSTREAK_STRING_TABLE, KILLSTREAK_NAME_COLUMN, streakName, KILLSTREAK_OVERHEAD_ICON_COLUMN );
+	return tableLookup( "mp/killstreakTable.csv", 1, streakName, 15 );
 }
 
-getKillstreakIndex_replace( streakName )
+on_getKillstreakIndex( streakName )
 {
-	if(streakName == "harrier_airstrike")
+	if( streakName == "harrier_airstrike" )
+    {
 		return 7;
-	return tableLookupRowNum( KILLSTREAK_STRING_TABLE, KILLSTREAK_NAME_COLUMN, streakName )-1;
+    }
+
+	return tableLookupRowNum( "mp/killstreakTable.csv", 1, streakName ) - 1;
 }
 
-givekillstreak_replace( var_0, var_1, var_2, var_3, var_4 )
+on_givekillstreak( var_0, var_1, var_2, var_3, var_4 )
 {
     self endon( "givingLoadout" );
 
-    if ( !isdefined( level.killstreakfuncs[var_0] ))
+    if ( ! isdefined( level.killstreakfuncs[ var_0 ] ) )
+    {
         return;
+    }
 
-    if ( !isdefined( self.pers["killstreaks"] ) )
+    if ( ! isdefined( self.pers[ "killstreaks" ] ) )
+    {
         return;
+    }
 
     self endon( "disconnect" );
 
-    if ( !isdefined( var_4 ) )
+    if ( ! isdefined( var_4 ) )
+    {
         var_4 = 0;
+    }
 
     var_5 = undefined;
 
-    if ( !isdefined( var_1 ) || var_1 == 0 )
+    if ( ! isdefined( var_1 ) || var_1 == 0 )
     {
-        var_6 = self.pers["killstreaks"].size;
+        var_6 = self.pers[ "killstreaks" ].size;
 
-        if ( !isdefined( self.pers["killstreaks"][var_6] ) )
-            self.pers["killstreaks"][var_6] = spawnstruct();
+        if ( ! isdefined( self.pers[ "killstreaks" ][ var_6 ] ) )
+        {
+            self.pers[ "killstreaks" ][ var_6 ] = spawnstruct();
+        }
 
-        self.pers["killstreaks"][var_6].available = 0;
-        self.pers["killstreaks"][var_6].streakname = var_0;
-        self.pers["killstreaks"][var_6].earned = 0;
-        self.pers["killstreaks"][var_6].awardxp = isdefined( var_2 ) && var_2;
-        self.pers["killstreaks"][var_6].owner = var_3;
-        self.pers["killstreaks"][var_6].kid = self.pers["kID"];
-        self.pers["killstreaks"][var_6].lifeid = -1;
-        self.pers["killstreaks"][var_6].isgimme = 1;
-        self.pers["killstreaks"][var_6].isspecialist = 0;
-        self.pers["killstreaks"][0].nextslot = var_6;
-        self.pers["killstreaks"][0].streakname = var_0;
+        self.pers[ "killstreaks" ][ var_6 ].available = 0;
+        self.pers[ "killstreaks" ][ var_6 ].streakname = var_0;
+        self.pers[ "killstreaks" ][ var_6 ].earned = 0;
+        self.pers[ "killstreaks" ][ var_6 ].awardxp = isdefined( var_2 ) && var_2;
+        self.pers[ "killstreaks" ][ var_6 ].owner = var_3;
+        self.pers[ "killstreaks" ][ var_6 ].kid = self.pers[ "kID" ];
+        self.pers[ "killstreaks" ][ var_6 ].lifeid = -1;
+        self.pers[ "killstreaks" ][ var_6 ].isgimme = 1;
+        self.pers[ "killstreaks" ][ var_6 ].isspecialist = 0;
+        self.pers[ "killstreaks" ][ 0 ].nextslot = var_6;
+        self.pers[ "killstreaks" ][ 0 ].streakname = var_0;
         var_5 = 0;
         var_7 = maps\mp\killstreaks\_killstreaks::getkillstreakindex( var_0 );
         self setplayerdata( "killstreaksState", "icons", 0, var_7 );
@@ -202,35 +229,43 @@ givekillstreak_replace( var_0, var_1, var_2, var_3, var_4 )
     {
         for ( var_8 = 1; var_8 < 4; var_8++ )
         {
-            if ( isdefined( self.pers["killstreaks"][var_8] ) && isdefined( self.pers["killstreaks"][var_8].streakname ) && var_0 == self.pers["killstreaks"][var_8].streakname )
+            if ( isdefined( self.pers[ "killstreaks" ][ var_8 ] ) && isdefined( self.pers[ "killstreaks" ][ var_8 ].streakname ) && var_0 == self.pers[ "killstreaks" ][ var_8 ].streakname )
             {
                 var_5 = var_8;
                 break;
             }
         }
 
-        if ( !isdefined( var_5 ) )
+        if ( ! isdefined( var_5 ) )
+        {
             return;
+        }
     }
 
-    self.pers["killstreaks"][var_5].available = 1;
-    self.pers["killstreaks"][var_5].earned = isdefined( var_1 ) && var_1;
-    self.pers["killstreaks"][var_5].awardxp = isdefined( var_2 ) && var_2;
-    self.pers["killstreaks"][var_5].owner = var_3;
-    self.pers["killstreaks"][var_5].kid = self.pers["kID"];
+    self.pers[ "killstreaks" ][ var_5 ].available = 1;
+    self.pers[ "killstreaks" ][ var_5 ].earned = isdefined( var_1 ) && var_1;
+    self.pers[ "killstreaks" ][ var_5 ].awardxp = isdefined( var_2 ) && var_2;
+    self.pers[ "killstreaks" ][ var_5 ].owner = var_3;
+    self.pers[ "killstreaks" ][ var_5 ].kid = self.pers[ "kID" ];
     self.pers["kID"]++;
 
-    if ( !self.pers["killstreaks"][var_5].earned )
-        self.pers["killstreaks"][var_5].lifeid = -1;
+    if ( !self.pers[ "killstreaks" ][ var_5 ].earned )
+    {
+        self.pers[ "killstreaks" ][ var_5 ].lifeid = -1;
+    }
     else
-        self.pers["killstreaks"][var_5].lifeid = self.pers["deaths"];
+    {
+        self.pers[ "killstreaks" ][ var_5 ].lifeid = self.pers[ "deaths" ];
+    }
 
     if ( self.streaktype == "specialist" && var_5 != 0 )
     {
-        self.pers["killstreaks"][var_5].isspecialist = 1;
+        self.pers[ "killstreaks" ][ var_5 ].isspecialist = 1;
 
-        if ( isdefined( level.killstreakfuncs[var_0] ) )
-            self [[ level.killstreakfuncs[var_0] ]]();
+        if ( isdefined( level.killstreakfuncs[ var_0 ] ) )
+        {
+            self [ [ level.killstreakfuncs[ var_0 ] ] ]();
+        }
 
         maps\mp\killstreaks\_killstreaks::usedkillstreak( var_0, var_2 );
     }
@@ -241,21 +276,25 @@ givekillstreak_replace( var_0, var_1, var_2, var_3, var_4 )
 
         if ( isdefined( self.killstreakindexweapon ) )
         {
-            var_0 = self.pers["killstreaks"][self.killstreakindexweapon].streakname;
+            var_0 = self.pers[ "killstreaks" ][self.killstreakindexweapon].streakname;
             var_10 = maps\mp\killstreaks\_killstreaks::getkillstreakweapon( var_0 );
 
             if ( !maps\mp\killstreaks\_killstreaks::iscurrentlyholdingkillstreakweapon( var_10 ) )
+            {
                 self.killstreakindexweapon = var_5;
+            }
         }
         else
+        {
             self.killstreakindexweapon = var_5;
+        }
     }
     else
     {
-        if ( 0 == var_5 && self.pers["killstreaks"][0].nextslot > 5 )
+        if ( 0 == var_5 && self.pers[ "killstreaks" ][ 0 ].nextslot > 5 )
         {
-            var_11 = self.pers["killstreaks"][0].nextslot - 1;
-            var_12 = maps\mp\killstreaks\_killstreaks::getkillstreakweapon( self.pers["killstreaks"][var_11].streakname );
+            var_11 = self.pers[ "killstreaks" ][ 0 ].nextslot - 1;
+            var_12 = maps\mp\killstreaks\_killstreaks::getkillstreakweapon( self.pers[ "killstreaks" ][ var_11 ].streakname );
             self takeweapon( var_12 );
         }
 
@@ -266,14 +305,18 @@ givekillstreak_replace( var_0, var_1, var_2, var_3, var_4 )
 
     maps\mp\killstreaks\_killstreaks::updatestreakslots();
 
-    if ( isdefined( level.killstreaksetupfuncs[var_0] ) )
-        self [[ level.killstreaksetupfuncs[var_0] ]]();
+    if ( isdefined( level.killstreaksetupfuncs[ var_0 ] ) )
+    {
+        self [ [ level.killstreaksetupfuncs[ var_0 ] ] ]();
+    }
 
     if ( isdefined( var_1 ) && var_1 && isdefined( var_2 ) && var_2 )
+    {
         self notify( "received_earned_killstreak" );
+    }
 }
 
-initKillstreakData_replace()
+on_initKillstreakData()
 {
 	game[ "dialog" ][ "harrier_airstrike" ] = "mp_killstreak_jet";
 
@@ -282,9 +325,9 @@ initKillstreakData_replace()
 	game[ "dialog" ][ "axis_friendly_harrier_airstrike_inbound" ] = "use_achieve_airstrike";
 	game[ "dialog" ][ "axis_enemy_harrier_airstrike_inbound" ] = "enemy_achieve_airstrike";
 
-	precacheshader("death_harrier");
-	precacheheadicon("waypoint_ammo_friendly");
-	precacheheadicon("dpad_killstreak_airdrop_trap");
+	precacheshader( "death_harrier" );
+	precacheheadicon( "waypoint_ammo_friendly" );
+	precacheheadicon( "dpad_killstreak_airdrop_trap" );
 
 	build_killstreak_data( "harrier_airstrike" , undefined , "achieve_airstrike" , "airstrike" , "airstrike" , "killstreak_precision_airstrike_mp" , 200 , "death_harrier" , "death_harrier" , "death_harrier" , "death_harrier" );
 	build_killstreak_data( "uav" , "Loc_String" , "achieve_uav" , "uav" , "uav" , "killstreak_uav_mp" , 100 , "dpad_killstreak_uav_static" , "specialty_uav_crate" , "dpad_killstreak_uav" , "dpad_killstreak_uav" );

@@ -16,21 +16,21 @@
 init()
 {
     level.droneguardsettings = [];
-    level.droneguardsettings["recondrone_support"] = spawnstruct();
-    level.droneguardsettings["recondrone_support"].timeout = 45.0;
-    level.droneguardsettings["recondrone_support"].health = 999999;
-    level.droneguardsettings["recondrone_support"].maxhealth = 250;
-    level.droneguardsettings["recondrone_support"].vehicletype = "remote_uav_mp";
-    level.droneguardsettings["recondrone_support"].weaponinfo = "ugv_turret_mp";
-    level.droneguardsettings["recondrone_support"].weaponmodel = "vehicle_ugv_talon_gun_mp";
-    level.droneguardsettings["recondrone_support"].weapontag = "tag_origin";
-    level.droneguardsettings["recondrone_support"].sentrymode = "auto_nonai";
-    level.droneguardsettings["recondrone_support"].modelbase = "vehicle_remote_uav";
+    level.droneguardsettings[ "recondrone_support" ] = spawnstruct();
+    level.droneguardsettings[ "recondrone_support" ].timeout = 45.0;
+    level.droneguardsettings[ "recondrone_support" ].health = 999999;
+    level.droneguardsettings[ "recondrone_support" ].maxhealth = 250;
+    level.droneguardsettings[ "recondrone_support" ].vehicletype = "remote_uav_mp";
+    level.droneguardsettings[ "recondrone_support" ].weaponinfo = "ugv_turret_mp";
+    level.droneguardsettings[ "recondrone_support" ].weaponmodel = "vehicle_ugv_talon_gun_mp";
+    level.droneguardsettings[ "recondrone_support" ].weapontag = "tag_origin";
+    level.droneguardsettings[ "recondrone_support" ].sentrymode = "auto_nonai";
+    level.droneguardsettings[ "recondrone_support" ].modelbase = "vehicle_remote_uav";
 
-    replacefunc( maps\mp\killstreaks\_remoteuav::tryuseremoteuav, ::tryuselbsupport );
+    replacefunc( maps\mp\killstreaks\_remoteuav::tryuseremoteuav, ::on_tryuseremoteuav );
 }
 
-tryuselbsupport( var_0 )
+on_tryuseremoteuav( var_0 )
 {
     if ( isdefined( level.civilianjetflyby ) )
     {
@@ -38,13 +38,15 @@ tryuselbsupport( var_0 )
         return 0;
     }
     else if ( maps\mp\_utility::isusingremote() )
+    {
         return 0;
+    }
     else if ( isdefined( level.recondroneguard ) || maps\mp\killstreaks\_helicopter::exceededmaxlittlebirds( "recondrone_support" ) )
     {
         self iprintlnbold( &"MP_AIR_SPACE_TOO_CROWDED" );
         return 0;
     }
-    else if ( !level.air_node_mesh.size )
+    else if ( ! level.air_node_mesh.size )
     {
         self iprintlnbold( &"MP_UNAVAILABLE_IN_LEVEL" );
         return 0;
@@ -58,7 +60,7 @@ tryuselbsupport( var_0 )
     maps\mp\_utility::incrementfauxvehiclecount();
 
     var_3 = createlbguard( "recondrone_support" );
-    if ( !isdefined( var_3 ) )
+    if ( ! isdefined( var_3 ) )
     {
         maps\mp\_utility::decrementfauxvehiclecount();
         return 0;
@@ -72,11 +74,12 @@ tryuselbsupport( var_0 )
 createlbguard( var_0 )
 {
     var_1 = lbsupport_getcloseststartnode( self.origin );
+    var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_1.angles ) )
+    {
         var_2 = var_1.angles;
-    else
-        var_2 = ( 0.0, 0.0, 0.0 );
+    }
 
     var_3 = maps\mp\killstreaks\_airdrop::getflyheightoffset( self.origin );
     var_4 = lbsupport_getclosestnode( self.origin );
@@ -86,8 +89,10 @@ createlbguard( var_0 )
     var_7 = var_1.origin;
     var_8 = spawnhelicopter( self, var_7, var_2, level.droneguardsettings[var_0].vehicletype, level.droneguardsettings[var_0].modelbase );
 
-    if ( !isdefined( var_8 ) )
+    if ( ! isdefined( var_8 ) )
+    {
         return;
+    }
 
     var_8 maps\mp\killstreaks\_helicopter::addtolittlebirdlist();
     var_8 thread maps\mp\killstreaks\_helicopter::removefromlittlebirdlistondeath();
@@ -149,13 +154,20 @@ startlbsupport( var_0 )
 {
     level endon( "game_ended" );
     var_0 endon( "death" );
+
     var_0 setlookatent( self );
     var_0 setvehgoalpos( var_0.targetpos );
+
     var_0 waittill( "near_goal" );
+
     var_0 vehicle_setspeed( var_0.speed, 60, 30 );
+
     var_0 waittill( "goal" );
+
     var_0 setvehgoalpos( var_0.currentnode.origin, 1 );
+
     var_0 waittill( "goal" );
+
     var_0 thread lbsupport_followplayer();
     var_0 thread maps\mp\killstreaks\_helicopter::handleincomingsam( ::lbsupport_watchsamproximity );
     var_0 thread maps\mp\killstreaks\_helicopter::handleincomingstinger( ::lbsupport_watchstingerproximity );
@@ -167,7 +179,7 @@ lbsupport_followplayer()
     self endon( "death" );
     self endon( "leaving" );
 
-    if ( !isdefined( self.owner ) )
+    if ( ! isdefined( self.owner ) )
     {
         thread lbsupport_leave();
         return;
@@ -207,11 +219,15 @@ lbsupport_movetoplayer()
     self.owner endon( "joined_spectators" );
     self notify( "lbSupport_moveToPlayer" );
     self endon( "lbSupport_moveToPlayer" );
+    
     self.intransit = 1;
     
     self setvehgoalpos( self.currentnode.origin, 1 );
+    
     self waittill( "goal" );
+    
     self.intransit = 0;
+    
     self notify( "hit_goal" );
 }
 
@@ -226,10 +242,13 @@ lbsupport_watchdeath()
 
     level.recondroneguard = undefined;
 
-    if ( !isdefined( self ) )
+    if ( ! isdefined( self ) )
+    {
         return;
+    }
 
     self notify( "explode" );
+
     removelittlebird();
 }
 
@@ -240,8 +259,11 @@ lbsupport_watchtimeout()
     self.owner endon( "disconnect" );
     self.owner endon( "joined_team" );
     self.owner endon( "joined_spectators" );
+
     var_0 = level.droneguardsettings[self.heliguardtype].timeout;
+
     maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( var_0 );
+
     thread lbsupport_leave();
 }
 
@@ -250,7 +272,9 @@ lbsupport_watchownerloss()
     level endon( "game_ended" );
     self endon( "death" );
     self endon( "leaving" );
+
     self.owner common_scripts\utility::waittill_any( "disconnect", "joined_team", "joined_spectators" );
+
     thread lbsupport_leave();
 }
 
@@ -286,7 +310,9 @@ lbsupport_watchroundend()
     self.owner endon( "disconnect" );
     self.owner endon( "joined_team" );
     self.owner endon( "joined_spectators" );
+
     level waittill( "round_end_finished" );
+
     thread lbsupport_leave();
 }
 
@@ -294,14 +320,20 @@ lbsupport_leave()
 {
     self endon( "death" );
     self notify( "leaving" );
+
     level.recondroneguard = undefined;
+
     self clearlookatent();
+
     var_0 = maps\mp\killstreaks\_airdrop::getflyheightoffset( self.origin );
     var_1 = self.origin + ( 0, 0, var_0 );
+
     self vehicle_setspeed( self.speed, 60 );
     self setmaxpitchroll( 45, 180 );
     self setvehgoalpos( var_1 );
+
     self waittill( "goal" );
+
     var_1 += anglestoforward( self.angles ) * 15000;
     var_2 = spawn( "script_origin", var_1 );
 
@@ -312,8 +344,11 @@ lbsupport_leave()
     }
 
     self setvehgoalpos( var_1 );
+
     self waittill( "goal" );
+
     self notify( "gone" );
+
     removelittlebird();
 }
 
@@ -321,7 +356,9 @@ wait_and_delete( var_0 )
 {
     self endon( "death" );
     level endon( "game_ended" );
+
     wait(var_0);
+
     self delete();
 }
 
@@ -335,14 +372,20 @@ lbsupport_handledamage()
     {
         self waittill( "damage", var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
 
-        if ( !maps\mp\gametypes\_weapons::friendlyfirecheck( self.owner, var_1 ) )
+        if ( ! maps\mp\gametypes\_weapons::friendlyfirecheck( self.owner, var_1 ) )
+        {
             continue;
+        }
 
-        if ( !isdefined( self ) )
+        if ( ! isdefined( self ) )
+        {
             return;
+        }
 
         if ( isdefined( var_8 ) && var_8 & level.idflags_penetration )
+        {
             self.wasdamagedfrombulletpenetration = 1;
+        }
 
         self.wasdamaged = 1;
         var_10 = var_0;
@@ -360,12 +403,16 @@ lbsupport_handledamage()
             if ( var_4 == "MOD_RIFLE_BULLET" || var_4 == "MOD_PISTOL_BULLET" )
             {
                 if ( var_1 maps\mp\_utility::_hasperk( "specialty_armorpiercing" ) )
+                {
                     var_10 += var_0 * level.armorpiercingmod;
+                }
             }
         }
 
         if ( isdefined( var_1.owner ) && isplayer( var_1.owner ) )
+        {
             var_1.owner maps\mp\gametypes\_damagefeedback::updatedamagefeedback( "helicopter" );
+        }
 
         if ( isdefined( var_9 ) )
         {
@@ -392,7 +439,7 @@ lbsupport_handledamage()
 
         if ( self.damagetaken >= self.maxhealth )
         {
-            if ( isplayer( var_1 ) && ( !isdefined( self.owner ) || var_1 != self.owner ) )
+            if ( isplayer( var_1 ) && ( ! isdefined( self.owner ) || var_1 != self.owner ) )
             {
                 var_1 notify( "destroyed_helicopter" );
                 var_1 notify( "destroyed_killstreak", var_9 );
@@ -403,6 +450,7 @@ lbsupport_handledamage()
             }
 
             self notify( "death" );
+
             return;
         }
     }
@@ -415,12 +463,15 @@ removelittlebird()
     if ( isdefined( self.mgturret ) )
     {
         if ( isdefined( self.mgturret.killcament ) )
+        {
             self.mgturret.killcament delete();
+        }
 
         self.mgturret delete();
     }
 
     maps\mp\_utility::decrementfauxvehiclecount();
+
     self delete();
 }
 
@@ -502,12 +553,16 @@ lbsupport_getclosestlinkednode( var_0 )
 lbsupport_arraycontains( var_0, var_1 )
 {
     if ( var_0.size <= 0 )
+    {
         return 0;
+    }
 
     foreach ( var_3 in var_0 )
     {
         if ( var_3 == var_1 )
+        {
             return 1;
+        }
     }
 
     return 0;
@@ -526,7 +581,9 @@ lbsupport_getlinkedstructs()
             var_3 = common_scripts\utility::getstruct( var_1[var_2], "script_linkname" );
 
             if ( isdefined( var_3 ) )
-                var_0[var_0.size] = var_3;
+            {
+                var_0[ var_0.size ] = var_3;
+            }
         }
     }
 
@@ -540,25 +597,27 @@ lbsupport_tu0_new_incoming_position( var_0 )
         case "mp_interchange":
             var_1 = [];
             var_2 = [];
-            var_1[var_2.size][0] = ( 1340.9, 1299.3, 360.0 );
-            var_1[var_2.size][1] = ( 2220.9, 115.3, 408.0 );
-            var_2[var_2.size] = ( 1884.9, 787.3, 312.0 );
-            var_1[var_2.size][0] = ( -755.1, -588.7, 728.0 );
-            var_1[var_2.size][1] = ( -2563.1, -1580.7, 1192.0 );
-            var_2[var_2.size] = ( -1363.1, -1164.7, 472.0 );
-            var_1[var_2.size][0] = ( -35.1, -2492.7, 488.0 );
-            var_1[var_2.size][1] = ( 396.9, -1884.7, 696.0 );
-            var_2[var_2.size] = ( -755.1, -1788.7, 460.0 );
+            var_1[ var_2.size ][ 0 ] = ( 1340.9, 1299.3, 360.0 );
+            var_1[ var_2.size ][ 1 ] = ( 2220.9, 115.3, 408.0 );
+            var_2[ var_2.size ] = ( 1884.9, 787.3, 312.0 );
+            var_1[ var_2.size ][ 0 ] = ( -755.1, -588.7, 728.0 );
+            var_1[ var_2.size ][ 1 ] = ( -2563.1, -1580.7, 1192.0 );
+            var_2[ var_2.size ] = ( -1363.1, -1164.7, 472.0 );
+            var_1[ var_2.size ][ 0 ] = ( -35.1, -2492.7, 488.0 );
+            var_1[ var_2.size ][ 1 ] = ( 396.9, -1884.7, 696.0 );
+            var_2[ var_2.size ] = ( -755.1, -1788.7, 460.0 );
             var_3 = randomintrange( 0, 100 ) > 50;
 
             for ( var_4 = 0; var_4 < var_2.size; var_4++ )
             {
-                if ( int( var_0.origin[0] ) == int( var_2[var_4][0] ) && int( var_0.origin[1] ) == int( var_2[var_4][1] ) && int( var_0.origin[2] ) == int( var_2[var_4][2] ) )
+                if ( int( var_0.origin[ 0 ] ) == int( var_2[var_4][ 0 ] ) && int( var_0.origin[ 1 ] ) == int( var_2[var_4][ 1 ] ) && int( var_0.origin[ 2 ] ) == int( var_2[var_4][ 2 ] ) )
                 {
                     for ( var_5 = 0; var_5 < level.air_node_mesh.size; var_5++ )
                     {
-                        if ( int( level.air_node_mesh[var_5].origin[0] ) == int( var_1[var_4][var_3][0] ) && int( level.air_node_mesh[var_5].origin[1] ) == int( var_1[var_4][var_3][1] ) && int( level.air_node_mesh[var_5].origin[2] ) == int( var_1[var_4][var_3][2] ) )
+                        if ( int( level.air_node_mesh[var_5].origin[ 0 ] ) == int( var_1[var_4][var_3][ 0 ] ) && int( level.air_node_mesh[var_5].origin[ 1 ] ) == int( var_1[var_4][var_3][ 1 ] ) && int( level.air_node_mesh[var_5].origin[ 2 ] ) == int( var_1[var_4][var_3][ 2 ] ) )
+                        {
                             return level.air_node_mesh[var_5];
+                        }
                     }
                 }
             }
@@ -596,6 +655,7 @@ lbsupport_burstfirestart()
     self.vehicle endon( "leaving" );
     self endon( "stop_shooting" );
     level endon( "game_ended" );
+
     var_0 = 0.1;
     var_1 = 40;
     var_2 = 80;
@@ -610,13 +670,13 @@ lbsupport_burstfirestart()
         {
             var_7 = self getturrettarget( 0 );
 
-            if ( isdefined( var_7 ) && ( !isdefined( var_7.spawntime ) || ( gettime() - var_7.spawntime ) / 1000 > 5 ) && ( isdefined( var_7.team ) && var_7.team != "spectator" ) && maps\mp\_utility::isreallyalive( var_7 ) )
+            if ( isdefined( var_7 ) && ( ! isdefined( var_7.spawntime ) || ( gettime() - var_7.spawntime ) / 1000 > 5 ) && ( isdefined( var_7.team ) && var_7.team != "spectator" ) && maps\mp\_utility::isreallyalive( var_7 ) )
             {
                 self.vehicle setlookatent( var_7 );
                 self shootturret();
             }
 
-            wait(var_0);
+            wait( var_0 );
         }
 
         wait(randomfloatrange( var_3, var_4 ));
@@ -628,5 +688,7 @@ lbsupport_burstfirestop()
     self notify( "stop_shooting" );
 
     if ( isdefined( self.vehicle.owner ) )
+    {
         self.vehicle setlookatent( self.vehicle.owner );
+    }
 }

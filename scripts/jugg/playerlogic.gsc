@@ -547,6 +547,14 @@ track_chicken_damage()
     }
 }
 
+do_money_death()
+{
+    level endon( "game_ended" );
+
+    fx = SpawnFX( level.money, self.origin );
+    TriggerFX( fx );
+}
+
 track_insertions() 
 {
     self endon("disconnect");

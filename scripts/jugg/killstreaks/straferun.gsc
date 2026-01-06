@@ -19,8 +19,10 @@ init()
 
 on_tryuselbflock( var_0, var_1 )
 {
-    if ( !maps\mp\_utility::validateusestreak() )
+    if ( ! maps\mp\_utility::validateusestreak() )
+    {
         return 0;
+    }
 
     var_2 = 5;
 
@@ -33,9 +35,10 @@ on_tryuselbflock( var_0, var_1 )
     maps\mp\_utility::incrementfauxvehiclecount();
     maps\mp\_utility::incrementfauxvehiclecount();
     maps\mp\_utility::incrementfauxvehiclecount();
+
     var_3 = maps\mp\killstreaks\_helicopter_flock::selectlbstrikelocation( var_0, "littlebird_flock" );
 
-    if ( !isdefined( var_3 ) || !var_3 )
+    if ( ! isdefined( var_3 ) || ! var_3 )
     {
         maps\mp\_utility::decrementfauxvehiclecount();
         maps\mp\_utility::decrementfauxvehiclecount();
@@ -51,12 +54,17 @@ on_callstrike( var_0, var_1, var_2 )
 {
     level endon( "game_ended" );
     self endon( "disconnect" );
+    
     var_3 = maps\mp\killstreaks\_helicopter_flock::getflightpath( var_1, var_2, 0 );
     var_4 = maps\mp\killstreaks\_helicopter_flock::getflightpath( var_1, var_2, -520 );
     var_5 = maps\mp\killstreaks\_helicopter_flock::getflightpath( var_1, var_2, 520 );
+
     level thread maps\mp\killstreaks\_helicopter_flock::dolbstrike( var_0, self, var_3, 0 );
+
     wait 0.3;
+
     level thread maps\mp\killstreaks\_helicopter_flock::dolbstrike( var_0, self, var_4, 1 );
     level thread maps\mp\killstreaks\_helicopter_flock::dolbstrike( var_0, self, var_5, 2 );
+    
     maps\mp\_matchdata::logkillstreakevent( "littlebird_flock", var_1 );
 }

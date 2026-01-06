@@ -20,7 +20,8 @@ ui_nuke()
 {
     level endon( "nuke_cancelled" );
 
-	if( isdefined( level.nuke_timer_ui ) ) {
+	if( isdefined( level.nuke_timer_ui ) ) 
+    {
 		level.nuke_timer_ui destroy();
 	}
 
@@ -28,20 +29,16 @@ ui_nuke()
     level.nuke_timer_ui maps\mp\gametypes\_hud_util::setpoint( "CENTER", "TOP", 0, 60 );
     level.nuke_timer_ui.label = &"Impact in: ^1";
     level.nuke_timer_ui settimer( 10 );
-    level.nuke_timer_ui.alpha = 0;
-    level.nuke_timer_ui fadeovertime( 1.0 );
-    level.nuke_timer_ui.alpha = 1;
     level.nuke_timer_ui.archived = 1;
     level.nuke_timer_ui.hidewheninmenu = 1;
+    level.nuke_timer_ui scripts\core\ui_func::fade_in( 1.0 );
 }
 
 ui_nuke_hide()
 {
     if( isdefined( level.nuke_timer_ui ) )
     {
-        level.nuke_timer_ui.alpha = 1;
-        level.nuke_timer_ui fadeovertime( 1.0 );
-        level.nuke_timer_ui.alpha = 0;
+        level.nuke_timer_ui scripts\core\ui_func::fade_out( 1.0 );
     }
 }
 
@@ -202,37 +199,6 @@ update_ad( text )
 	}
 }
 
-delete_huds_on_gameend() 
-{
-    self endon( "kill_hudandxp" );
-	
-    level waittill("game_ended");
-
-	wait 0.05;
-
-	if( isdefined( self.hud_elements ) )
-    {
-		foreach( hud in self.hud_elements )
-        {
-			hud destroy();
-		}
-		
-        self.hud_elements = undefined;
-	}
-
-	if( isdefined( self.cz_elements ) )
-    {
-		foreach( hud in self.cz_elements )
-        {
-			hud destroy();
-		}
-		
-        self.cz_elements = undefined;
-	}
-
-	self notify("hud_new_input");
-}
-
 ui_hud() 
 {
 	self endon( "disconnect" );
@@ -280,7 +246,7 @@ ui_hud()
         self.hud_elements[ "killsstreak_ui" ] scripts\core\ui_func::fade_in( 1.0 );
 	}
 
-	self thread delete_huds_on_gameend();
+	self thread ui_delete();
 	
 	current_Ad = 0;
 	current_Ad_Time = 0;
@@ -668,4 +634,35 @@ destroyequipmenthudondeath()
     {
         self.equipmenthudnum destroy();
     }
+}
+
+ui_delete() 
+{
+    self endon( "kill_hudandxp" );
+	
+    level waittill( "game_ended" );
+
+	wait 0.05;
+
+	if( isdefined( self.hud_elements ) )
+    {
+		foreach( hud in self.hud_elements )
+        {
+			hud destroy();
+		}
+		
+        self.hud_elements = undefined;
+	}
+
+	if( isdefined( self.cz_elements ) )
+    {
+		foreach( hud in self.cz_elements )
+        {
+			hud destroy();
+		}
+		
+        self.cz_elements = undefined;
+	}
+
+	self notify("hud_new_input");
 }

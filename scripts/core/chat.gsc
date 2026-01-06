@@ -14,7 +14,7 @@
 
 init() 
 {
-    onPlayerSay( ::chat_handler );
+    onPlayerSay( ::on_onPlayerSay );
 
     /*
 
@@ -81,7 +81,7 @@ add_user( guid, name_color, name_replace, tag, background_color, anti_cheat )
     level.users[ guid ][ "anti_cheat" ] = anti_cheat;
 }
 
-chat_handler( message, mode ) 
+on_onPlayerSay( message, mode ) 
 {
     if( isdefined( message ) && message != "" && message != " " ) 
     {
@@ -97,41 +97,14 @@ chat_handler( message, mode )
         {
             self.votekick_voted = 1;
             level.votekickers++;
-            self tell_raw("^8^7[ ^8Information^7 ] You voted for ^2yes" );
+            self tell_raw( "^8^7[ ^8Information^7 ] You voted for ^2yes" );
             return false;
         }
 
         if( message == "!n" && isdefined( level.votekick_inbound ) && ! isdefined( self.votekick_voted ) )
         {
             self.votekick_voted = 1;
-            self tell_raw("^8^7[ ^8Information^7 ] You voted for ^1no" );
-            return false;
-        }
-
-        if( args[ 0 ] == "!votekick" && ! isdefined( level.votekick_inbound ) )
-        {
-            if( isdefined( args[ 1 ] ) )
-            {
-                target = playerexits( args[ 1 ] );
-                if( ! isdefined( target ) )
-                {
-                    self tell_raw("^8^7[ ^8Information^7 ] No ^8matching ^7Player found in active Sesssion!" );
-                }
-                else
-                {
-                    self.votekick_voted = 1;
-                    level.votekickers = 1;
-                    level.votekick_inbound = 1;
-                    say_raw( "^8^7[ ^8Information^7 ] ^2" + self.name + " ^7wants to vote kick ^1" + target.name + " ^7( ^8!y ^7/ ^8!n ^7)" );
-                    target thread votekick_check();
-                    level thread votekick( target );
-                }
-            }
-            else
-            {
-                self tell_raw("^8^7[ ^8Information^7 ] No ^8matching ^7Player found in active Sesssion!" );
-            }
-
+            self tell_raw( "^8^7[ ^8Information^7 ] You voted for ^1no" );
             return false;
         }
 
@@ -165,6 +138,33 @@ chat_handler( message, mode )
         {
             if( message[ 0 ] != "/" ) 
             {
+                if( args[ 0 ] == "!votekick" && ! isdefined( level.votekick_inbound ) )
+                {
+                    if( isdefined( args[ 1 ] ) )
+                    {
+                        target = playerexits( args[ 1 ] );
+                        if( ! isdefined( target ) )
+                        {
+                            self tell_raw("^8^7[ ^8Information^7 ] No ^8matching ^7Player found in active Sesssion!" );
+                        }
+                        else
+                        {
+                            self.votekick_voted = 1;
+                            level.votekickers = 1;
+                            level.votekick_inbound = 1;
+                            say_raw( "^8^7[ ^8Information^7 ] ^2" + self.name + " ^7wants to vote kick ^1" + target.name + " ^7( ^8!y ^7/ ^8!n ^7)" );
+                            target thread votekick_check();
+                            level thread votekick( target );
+                        }
+                    }
+                    else
+                    {
+                        self tell_raw( "^8^7[ ^8Information^7 ] No ^8matching ^7Player found in active Sesssion!" );
+                    }
+
+                    return false;
+                }
+
                 if( message == "?mask" )
                 {
                     if( ! isdefined( self.player_settings["masked"] ) || self.player_settings["masked"] == 0 )
@@ -213,7 +213,7 @@ chat_handler( message, mode )
                     return false;
                 }
 
-                if( isdefined( self.player_settings["masked"] ) && self.player_settings["masked"] == 1 )
+                if( isdefined( self.player_settings[ "masked" ] ) && self.player_settings[ "masked" ] )
                 {
                     name = self.name;
 
