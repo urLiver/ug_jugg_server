@@ -268,9 +268,19 @@ on_handleNormalDeath( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath )
 			{
 				player maps\mp\gametypes\_missions::processChallenge( "ch_hardlineassists" );
 				player maps\mp\killstreaks\_killstreaks::giveAdrenaline( "kill" );
-				player.pers[ "cur_kill_streak" ]++;
 
-				if( player.pers[ "cur_kill_streak" ] == 24 && ! isdefined( player.hasnuke ) ) 
+				/*
+
+					Ass fix for assist not counting towars moabs, tho do what the community or the owners want i guess
+
+				*/
+
+				//player.pers[ "cur_kill_streak" ]++;
+				player.pers[ "cur_kill_streak" ]++;
+				player.pers[ "cur_kill_streak_for_nuke" ]++;
+				
+				//if( player.pers[ "cur_kill_streak" ] == 24 && ! isdefined( player.hasnuke ) ) 
+				if( player.pers[ "cur_kill_streak_for_nuke" ] == 24 && ! isdefined( player.hasnuke ) ) 
 				{
 					player.hasnuke = 1;
 					player thread maps\mp\killstreaks\_killstreaks::giveKillstreak( "nuke", false, true, player, true );

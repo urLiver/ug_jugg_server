@@ -803,9 +803,3 @@ spawnplattform_enemy( bottom, top, model, maxRows, maxCols )
 {
     thread spawnplatform( bottom, top, "com_plasticcase_enemy", maxRows, maxCols );
 }
-
-/*
-Elavator?
-Real Elavator being people have to press the use button to use it?
-Jumpped?
-*/

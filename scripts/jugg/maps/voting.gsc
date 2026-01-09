@@ -21,22 +21,28 @@ on_waittillFinalKillcamDone()
     if ( ! IsDefined( level.finalkillcam_winner ) ) 
 	{
 		wait 1.5;
+
         map_vote();
+
         return false;
     } 
 	else 
 	{
         level waittill( "final_killcam_done" );
+
 		wait 1.5;
+
         map_vote();
+
         return true;
     }
 }
 
-map_vote() {
-	tpjugg_maplist_keys = GetArrayKeys(level.tpjugg_maplist);
+map_vote() 
+{
+	tpjugg_maplist_keys = GetArrayKeys( level.tpjugg_maplist );
+	skip_maps_array = strtok( getdvar( "mapvote_skip_maps" ), ";" );
 
-	skip_maps_array = strtok(getdvar("mapvote_skip_maps"), ";");
 	level.map_vote_selected_maps = [];
 	for(i=0;level.map_vote_selected_maps.size < 3;) {
 		possible_map = tpjugg_maplist_keys[randomint(tpjugg_maplist_keys.size)];

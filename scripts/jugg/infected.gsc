@@ -9,6 +9,7 @@
             - Commander -> Wears a Flag on back and speeds up ( 20% increase ) close mates for 4 seconds every 7 seconds
             - White Hole -> Black Hole, but pushes the enemies away
             - Hunter -> The Jugg from Call of Duty Ghost that is fast and has only a knive
+            - Revenger -> Gains Revenger Perk tho on down we dont down him, instead he gets hidden, cant kill and after 3 seconds reappears
         - Combine jumpboost and frogjump into one using paramlist
 
     DONE:

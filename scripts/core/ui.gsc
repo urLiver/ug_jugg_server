@@ -227,7 +227,7 @@ ui_hud()
 
 	if( ! isdefined( self.hud_elements[ "health_ui" ] ) ) 
     {
-		self.hud_elements[ "health_ui" ] = scripts\core\ui_func::client_text( self, "", "bigfixed", .35, 285, 2, "right", "top", "fullscreen", "fullscreen", 0, 0, ( 1, 1, 1 ), undefined, 0, 1 );
+		self.hud_elements[ "health_ui" ] = scripts\core\ui_func::client_text( self, "", "bigfixed", .35, 275, 2, "right", "top", "fullscreen", "fullscreen", 0, 0, ( 1, 1, 1 ), undefined, 0, 1 );
         self.hud_elements[ "health_ui" ].label = &"Health: ^8";
         self.hud_elements[ "health_ui" ] scripts\core\ui_func::fade_in( 1.0 );
 	}
@@ -241,7 +241,7 @@ ui_hud()
 
 	if( ! isdefined( self.hud_elements[ "killsstreak_ui" ] ) ) 
     {
-		self.hud_elements[ "killsstreak_ui" ] = scripts\core\ui_func::client_text( self, "", "bigfixed", .35, 155, 2, "left", "top", "fullscreen", "fullscreen", 0, 0, ( 1, 1, 1 ), undefined, 0, 1 );
+		self.hud_elements[ "killsstreak_ui" ] = scripts\core\ui_func::client_text( self, "", "bigfixed", .35, 165, 2, "left", "top", "fullscreen", "fullscreen", 0, 0, ( 1, 1, 1 ), undefined, 0, 1 );
         self.hud_elements[ "killsstreak_ui" ].label = &"Kills: ^8";
         self.hud_elements[ "killsstreak_ui" ] scripts\core\ui_func::fade_in( 1.0 );
 	}

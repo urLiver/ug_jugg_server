@@ -6,7 +6,8 @@
     TODO:
         - Maybe make it explode on destroy
         - Find out if i can speed up the turret or make it more precised
-
+        . block ah6 usage
+        
     DONE:
         - Fully Refactored the tryuseremoteuva, to call in a "littlebird" with a remoteuav model and a ugv turret
         - Duration is 45 and maxhealth 250, uav wont be self controlled and fly like the ah6, but faster
