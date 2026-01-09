@@ -4,10 +4,10 @@
         - This File Includes the Functions Replacing certain parts of the Predator Missile / Remote Missile
 
     TODO:
-        - Maybe add cool fx when missile gets destroyed that way
+        - None
 
     DONE:
-        - None
+        - Maybe add cool fx when missile gets destroyed that way
         
 */
 
@@ -24,6 +24,8 @@ Player_CleanupOnDeath( rocket )
 
     if( isdefined( rocket ) )
 	{
+		rocket playsound( "recondrone_destroyed" );
+		playfx( level.remoteuav_fx["explode"], rocket.origin );
         rocket delete();
         rocket notify( "death" );
     }

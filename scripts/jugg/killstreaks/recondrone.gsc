@@ -42,7 +42,7 @@ on_tryuseremoteuav( var_0 )
     {
         return 0;
     }
-    else if ( isdefined( level.recondroneguard ) || maps\mp\killstreaks\_helicopter::exceededmaxlittlebirds( "recondrone_support" ) )
+    else if ( isdefined( level.littlebirdguard ) || maps\mp\killstreaks\_helicopter::exceededmaxlittlebirds( "recondrone_support" ) )
     {
         self iprintlnbold( &"MP_AIR_SPACE_TOO_CROWDED" );
         return 0;
@@ -146,7 +146,7 @@ createlbguard( var_0 )
     var_8 thread lbsupport_watchownerloss();
     var_8 thread lbsupport_watchownerdamage();
     var_8 thread lbsupport_watchroundend();
-    level.recondroneguard = var_8;
+    level.littlebirdguard = var_8;
     var_8.owner maps\mp\_matchdata::logkillstreakevent( "remote_uav", var_8.targetpos );
     return var_8;
 }
@@ -241,7 +241,7 @@ lbsupport_watchdeath()
     self playsound( "recondrone_destroyed" );
     playfx( level.remoteuav_fx["explode"], self.origin );
 
-    level.recondroneguard = undefined;
+    level.littlebirdguard = undefined;
 
     if ( ! isdefined( self ) )
     {
@@ -322,7 +322,7 @@ lbsupport_leave()
     self endon( "death" );
     self notify( "leaving" );
 
-    level.recondroneguard = undefined;
+    level.littlebirdguard = undefined;
 
     self clearlookatent();
 

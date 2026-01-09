@@ -4,7 +4,7 @@
         - Calling init and main / loads all needed for the core of all servers
 
     TODO:
-        - Re-move nont needed stuff
+        - Re-move not needed stuff
 
     DONE:
         - Created and filled

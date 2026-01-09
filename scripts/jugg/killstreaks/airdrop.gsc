@@ -4,15 +4,14 @@
         - This File Includes the Functions Replacing certain parts of the Airdrop
 
     TODO:
-		- More Funny Killstreaks
 		- Killstreaks to maybe add:
 			- Turret that is useable, like the ones in the edit
 			- Drone Strike or something similar to it like bo2
+			- Helicopter Flock but with three Littlebirds
 
     DONE:
         - Total Weight of Assault Airdrops is 100 so percentages are not decimal point numbers
 		- Added EMP, Remote UAV, Juggernaut, Helicopter Flock ( littlebird flock ), to assault and trap airdrop
-		- Added Randomness to the sentry airdrop allowing it to drop a nuke ( 1 / 100000 ) or a same turret ( 1 / 1000 )
         
 */
 

@@ -6,7 +6,7 @@
     TODO:
 		- Add More Tools for the Anti Cheat Team
         - Fix team chat by checking if substr [ Infected ] or [ Survivor ] exist and if so tell to all of those teams only
-
+        - All commands go into chat_commands.gsc and then here just filter them or so 
     DONE:
         - Replaced the iw4m calls to a simple struct, for usability and not reliability on iw4m
         

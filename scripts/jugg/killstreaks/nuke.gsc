@@ -6,7 +6,6 @@
     TODO:
         - Maybe add back slowmo and fully the vision
         - Change timer to OG Timer but unsure for now
-        - Give remote on use
         - Something causes that infected cant use airstrikes with a msg of "Moab Fallout 60s" never heard of it
 
     DONE:
@@ -284,7 +283,7 @@ do_nuke( user )
 
     thread do_nuke_earhtquacke();
     
-    wait 1.5;//Nuke Death
+    wait 1.5;
 
     thread do_nuke_aftermath_effects();
 

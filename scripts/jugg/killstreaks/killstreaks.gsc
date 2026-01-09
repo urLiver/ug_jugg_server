@@ -4,7 +4,7 @@
         - This File Includes the Functions Replacing for the general _killstreaks.gsc file
 
     TODO:
-        - Fix Nuke icon on Sentry Airdrop
+        - None
 
     DONE:
         - None
