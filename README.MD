@@ -1,9 +1,12 @@
 # UG Jugg Server Files for Plutonium IW5
 This repository contains the files used on the UG Jugg servers, allowing you to host your own version.
 
+For any Information on any Scripts and what has been done too it visit its Information Section in the top Part of the .gsc File.
+
 Forked from: [github.com/ZECxR3ap3r/gc_server](https://github.com/ZECxR3ap3r/gc_server)
 
 ## Credits
+### Original Owners and Maintainers
 * ZECxR3ap3r
 * Wiizard
 * Unveiled
@@ -13,20 +16,14 @@ Forked from: [github.com/ZECxR3ap3r/gc_server](https://github.com/ZECxR3ap3r/gc_
 * TMGlion
 * Sloth
 * Revox
-* Special thanks to the Gillette Clan and the Jugg Community.
 
-## Visit
-* [Gillette Clan](https://gilletteclan.com)
-* [UG Jugg](https://tpjugg.com/)
-
-## Explaining
-* **Scripts:** Move all files from the scripts folder into your scripts Folder
-* **Config:** The server-config file can be used as a template for your own server configuration.
-* **Chances:** The chances-on-drops folder contains the percentages on what to get from airdrops and infected rolls.
-
-## General Information
-Any modifications or updates to specific scripts are documented in the information section at the top of each .gsc file.
-
-All _integration_something.gsc are part of iw4m!
+### Current Owners and Maintainers
+* zop.
+* urLiver
 
 Enjoy :D
+
+## Main TODOS:
+* Turn chat.gsc into chat_commands.gsc and chat_handler.gsc for easiness
+* Start work on Ohm -> Menu Still like Bring Back Memories
+* Finish ui.gsc, playerlogic.gsc, main.gsc rewritings

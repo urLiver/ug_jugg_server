@@ -22,19 +22,19 @@ main()
     add_script( "27015", scripts\jugg\main::init, 1, 1 );
     add_script( "27016", scripts\jugg\main::init, 1, 1 );
 
-    if( ! isdefined( port ) ) 
+    if( ! isdefined( level.port ) ) 
     {
         print( "^1_init::main()^7: level.port is undefined" );
         return;
     }
     
-    if( ! isdefined( level.ports[ port ] ) ) 
+    if( ! isdefined( level.ports[ level.port ] ) ) 
     {
         print( "^1_init::main()^7: level.ports[ port ] for level.port = ^2" + level.port "^7 is undefined" );
         return;
     }
 
-    if( isdefined( level.ports[ port ].include_core ) )
+    if( isdefined( level.ports[ level.port ].include_core ) )
     {
         print( "^1_init::main()^7: core scripts loaded for level.port = ^2" + level.port );
 	    scripts\core\main::main();
@@ -43,34 +43,33 @@ main()
 
 init()
 {
-    port = getdvar( "net_port" );
-    if( ! isdefined( port ) ) 
+    if( ! isdefined( level.port ) ) 
     {
         return;
         print( "^1_init::init()^7: level.port is undefined" );
     }
 
-    if( ! isdefined( level.ports[ port ] ) ) 
+    if( ! isdefined( level.ports[ level.port ] ) ) 
     {
         print( "^1_init::init()^7: level.ports[ port ] for level.port = ^2" + level.port "^7 is undefined" );
         return;
     }
 
-    if( isdefined( level.ports[ port ].include_core ) )
+    if( isdefined( level.ports[ level.port ].include_core ) )
     {
         print( "^1_init::init()^7: core scripts loaded for level.port = ^2" + level.port );
         scripts\core\main::init();
     }
 
-    if( isdefined( level.ports[ port ].include_ohm ) )
+    if( isdefined( level.ports[ level.port ].include_ohm ) )
     {
         print( "^1_init::init()^7: ohm scripts loaded for level.port = ^2" + level.port );
     }
 
-    if( isdefined( level.ports[ port ].init ) )
+    if( isdefined( level.ports[ level.port ].init ) )
     {
         print( "^1_init::init()^7: game scripts loaded for level.port = ^2" + level.port );
-        [ [ level.ports[ port ].init ] ]();
+        [ [ level.ports[ level.port ].init ] ]();
     }
 }
 

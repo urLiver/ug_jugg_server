@@ -1,0 +1,1 @@
+Just exists, to show what the Odds are on the different Airdrops and the Infected Rolls
