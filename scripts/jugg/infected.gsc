@@ -65,7 +65,7 @@ init()
     add_roll( 3.30, "Jump Boost", "You have higher jump Height!", ( 0, .8, .8 ), ::jump_boost, undefined );
     add_roll( 2.80, "Frog Jump", "**Put Frog Sound here**", ( 0, .8, .8 ), ::roll_frogjump, undefined );
 
-    print( "^2Roll Percentage cumulated is: " + level.roll_cur_percent );
+    print(  "^1infected::init()^7: level.roll_cur_percent = ^2" + level.roll_cur_percent );
 
     replacefunc(maps\mp\gametypes\infect::setinfectedmsg, ::setinfectedmsg_edit);
     replacefunc(maps\mp\gametypes\infect::chooseFirstInfected, ::_chooseFirstInfected);
@@ -121,7 +121,7 @@ roll_random_effect()
     roll = get_random_roll();
     if( ! isdefined( roll ) )
     {
-        print( "^1roll_random_effect: Roll = undefined" );
+        print(  "^1infected::roll_random_effect()^7: roll = ^2undefined" );
         return;
     }
 
@@ -820,7 +820,7 @@ Give_Param_Weapon( params )
 {
     if( ! isdefined( params ) || ! isdefined( params[ 0 ] ) )
     {
-        print( "^1 Give_Param_Weapon Parsing error !" );
+        print(  "^1infected::Give_Param_Weapon()^7: Parsing ^2error ^7!" );
         return;
     }
 
@@ -851,7 +851,7 @@ Give_Param_Nade( params )
 {
     if( ! isdefined( params ) || ! isdefined( params[ 0 ] ) )
     {
-        print( "^1 Give_Param_Nade Parsing error !" );
+        print(  "^1infected::Give_Param_Nade()^7: Parsing ^2error ^7!" );
         return;
     }
 

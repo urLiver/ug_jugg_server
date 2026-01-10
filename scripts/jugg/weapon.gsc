@@ -288,5 +288,5 @@ roll_weapon()
 
     level.print_weapon = final_wep.name;
 
-    print( "Rolled ^2" + level.print_weapon + "^7( ^1" + level.cur_weapon + "^7 )" );
+    print(  "^1weapon::roll_weapon()^7: level.print_weapon = ^2" + level.print_weapon + " ^7 || level.cur_weapon = ^2" + level.cur_weapon );
 }

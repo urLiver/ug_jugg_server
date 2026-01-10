@@ -30,7 +30,7 @@ main()
     
     if( ! isdefined( level.ports[ level.port ] ) ) 
     {
-        print( "^1_init::main()^7: level.ports[ port ] for level.port = ^2" + level.port "^7 is undefined" );
+        print( "^1_init::main()^7: level.ports[ port ] for level.port = ^2" + level.port + "^7 is undefined" );
         return;
     }
 
@@ -51,7 +51,7 @@ init()
 
     if( ! isdefined( level.ports[ level.port ] ) ) 
     {
-        print( "^1_init::init()^7: level.ports[ port ] for level.port = ^2" + level.port "^7 is undefined" );
+        print( "^1_init::init()^7: level.ports[ port ] for level.port = ^2" + level.port + "^7 is undefined" );
         return;
     }
 
