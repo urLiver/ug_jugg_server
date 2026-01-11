@@ -81,7 +81,7 @@ do_nuke_run( user )
 
 build_objects()
 {
-    level endon( "nuke_cancelled" );
+    // level endon( "nuke_cancelled" );
     
     if( ! isdefined( level.nuke_soundobject ) )
     {
@@ -116,7 +116,7 @@ do_nuke_tiking()
 do_nuke_impact()
 {
     level endon( "game_ended" );
-    level endon( "nuke_cancelled" );
+    // level endon( "nuke_cancelled" );
     
     if( isdefined( level.nuke_soundobject ) )
     {
@@ -128,7 +128,7 @@ do_nuke_impact()
 do_nuke_effect( var_0 )
 {
     level endon( "game_ended" );
-    level endon( "nuke_cancelled" );
+    // level endon( "nuke_cancelled" );
     
     var_0 endon( "disconnect" );
     common_scripts\utility::waitframe();
@@ -138,7 +138,7 @@ do_nuke_effect( var_0 )
 do_nuke_dust()
 {
     level endon( "game_ended" );
-    level endon( "nuke_cancelled" );
+    // level endon( "nuke_cancelled" );
     
     common_scripts\utility::waitframe();
 
@@ -179,7 +179,7 @@ do_nuke_aftermath_effects()
 do_nuke_aftermath()
 {
     level endon( "game_ended" );
-    level endon( "nuke_cancelled" );
+    // level endon( "nuke_cancelled" );
     
     level waittill( "spawning_intermission" );
  

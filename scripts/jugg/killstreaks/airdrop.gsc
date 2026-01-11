@@ -8,6 +8,8 @@
 			- Turret that is useable, like the ones in the edit
 			- Drone Strike or something similar to it like bo2
 			- Helicopter Flock but with three Littlebirds
+		
+		hook on otherake anf change time too 4000
 
     DONE:
         - Total Weight of Assault Airdrops is 100 so percentages are not decimal point numbers
@@ -22,6 +24,7 @@ init()
     replacefunc( maps\mp\killstreaks\_airdrop::getcratetypefordroptype, ::on_getcratetypefordroptype );
     replacefunc( maps\mp\killstreaks\_airdrop::killstreakcratethink, ::on_killstreakcratethink );
     replacefunc( maps\mp\killstreaks\_airdrop::crateSetupForUse, ::on_crateSetupForUse );
+    replacefunc( maps\mp\killstreaks\_airdrop::crateothercapturethink, ::on_crateothercapturethink );
 
 	level.crateTypes = [];
 
@@ -128,6 +131,42 @@ init()
 	}
 
 	level.lowSpawn = lowSpawn;
+}
+
+on_crateothercapturethink( var_0 )
+{
+    while ( isdefined( self ) )
+    {
+        self waittill( "trigger", var_1 );
+
+        if ( isdefined( self.owner ) && var_1 == self.owner )
+		{
+            continue;
+		}
+
+        if ( ! maps\mp\killstreaks\_airdrop::validateopenconditions( var_1 ) )
+		{
+            continue;
+		}
+
+        var_1.iscapturingcrate = 1;
+        var_2 = maps\mp\killstreaks\_airdrop::createuseent();
+        var_3 = var_2 maps\mp\killstreaks\_airdrop::useholdthink( var_1, 4000, var_0 );
+
+        if ( isdefined( var_2 ) )
+		{
+            var_2 delete();
+		}
+
+        if ( ! var_3 )
+        {
+            var_1.iscapturingcrate = 0;
+            continue;
+        }
+
+        var_1.iscapturingcrate = 0;
+        self notify( "captured", var_1 );
+    }
 }
 
 on_airdropDetonateOnStuck()

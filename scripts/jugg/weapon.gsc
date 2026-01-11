@@ -34,7 +34,7 @@ init()
     // addsurvivorweaponroll( "Desert Eagle", "iw5_deserteagle", Empty_List, Pistol_Attachments );
     // addsurvivorweaponroll( "MP412", "iw5_mp412", Empty_List, Pistol_Attachments );
     // addsurvivorweaponroll( "P99", "iw5_p99", Empty_List, Pistol_Attachments );
-    addsurvivorweaponroll( "Five Seven", "iw5_fnfiveseven", Empty_List, Pistol_Attachments );
+    addsurvivorweaponroll( "Five Seven", "iw5_fnfiveseven", Empty_List, [ "akimbo" ] );
 
     //Sub Machinge Guns Single Hand
     SMG_Hand_Attachments = [ "silencer02", "akimbo", "xmags" ];
@@ -78,7 +78,7 @@ init()
     addsurvivorweaponroll( "PM-9", "iw5_m9", SMG_Scopes, SMG_Attachments );
     addsurvivorweaponroll( "MW2 - Vector", "iw4_kriss_mp", Empty_List, [ "iw4_krissacog_mp", "iw4_krisseotech_mp", "iw4_krissreflex_mp", "iw4_krissthermal_mp", "iw4_krisssilencer_mp", "iw4_krissrof_mp" ] );
     addsurvivorweaponroll( "CoD4 - AK-74u", "iw5_iw3ak74u", [ "reflexsmg","acogsmg","eotechsmg","thermalsmg" ], [ "rof", "xmags" ] );
-    addsurvivorweaponroll( "AK-74u", "iw5_ak74u_mp", [ "reflexsmg","acogsmg","eotechsmg","thermalsmg" ], [ "rof", "xmags", "silencer" ] );
+    addsurvivorweaponroll( "AK-74u", "iw5_ak74u", [ "reflexsmg","acogsmg","eotechsmg","thermalsmg" ], [ "rof", "xmags", "silencer" ] );
     
     //LMGs
     LMGs_Attachments = [ "silencer", "grip", "rof", "heartbeat", "xmags" ];
@@ -108,7 +108,7 @@ init()
     addsurvivorweaponroll( "AS50", "iw5_as50", Sniper_Scopes, Sniper_Attachments );
     addsurvivorweaponroll( "RSASS", "iw5_rsass", Sniper_Scopes, Sniper_Attachments );
     addsurvivorweaponroll( "MSR", "iw5_msr", Sniper_Scopes, Sniper_Attachments );
-    addsurvivorweaponroll( "Intervention", "iw5_cheytac_mp", [ "acog", "thermal", "cheytacscopevz" ], Sniper_Attachments );
+    addsurvivorweaponroll( "Intervention", "iw5_cheytac", [ "acog", "thermal" ], Sniper_Attachments );
 }
 
 hook_mayDropWeapon( weapon ) 
