@@ -182,11 +182,11 @@ rotateGuns()
 show_roll()
 {
     resttime = 3;
-    while( resttime != 0 )
+    while( resttime > 0 )
     {
         foreach( player in level.players )
         {
-            if( player.sessionteam == "allies")
+            if( player.sessionteam == "allies" )
             {
                 player iPrintLnBold( "Next Gun ^8" + level.print_weapon + "^7 in ^8" + resttime );
             }
@@ -219,7 +219,7 @@ roll_weapon()
     {
         attachmentcount = RandomInt( 2 ) + 1;
 
-        if( weaponroll.scopes.size == 1 )
+        if( ( weaponroll.attachments.size + weaponroll.scopes.size ) == 1 ) // Fixing edge cases, five seven and so on
         {
             attachmentcount = 1;
         }
@@ -253,9 +253,16 @@ roll_weapon()
             num1 = RandomInt( weaponroll.attachments.size );
             num2 = RandomInt( weaponroll.attachments.size );
 
-            while ( num1 == num2 )
+            if( num1 == num2 )
             {
-                num2 = RandomInt( weaponroll.attachments.size ); 
+                if( num1 == 0 ) // Aware of hardcoded values not being a good thing, tho needed for now
+                {
+                    num2 = 1;
+                }
+                else
+                {
+                    num2 = 0;
+                }
             }
             
             final_wep.attachment1 = weaponroll.attachments[ num1 ];

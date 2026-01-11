@@ -286,7 +286,7 @@ waitfordropcratemsg_edit(dropPoint, crate, var_1, var_2, var_3) {
 	else {
         // print("^3system physics");
         physics_system  = true;
-		//crate CloneBrushmodelToScriptmodel( level.airdropcratecollision );
+		crate CloneBrushmodelToScriptmodel( level.airdropcratecollision );
 		crate physicslaunchserver((0, 0, 0), var_1);
     }
 

@@ -10169,10 +10169,13 @@ underground_liver_1()
     scripts\jugg\maps\objects_new::spawnteleportwall( ( -2484, -1076, 8 ), ( -2932, -834, 8 ), 210, ( -2691, -708, 147 ) );
 
     //First Door
-    scripts\jugg\maps\objects_new::spawndoor_trap( 0, ( -2180, 90, 0 ), ( -2680, 90, 90 ), ( 0, 0, -180 ), 5, 10, ( 2707.5, 150, 0 ) );
+    scripts\jugg\maps\objects_new::spawndoor_trap( 0, ( -2180, 90, 0 ), ( -2680, 90, 90 ), ( 0, 0, -180 ), 4, 10, ( 2707.5, 150, 0 ) );
     
     //Second Wall to protect from falling into death :D
     scripts\jugg\maps\objects_new::spawnwall_invisibile( ( -1180, -2481, -70 ), ( -1875, -1725, 90 ), undefined, 4 );
+
+	// Fixing out of map way 
+    scripts\jugg\maps\objects_new::spawnteleportwall( ( -886, -1108, 20 ), ( -266, -1025, 20 ), 300, ( -462, -880, 24 ) );
 
     //Teleporter Wall
     scripts\jugg\maps\objects_new::spawnteleportwall( ( -666, -2340, -160 ), ( -666, -1725, -160 ), 300, ( 60, -1584, -293 ));

@@ -166,10 +166,10 @@ ui_xp()
         xp_next = ( maps\mp\gametypes\_rank::getRankInfoMaxXp( rank ) - maps\mp\gametypes\_rank::getRankInfoMinXp( rank ) ) ;
         fraction = xp_current / xp_next;
 
-        self.hud_elements[ "xp_value" ].color = ( fraction, 1.0 - fraction, 0 );
+        self.hud_elements[ "xp_value" ].color = ( 1.0 - fraction, fraction, 0 );
         self.hud_elements[ "xp_value" ] SetValue( xp_current );
 
-        self.hud_elements[ "xp_value_max" ].color = ( fraction, 1.0 - fraction, 0 );
+        self.hud_elements[ "xp_value_max" ].color = ( 1.0 - fraction, fraction, 0 );
         self.hud_elements[ "xp_value_max" ] SetValue( xp_next );
 
 

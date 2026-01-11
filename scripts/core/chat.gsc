@@ -25,13 +25,14 @@ init()
 
     add_user( "0100000000434F72", "5", undefined, "^5Co-Owner^7", "5", true ); // liver
     add_user( "01000000000D3E9A", "7", "^6Zop^0.", "^1O^0wner", "8", false ); // zop
+
     add_user( "0100000000584517", "1", undefined, undefined, "1", false ); // gart
     add_user( "0100000000169CFE", ":", undefined, undefined, ":", true ); // neo
     
     add_mod( "010000000025A66D" ); // benji
     add_mod( "0100000000560722" ); // lim3
     add_mod( "0100000000194961" ); // deboo
-    
+
     add_trusted( "01000000005C36EB" ); // Cheech23
     add_trusted( "010000000040B7F3" ); // xglcx
     add_trusted( "01000000004B5033" ); // ayrano
@@ -41,13 +42,27 @@ init()
     add_trusted( "01000000005ECE6E" ); // not koto
     add_trusted( "01000000004E5A8A" ); // thetird
     add_trusted( "010000000004CF19" ); // pussy
-    add_trusted( "010000000008F785" ); // recked
+    add_trusted( "01000000004CCD04" ); // norah
+    add_trusted( "010000000008f785" ); // recked
+    add_trusted( "01000000003BA5C1" ); // sham
+    add_trusted( "0100000000598C58" ); // kristall
+    add_trusted( "0100000000033F2A" ); // eg507
+    add_trusted( "0100000000560ED8" ); // honky
+    add_trusted( "01000000002ACFCC" ); // osko
+    add_trusted( "01000000003360FA" ); // nippes
+    add_trusted( "0100000000338734" ); // Loko
+
+    add_organdonator( "01000000004EB9A3" ); // uwu
+    add_organdonator( "0100000000088600" ); // usecode    
 
     add_donator( "01000000003089E5" ); // infinity gaybow
-    add_donator( "01000000005F0469" ); // shocco
     add_donator( "01000000005DFBEA" ); // ghost
+    add_donator( "01000000005F0469" ); // schocco
 
     add_supporter( "010000000054CAE4" ); // riles1
+    add_supporter( "01000000003EA63D" ); // kermit
+    add_supporter( "01000000001471E1" ); //XBLwatson
+    add_supporter( "01000000000C0B53" ); //bunni
 }
 
 add_mod( guid )
@@ -68,6 +83,11 @@ add_donator( guid )
 add_supporter( guid )
 {
     add_user( guid, "4", undefined, "^2$^7", "4", false );
+}
+
+add_organdonator( guid )
+{
+    add_user( guid, "0", undefined, "^0$$$$$^7", "0", false );
 }
 
 add_user( guid, name_color, name_replace, tag, background_color, anti_cheat ) 

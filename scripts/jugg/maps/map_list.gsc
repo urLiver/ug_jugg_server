@@ -69,8 +69,8 @@ init()
 	add_map_to_maplist( "mp_terminal_cls", 			"Terminal", 			"...No Russian", 				"TMGlion", 							scripts\jugg\maps\edits::terminal_edit2 );
 	add_map_to_maplist( "mp_roughneck", 			"Offshore", 			"Crane Blasting", 				"Clippy & TMGlion", 				scripts\jugg\maps\edits::offshore_edit1 );
 	add_map_to_maplist( "mp_courtyard_ss", 			"Erosion", 				"Courtyard", 					"Revox", 							scripts\jugg\maps\edits::erosion_edit1 );
-	add_map_to_maplist( "mp_highrise", 				"Highrise", 			"Helipad Crossing", 			"Clippy", 							scripts\jugg\maps\edits::highrise_edit1 );
-	add_map_to_maplist( "mp_highrise", 				"Highrise", 			"Around The Roof", 				"Clippy & TMGlion", 				scripts\jugg\maps\edits::highrise_edit2 );
+	// add_map_to_maplist( "mp_highrise", 				"Highrise", 			"Helipad Crossing", 			"Clippy", 							scripts\jugg\maps\edits::highrise_edit1 );
+	// add_map_to_maplist( "mp_highrise", 				"Highrise", 			"Around The Roof", 				"Clippy & TMGlion", 				scripts\jugg\maps\edits::highrise_edit2 );
 	add_map_to_maplist( "mp_moab", 					"Gulch", 				"Prickly Pain", 				"Clippy", 							scripts\jugg\maps\edits::gulch_edit1 );
 	add_map_to_maplist( "mp_shipbreaker",	 		"Decommision", 			"Coastal Defence", 				"Clippy", 							scripts\jugg\maps\edits::decommision_edit1 );
 	add_map_to_maplist( "mp_vacant", 				"Vacant", 				"Hotel Polissya", 				"Clippy & Sloth",					scripts\jugg\maps\edits::vacant_edit1 );
@@ -79,8 +79,8 @@ init()
 	add_map_to_maplist( "mp_lockout_h2", 			"Lockout H2", 			"Shafted", 						"Clippy", 							scripts\jugg\maps\edits::lockout_h2_edit2 );
 	add_map_to_maplist( "mp_cement", 				"Foundation", 			"Cement Cannon", 				"Sloth & TMGlion", 					scripts\jugg\maps\edits::foundation_edit1 );
 	add_map_to_maplist( "mp_derail", 				"Derail", 				"Snowy Sewer", 					"Revox, Sloth & TMGlion", 			scripts\jugg\maps\edits::derail_edit1 );
-	add_map_to_maplist( "mp_checkpoint", 			"Karachi", 				"Storm the Drain", 				"TMGlion", 							scripts\jugg\maps\edits::karachi_edit1 );
-	add_map_to_maplist( "mp_checkpoint", 			"Karachi", 				"Base Defence", 				"TMGlion", 							scripts\jugg\maps\edits::karachi_edit2 );
+	// add_map_to_maplist( "mp_checkpoint", 			"Karachi", 				"Storm the Drain", 				"TMGlion", 							scripts\jugg\maps\edits::karachi_edit1 );
+	// add_map_to_maplist( "mp_checkpoint", 			"Karachi", 				"Base Defence", 				"TMGlion", 							scripts\jugg\maps\edits::karachi_edit2 );
 	add_map_to_maplist( "mp_overwatch", 			"Overwatch", 			"Skyscraper",					"Steven, TMGlion & Sloth", 			scripts\jugg\maps\edits::overwatch_edit1 );
 	add_map_to_maplist( "mp_qadeem",				"Oasis", 				"Pool Defence", 				"TMGlion", 							scripts\jugg\maps\edits::oasis_edit1 );
 	add_map_to_maplist( "mp_factory_sh",			"Der Riese", 			"Camping at the Catwalk", 		"TMGlion", 							scripts\jugg\maps\edits::DerRiese_edit1 );
