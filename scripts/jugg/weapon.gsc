@@ -24,8 +24,8 @@ init()
     Empty_List = [];
 
     //Special | No Categorie
-    addsurvivorweaponroll( "MK12 SPR", "iw5_mk12spr", [ "thermal", "acog" ], [ "silencer03", "heartbeat", "xmags" ] );
-    addsurvivorweaponroll( "Default Weapon", "defaultweapon", Empty_List, Empty_List );
+    // addsurvivorweaponroll( "MK12 SPR", "iw5_mk12spr", [ "thermal", "acog" ], [ "silencer03", "heartbeat", "xmags" ] );
+    // addsurvivorweaponroll( "Default Weapon", "defaultweapon", Empty_List, Empty_List );
 
     // Pistols
     Pistol_Attachments = [ "akimbo", "xmags" ];
