@@ -1,38 +1,70 @@
 /*
 
     INFO:
-        - function to hook _destructible and see what they spawn where to reproduce for some maps
+        - File to find out what destructibiles are loaded if wanted to be used in an edit, later will be used to spawn them too
 
 */
 
 init()
 {
-    replacefunc( common_scripts/_destructible::destructible_create, ::on_destructible_create );
-}
+    wait 2;
 
+    print( "^1_destructible::init()^7: Start of Printing Destructibles for map ^2" + getdvar( "mapname" ) );
 
-on_destructible_create( var_0, var_1, var_2, var_3, var_4, var_5 )
-{
-    if ( ! isdefined( level.destructible_type ) )
+    destructible_vehicle = getentarray( "destructible_vehicle", "targetname" );
+
+    foreach ( var_3 in destructible_vehicle )
     {
-        level.destructible_type = [];
+        switch ( getdvar( "mapname" ) )
+        {
+            case "mp_interchange":
+                if ( var_3.origin[2] > 150.0 )
+                {
+                    var_4 = 0;
+
+                    foreach ( var_6 in var_0 )
+                    {
+                        if ( int( var_3.origin[0] ) == int( var_6[0] ) && int( var_3.origin[1] ) == int( var_6[1] ) && int( var_3.origin[2] ) == int( var_6[2] ) )
+                        {
+                            var_4 = 1;
+                            break;
+                        }
+                    }
+
+                    if ( var_4 )
+                        continue;
+                }
+
+                break;
+        }
+
+        print( "^1" + var_3.destructible_type );
     }
 
-    var_6 = level.destructible_type.size;
-    var_6 = level.destructible_type.size;
-    level.destructible_type[var_6] = spawnstruct();
-    level.destructible_type[var_6].v["type"] = var_0;
-    level.destructible_type[var_6].parts = [];
-    level.destructible_type[var_6].parts[0][0] = spawnstruct();
-    level.destructible_type[var_6].parts[0][0].v["modelName"] = self.model;
-    level.destructible_type[var_6].parts[0][0].v["tagName"] = var_1;
-    level.destructible_type[var_6].parts[0][0].v["health"] = var_2;
-    level.destructible_type[var_6].parts[0][0].v["validAttackers"] = var_3;
-    level.destructible_type[var_6].parts[0][0].v["validDamageZone"] = var_4;
-    level.destructible_type[var_6].parts[0][0].v["validDamageCause"] = var_5;
-    level.destructible_type[var_6].parts[0][0].v["godModeAllowed"] = 1;
-    level.destructible_type[var_6].parts[0][0].v["rotateTo"] = self.angles;
-    level.destructible_type[var_6].parts[0][0].v["vehicle_exclude_anim"] = 0;
+    print( "^1_destructible::init()^7: End of Printing Destructibles" );
 
-    print( "^1_destructible::destructible_create( ^2" + var_0 + ", " + var_1 + ", " + var_2 + ", " + var_3 + ", " + var_4 + ", " + var_5, + "^1 )" );
+
+    print( "^1_destructible::init()^7: Start of Printing Lanterns for map ^2" + getdvar( "mapname" ) );
+
+    lantern_glowFX_origin = getentarray( "lantern_glowFX_origin", "targetname" );
+
+    for ( var_1 = 0; var_1 < lantern_glowFX_origin.size; var_1++ )
+    {
+
+        print( "^1Lantern^7 at Position: ^2" + lantern_glowFX_origin[var_1].origin );
+    }
+
+    print( "^1_destructible::init()^7: End of Printing Lanterns" );
+    
+
+    print( "^1_destructible::init()^7: Start of Printing Toys for map ^2" + getdvar( "mapname" ) );
+    
+    destructible_toy = getentarray( "destructible_toy", "targetname" );
+    for ( var_1 = 0; var_1 < destructible_toy.size; var_1++ )
+    {
+        print( "^1" + destructible_toy[var_1].destructible_type );
+    }
+
+    print( "^1_destructible::init()^7: End of Printing Toys" );
+
 }

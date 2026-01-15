@@ -64,25 +64,37 @@ init()
     game[ "strings" ][ "objective_hint_allies" ] = " ";
     game[ "strings" ][ "nuke_hint" ] = &"MP_NUKE_PICKUP";
 
-    thread scripts\jugg\infected::init();
-    thread scripts\jugg\playerlogic::init();
-    thread scripts\jugg\weapon::init();
-    thread scripts\jugg\utility::init();
-    
+    thread scripts\jugg\equipment\equipment::init();
+    thread scripts\jugg\equipment\javelin::init();
+
+    thread scripts\jugg\killstreaks\ac130::init();
+    thread scripts\jugg\killstreaks\airdrop::init();
+    thread scripts\jugg\killstreaks\autosentry::init();
+    thread scripts\jugg\killstreaks\emp::init();
+    thread scripts\jugg\killstreaks\harrier::init();
+    thread scripts\jugg\killstreaks\helicopter_guard::init();
+    thread scripts\jugg\killstreaks\helicopter::init();
+    thread scripts\jugg\killstreaks\ims::init();
+    thread scripts\jugg\killstreaks\killstreaks::init();
+    thread scripts\jugg\killstreaks\nuke::init();
+    thread scripts\jugg\killstreaks\recondrone::init();
+    thread scripts\jugg\killstreaks\remotemissile::init();
+    thread scripts\jugg\killstreaks\straferun::init();
+
+    thread scripts\jugg\maps\destructible::init();
     thread scripts\jugg\maps\edits::init();
     thread scripts\jugg\maps\map_list::init();
     thread scripts\jugg\maps\objects_new::init();
     thread scripts\jugg\maps\objects::init();
+    thread scripts\jugg\maps\spawnlogic::init();
     thread scripts\jugg\maps\voting::init();
 
-    thread scripts\jugg\killstreaks\nuke::init();
-    thread scripts\jugg\killstreaks\airdrop::init();
-    thread scripts\jugg\killstreaks\harrier::init();
-    thread scripts\jugg\killstreaks\remotemissile::init();
-    thread scripts\jugg\killstreaks\killstreaks::init();
-    thread scripts\jugg\killstreaks\emp::init();
-    thread scripts\jugg\killstreaks\recondrone::init();
-    thread scripts\jugg\killstreaks\straferun::init();
+    thread scripts\jugg\weapons\smaw::init();
+
+    thread scripts\jugg\infected::init();
+    thread scripts\jugg\playerlogic::init();
+    thread scripts\jugg\utility::init();
+    thread scripts\jugg\weapon::init();
 
     replacefunc(maps\mp\gametypes\_music_and_dialog::onPlayerSpawned, ::blanky ); // for my sanity
 

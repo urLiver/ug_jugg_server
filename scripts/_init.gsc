@@ -19,8 +19,8 @@ main()
     level.port = getdvar( "net_port" );
     level.ports = [];
 
-    add_script( "27015", scripts\jugg\main::init, 1, 1 );
-    add_script( "27016", scripts\jugg\main::init, 1, 1 );
+    add_script( "27015", scripts\jugg\_init::init, 1, 1 );
+    add_script( "27016", scripts\jugg\_init::init, 1, 1 );
 
     if( ! isdefined( level.port ) ) 
     {
@@ -37,7 +37,7 @@ main()
     if( isdefined( level.ports[ level.port ].include_core ) )
     {
         print( "^1_init::main()^7: core scripts loaded for level.port = ^2" + level.port );
-	    scripts\core\main::main();
+	    scripts\core\_init::main();
     }
 }
 
@@ -58,7 +58,7 @@ init()
     if( isdefined( level.ports[ level.port ].include_core ) )
     {
         print( "^1_init::init()^7: core scripts loaded for level.port = ^2" + level.port );
-        scripts\core\main::init();
+        scripts\core\_init::init();
     }
 
     if( isdefined( level.ports[ level.port ].include_ohm ) )

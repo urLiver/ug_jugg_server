@@ -203,31 +203,42 @@ on_onPlayerSay( message, mode )
 
                 if( message == "?ufo" && level.users[ guid ][ "anti_cheat" ] )
                 {
-                    if( self.sessionstate == "playing" || ! isdefined( self.isinufo ) ) 
+                    if( level.someone_spectating == 0 && self.sessionstate != "playing" )
                     {
-                        self.savedweapons = self getweaponslistprimaries();
-                        self.isinufo = true;
-                        self.sessionstate = "spectator";
+                        if( self.sessionstate == "playing" || ! isdefined( self.isinufo ) ) 
+                        {
+                            level.someone_spectating = 1;
 
-                        self disableweapons();
-                        self allowspectateteam( "allies", true );
-                        self allowspectateteam( "axis", true );
-                        self allowspectateteam( "freelook", true );
+                            self.savedweapons = self getweaponslistprimaries();
+                            self.isinufo = true;
+                            self.sessionstate = "spectator";
 
-                        self thread wallhack();
-                        self thread scripts\core\ui::ui_killhudandxp();
+                            self disableweapons();
+                            self allowspectateteam( "allies", true );
+                            self allowspectateteam( "axis", true );
+                            self allowspectateteam( "freelook", true );
+
+                            self thread wallhack();
+                            self thread scripts\core\ui::ui_killhudandxp();
+                        }
+                        else 
+                        {
+                            level.someone_spectating = 0;
+
+                            self.sessionstate = "playing";
+                            self.isinufo = undefined;
+
+                            self notify( "wallhack_end" );
+
+                            self thread ufo_weapons_back();
+
+                            self thread scripts\core\ui::ui_xp();
+                            self thread scripts\core\ui::ui_hud();
+                        }
                     }
-                    else 
+                    else
                     {
-                        self.sessionstate = "playing";
-                        self.isinufo = undefined;
-
-                        self notify( "wallhack_end" );
-
-                        self thread ufo_weapons_back();
-
-                        self thread scripts\core\ui::ui_xp();
-                        self thread scripts\core\ui::ui_hud();
+                        self tell_raw( "^8^7[ ^8Information^7 ] Someones is already Spectating!" );
                     }
 
                     return false;
@@ -377,40 +388,34 @@ wallhack()
                 continue;
             }
 
+            spectating = self getspectatingplayer();
+
+            if( ! isdefined( spectating ) || isdefined( spectating ) && spectating.team == player.team )
+            {
+                if( isdefined( player.wallhack_shader ) )
+                {
+                    player.wallhack_shader Destroy();
+                }
+
+                continue;
+            }
+
             if( ! isdefined( player.wallhack_shader ) ) 
             {
                 player.wallhack_shader = scripts\core\ui_func::client_wallhack( self, "hud_scorebar_topcap", 6, 6, .4 );
                 player.wallhack_shader thread wallhack_disconnected( player );
-                self.wallhack_huds[ self.wallhack_huds.size ]  = player.wallhack_shader;
+                self.wallhack_huds[ self.wallhack_huds.size ] = player.wallhack_shader;
             }
 
             player.wallhack_shader.x = player.origin[ 0 ];
             player.wallhack_shader.y = player.origin[ 1 ];
             player.wallhack_shader.z = player.origin[ 2 ] + 10;
+            player.wallhack_shader.color = ( .75, .75, 0 );
 
-            spectating = self getspectatingplayer();
-            if( ! isdefined( spectating ) )
-            {
-                continue;
-            }
-            
             if( spectating is_looking_at( player ) && sighttracepassed( spectating.origin + ( 0, 0, 64 ), player.origin + ( 0, 0, 64 ), false, spectating ) ) 
             {
                 player.wallhack_shader.color = ( 1, .25, .25 );
-                if( player.sessionteam == spectating.sessionteam )
-                {  
-                    player.wallhack_shader.color = ( 0, .5, 1 );
-                }
             }
-            else 
-            {
-                player.wallhack_shader.color = ( .75, .75, 0 );
-                if( player.sessionteam == spectating.sessionteam )
-                {
-                    player.wallhack_shader.color = ( .25, 1, .25 );
-                }
-            }
-        
 		}
 
 		wait .05;

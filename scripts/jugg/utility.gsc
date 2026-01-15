@@ -26,6 +26,94 @@ init()
     replacefunc( maps\mp\gametypes\_damage::Callback_PlayerDamage, ::on_Callback_PlayerDamage );
 
     replacefunc( maps\mp\gametypes\_deathicons::adddeathicon, ::on_adddeathicon );
+
+	replacefunc( maps\mp\_events::monitorCrateJacking, ::on_monitorCrateJacking );
+
+	replacefunc( maps\mp\gametypes\_healthoverlay::playerPainBreathingSound, ::on_playerPainBreathingSound );
+    
+}
+ 
+on_playerPainBreathingSound( useless )
+{
+	level endon ( "game_ended" );
+	self endon ( "death" );
+	self endon ( "disconnect" );
+	self endon ( "joined_team" );
+	self endon ( "joined_spectators" );
+	
+	wait ( 2 );
+
+	for ( ;; )
+	{
+		wait ( 0.2 );
+		
+		if ( self.health <= 0 )
+		{
+			return;
+		}
+
+		if ( self.health >= self.maxhealth * 0.55 )
+		{
+			continue;
+		}
+
+		if ( level.healthRegenDisabled && gettime() > self.breathingStopTime )
+		{
+			continue;
+		}
+
+		if( self maps\mp\_utility::isusingremote() )
+		{
+			continue;
+		}
+
+		self playLocalSound( "breathing_hurt" );
+		wait ( .784 );
+		wait ( 0.1 + randomfloat ( 0.8 ) );
+	}
+}
+
+on_monitorCrateJacking() 
+{
+	level endon( "end_game" );
+	self endon( "disconnect" );
+
+	for( ;; ) 
+	{
+		self waittill( "hijacker", crateType, owner );
+
+		self thread maps\mp\gametypes\_rank::xpEventPopup( &"SPLASHES_HIJACKER" );
+		self thread maps\mp\gametypes\_rank::giveRankXP( "hijacker", 100 );
+
+		splashName = "hijacked_airdrop";
+		challengeName = "ch_hijacker";
+
+        if( owner.sessionteam != self.sessionteam )
+		{
+            say_raw( "^1" + owner.name + "^7 lost a Carepackage too ^2" + self.name );
+		}
+
+		switch( crateType ) 
+		{
+			case "sentry":
+				splashName = "hijacked_sentry";
+				break;
+			case "juggernaut":
+				splashName = "hijacked_juggernaut";
+				break;
+			case "remote_tank":
+				splashName = "hijacked_remote_tank";
+				break;
+			case "mega":
+			case "emergency_airdrop":
+				splashName = "hijacked_emergency_airdrop";
+				challengeName = "ch_newjack";
+				break;
+
+			default:
+				break;
+		}
+	}
 }
 
 on_adddeathicon( var_0, var_1, var_2, var_3 )
@@ -62,7 +150,7 @@ destroyslowly( var_0 )
 {
     self endon( "death" );
     
-	wait(var_0);
+	wait( var_0 );
     
 	self fadeovertime( 0.5 );
     self.alpha = 0;
@@ -491,7 +579,7 @@ on_GlowStickDamageListener( owner )
 
 on_isKillstreakWeapon( weapon )
 {
-	if( !IsDefined( weapon ) )
+	if( ! IsDefined( weapon ) )
 	{
 		AssertMsg( "isKillstreakWeapon called without a weapon name passed in" );
 		return false;

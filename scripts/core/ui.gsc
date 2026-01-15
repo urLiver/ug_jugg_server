@@ -124,8 +124,6 @@ ui_killhudandxp()
     {
         self.hud_elements[ "text_info_right" ] destroy();
     }
-
-    ui_nuke_hide();
 }
 
 ui_xp()
@@ -208,7 +206,6 @@ ui_hud()
     {
 		self.hud_elements[ "background_right" ] = scripts\core\ui_func::client_shader( self, "iw5_cardtitle_specialty_veteran", 220, -20, 200, 45, "center", "top", "fullscreen", "fullscreen", 0, -3, ( .4, .4, .4 ), 0, 1 );
         self.hud_elements[ "background_right" ] scripts\core\ui_func::fade_in( 1.0 );
-
 	}
 
 	if( ! isdefined( self.hud_elements[ "background_left" ] ) )
@@ -662,6 +659,21 @@ ui_delete()
 		
         self.cz_elements = undefined;
 	}
+
+    if( isdefined( self.notificationtitle ) )
+    {
+        self.notificationtitle destroy();
+    }
+
+    if( isdefined( self.notificationtext ) )
+    {
+        self.notificationtext destroy();
+    }
+
+    if( isdefined( self.notification_bg ) )
+    {
+        self.notification_bg destroy();
+    }
 
 	self notify("hud_new_input");
 }

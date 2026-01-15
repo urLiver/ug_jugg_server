@@ -192,6 +192,7 @@ init()
     level.throwingknifefx = loadFX( "smoke/smoke_geotrail_javelin" );
     level.throwingknifeexplosionfx = loadFX( "explosions/default_explosion" );
     level.smokelauncher_fx = loadfx( "smoke/smoke_grenade_11sec_mp" );
+    level.someone_spectating = 0;
 
     precachelocationselector( "map_artillery_selector" );
     
@@ -258,10 +259,10 @@ init()
     SetDvar( "prefix", "\r^8^7[ ^8UG ^7JUGG ] " );
 
     thread scripts\core\chat::init();
+    thread scripts\core\menu::init();
     thread scripts\core\stats::init();
     thread scripts\core\ui_func::init();
     thread scripts\core\ui::init();
-    thread scripts\core\menu::init();
 }
 
 main()

@@ -169,44 +169,9 @@ startlbsupport( var_0 )
 
     var_0 waittill( "goal" );
 
-    var_0 thread lbsupport_followplayer();
+    var_0 thread maps\mp\killstreaks\_helicopter_guard::lbSupport_followPlayer();
     var_0 thread maps\mp\killstreaks\_helicopter::handleincomingsam( ::lbsupport_watchsamproximity );
     var_0 thread maps\mp\killstreaks\_helicopter::handleincomingstinger( ::lbsupport_watchstingerproximity );
-}
-
-lbsupport_followplayer()
-{
-    level endon( "game_ended" );
-    self endon( "death" );
-    self endon( "leaving" );
-
-    if ( ! isdefined( self.owner ) )
-    {
-        thread lbsupport_leave();
-        return;
-    }
-
-    self.owner endon( "disconnect" );
-    self.owner endon( "joined_team" );
-    self.owner endon( "joined_spectators" );
-    self vehicle_setspeed( self.followspeed, 20, 20 );
-
-    for (;;)
-    {
-        if ( isdefined( self.owner ) && isalive( self.owner ) )
-        {
-            var_0 = lbsupport_getclosestlinkednode( self.owner.origin );
-
-            if ( isdefined( var_0 ) && var_0 != self.currentnode )
-            {
-                self.currentnode = var_0;
-                lbsupport_movetoplayer();
-                continue;
-            }
-        }
-
-        wait 1;
-    }
 }
 
 lbsupport_movetoplayer()
