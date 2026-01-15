@@ -37,21 +37,6 @@ delete_remote_spawnpoints() {
 }
 
 
-detect_no_prone() {
-	self endon("death");
-	for(;;) {
-		level waittill("breach_check");
-		foreach(player in level.players) {
-			if(!isalive(player))
-				continue;
-			if(!isdefined(player.breaching) && /* player istouching(self) && */ distance(player geteye(), self.origin) < 25) {
-				player.breaching = true;
-				print("breaching");
-			}
-		}
-	}
-}
-
 enable_damage_from_owner() {
     self endon("death");
     self setcandamage(1);

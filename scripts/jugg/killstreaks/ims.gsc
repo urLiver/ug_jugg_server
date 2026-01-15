@@ -34,7 +34,7 @@ on_updateImsPlacement( ims )
 
 		ims.origin = placement[ "origin" ];
 		ims.angles = placement[ "angles" ];
-		ims.canBePlaced = self isOnGround()  && ( abs( sentryGun.origin[ 2 ] - self.origin[ 2 ] ) < 10 ) && placement[ "result" ] && traceInner || traceOutter[ "fraction" ] < 1 && traceInner;
+		ims.canBePlaced = self isOnGround()  && ( abs( ims.origin[ 2 ] - self.origin[ 2 ] ) < 10 ) && placement[ "result" ] && traceInner || traceOutter[ "fraction" ] < 1 && traceInner;
 
 		if ( ims.canBePlaced != lastCanPlaceIMS )
 		{

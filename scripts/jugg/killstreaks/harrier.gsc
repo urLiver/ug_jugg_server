@@ -206,7 +206,7 @@ on_harrierDestroyed()
 		return;
 	}
 
-	self scripts\jugg\maps\objects::heli_crash_replace( true );
+	self maps\mp\killstreaks\_helicopter::heli_crash( true );
 }
 
 on_backToDefendLocation( forced )

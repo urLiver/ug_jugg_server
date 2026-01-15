@@ -22,7 +22,7 @@ init()
                 {
                     var_4 = 0;
 
-                    foreach ( var_6 in var_0 )
+                    foreach ( var_6 in destructible_vehicle )
                     {
                         if ( int( var_3.origin[0] ) == int( var_6[0] ) && int( var_3.origin[1] ) == int( var_6[1] ) && int( var_3.origin[2] ) == int( var_6[2] ) )
                         {

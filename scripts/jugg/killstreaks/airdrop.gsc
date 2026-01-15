@@ -230,6 +230,38 @@ findCrateTrace( dropPoint, crate, var_1, var_2, var_3 )
     }
 }
 
+allow_owner_damage() 
+{
+    self endon( "death" );
+
+    self setcandamage( 1 );
+    
+	self.actual_health = 500;
+    self.health = 1000000;
+    self.maxhealth = 1000000;
+
+    while( isdefined( self ) ) 
+	{
+        self waittill( "damage", amount, inflictor );
+
+        if( inflictor == self.owner )
+		{
+            self.actual_health -= ( amount * 2 );
+		}
+        else
+		{
+            self.actual_health -= amount;
+		}
+
+        if( self.actual_health <= 0 ) 
+		{
+            self maps\mp\killstreaks\_airdrop::deletecrate();
+
+            break;
+        }
+    }
+}
+
 physicswaiter( var_0, var_1, special ) 
 {
 	self endon( "death" );
@@ -245,7 +277,7 @@ physicswaiter( var_0, var_1, special )
     	self waittill( "physics_finished" );
 	}
 
-    self thread enable_damage_from_owner();
+    self thread allow_owner_damage();
 
 	if( isdefined( self ) ) 
 	{
@@ -277,7 +309,32 @@ physicswaiter( var_0, var_1, special )
         }
     }
 }
-waitfordropcratemsg( dropPoint, crate, var_1, var_2, var_3 ) {
+
+detect_no_prone() 
+{
+	self endon( "death" );
+
+	for( ;; ) 
+	{
+		level waittill( "breach_check" );
+		
+		foreach( player in level.players ) 
+		{
+			if( ! isalive( player ) )
+			{
+				continue;
+			}
+
+			if( ! isdefined( player.breaching ) && distance( player geteye(), self.origin ) < 25 ) 
+			{
+				player.breaching = true;
+			}
+		}
+	}
+}
+
+waitfordropcratemsg( dropPoint, crate, var_1, var_2, var_3 ) 
+{
     thread findCrateTrace( dropPoint, crate, var_1, var_2, var_3 );
 
     self waittill( "drop_crate" );
