@@ -97,7 +97,7 @@ init()
     thread scripts\jugg\utility::init();
     thread scripts\jugg\weapon::init();
 
-    replacefunc(maps\mp\gametypes\_music_and_dialog::onPlayerSpawned, ::blanky ); // for my sanity
+    replacefunc( maps\mp\gametypes\_music_and_dialog::onPlayerSpawned, ::blanky );
 
     wait 1;
 
@@ -105,11 +105,15 @@ init()
     level.emptimeout = 20.0;
     level.emptimeremaining = int( level.emptimeout );
     
-	ents = getentarray();
-    foreach(ent in ents) {
-        if(isdefined(ent.targetname) && ent.targetname == "destructible_toy") {
-            if(isdefined(ent.model) && issubstr(ent.model, "chicken"))
+	ents = getentarray(); // move to stats
+    foreach( ent in ents ) 
+    {
+        if( isdefined( ent.targetname ) && ent.targetname == "destructible_toy" ) 
+        {
+            if( isdefined( ent.model ) && issubstr( ent.model, "chicken" ) )
+            {
                 ent thread scripts\jugg\playerlogic::track_chicken_damage();
+            }
         }
     }
 }
@@ -118,8 +122,8 @@ main()
 {
     level.lastopfer = "";
 
-	replacefunc(maps\mp\gametypes\_gamelogic::prematchPeriod, ::blanky);
-	replacefunc(maps\mp\gametypes\_gamelogic::fixranktable, ::blanky);
+	replacefunc( maps\mp\gametypes\_gamelogic::prematchPeriod, ::blanky );
+	replacefunc( maps\mp\gametypes\_gamelogic::fixranktable, ::blanky ); // move to stats
 }
 
 blanky() 

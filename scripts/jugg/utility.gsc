@@ -13,7 +13,7 @@
 
 init() 
 {
-    replacefunc( maps\mp\_utility::isKillstreakWeapon, ::on_isKillstreakWeapon );
+    replacefunc( maps\mp\_utility::isKillstreakWeapon, ::on_isKisllstreakWeapon );
 
     replacefunc( maps\mp\gametypes\_killcam::doFinalKillCamFX, ::on_doFinalKillCamFX );
 
@@ -31,6 +31,7 @@ init()
 
 	replacefunc( maps\mp\gametypes\_healthoverlay::playerPainBreathingSound, ::on_playerPainBreathingSound );
     
+	replacefunc( maps\mp\gametypes\_weapons::createbombsquadmodel, ::on_createbombsquadmodel );
 }
  
 on_playerPainBreathingSound( useless )
@@ -635,4 +636,56 @@ on_isKillstreakWeapon( weapon )
 	}
 
 	return false;
+}
+
+on_createbombsquadmodel( var_0, var_1, var_2, var_3 )
+{
+    var_4 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_4 hide();
+    wait 0.05;
+
+    if ( ! isdefined( self ) )
+	{
+        return;
+	}
+
+    var_4 thread bombsquadvisibilityupdater( var_2, var_3, var_0 );
+    var_4 setmodel( var_0 );
+    var_4 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    var_4 setcontents( 0 );
+    self waittill( "death" );
+
+    if ( isdefined( self.trigger ) )
+	{
+        self.trigger delete();
+	}
+
+    var_4 delete();
+}
+
+bombsquadvisibilityupdater( var_0, var_1, var_2 )
+{
+    self endon( "death" );
+
+    foreach ( var_3 in level.players )
+    {
+		if ( var_3.team == var_0 && var_3 maps\mp\_utility::_hasperk( "specialty_detectexplosive" ) || var_2 == "mp_trophy_system_bombsquad" && isdefined( var_3.isTrophyHunter ) && var_3.isTrophyHunter == 1 )
+		{
+			self showtoplayer( var_3 );
+		}
+    }
+
+    for ( ;; )
+    {
+        level common_scripts\utility::waittill_any( "joined_team", "player_spawned", "changed_kit", "update_bombsquad" );
+        self hide();
+
+        foreach ( var_3 in level.players )
+        {
+			if ( var_3.team == var_0 && var_3 maps\mp\_utility::_hasperk( "specialty_detectexplosive" ) || var_2 == "mp_trophy_system_bombsquad" && isdefined( var_3.isTrophyHunter ) && var_3.isTrophyHunter == 1 )
+			{
+				self showtoplayer( var_3 );
+			}
+        }
+    }
 }

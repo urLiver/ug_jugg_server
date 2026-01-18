@@ -12,6 +12,8 @@
             - Hunter -> The Jugg from Call of Duty Ghost that is fast and has only a knive
             - Revenger -> Gains Revenger Perk tho on down we dont down him, instead he gets hidden, cant kill and after 3 seconds reappears
             - Rocket Ride -> You get an rpg with one bullet and when you shit it it links to the rocket till impact could work goodly out tho unsure
+            - Push Nade -> Pushes anyone like the pushlauncher but a bit harder
+            - Trophy Hunter -> See trophies throught walls
         - Combine jumpboost and frogjump into one using paramlist
 
         fuck not revenge the downed one perk thingy i forgot name of
@@ -49,10 +51,10 @@ init()
     add_roll( 1.20, "One Bullet", "You have a Sniper with One Bullet", undefined, ::roll_onebullet, undefined );
 
     add_roll( 2.50, "C4", "You have a C4, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "c4_mp" ) );
-    add_roll( 5.50, "Flash Bang", "You have 2 Flash Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "flash_grenade_mp" ) );
-    add_roll( 5.60, "Concussion Grenade", "You have 2 Concussion Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "concussion_grenade_mp" ) );
-    add_roll( 5.50, "EMP Grenade", "You have an EMP Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "emp_grenade_mp" ) );
-    add_roll( 5.50, "Smoke Grenade", "You have a Smoke Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "smoke_grenade_mp" ) );
+    add_roll( 5.40, "Flash Bang", "You have 2 Flash Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "flash_grenade_mp" ) );
+    add_roll( 5.50, "Concussion Grenade", "You have 2 Concussion Grenades, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "concussion_grenade_mp" ) );
+    add_roll( 5.40, "EMP Grenade", "You have an EMP Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "emp_grenade_mp" ) );
+    add_roll( 5.40, "Smoke Grenade", "You have a Smoke Grenade, Press ^:[{+actionslot 4}] ^7To Use It!", undefined, ::roll_param_nade, array( "smoke_grenade_mp" ) );
 
     add_roll( 4.10, "Extra Speed", "Increased Movement Speed", undefined, ::roll_extraspeed, undefined );
     add_roll( 2.80, "Increased Speed, Reduced Health", "You have less Health, but move much Faster", ( .5, 0, 0 ), ::roll_increasedspeed, undefined );
@@ -71,14 +73,16 @@ init()
     add_roll( 2.40, "Exploding Throwingknife", "You have an Explosive Throwing Knife.", undefined, ::roll_explosiveknive, undefined );
     
     add_roll( 2.30, "Freeze Grenade", "Freeze Enemies or Turrets for 2 seconds, Press ^:[{+actionslot 4}] ^7to Use It!", ( 0, .8, .8 ), ::roll_freezegrenade, undefined );
-    add_roll( 3.00, "Confusion Grenade", "Where to go?, Press ^:[{+actionslot 4}] ^7to Use It!", ( .8, .1, .4 ), ::roll_confusionnade, undefined );
+    add_roll( 2.5, "Confusion Grenade", "Where to go?, Press ^:[{+actionslot 4}] ^7to Use It!", ( .8, .1, .4 ), ::roll_confusionnade, undefined );
     add_roll( 1.40, "Black Hole Grenade!", "Throw a Grenade that creates a Black Hole, ^7Press ^:[{+actionslot 4}] ^7To Use It", ( .6, 0, .6 ), ::roll_blackhole, undefined );
+    add_roll( 1.40, "White Hole Grenade!", "Throw a Grenade that creates a White Hole, ^7Press ^:[{+actionslot 4}] ^7To Use It", ( .6, 0, .6 ), ::roll_whitehole, undefined );
     
-    add_roll( 2.90, "Wallhack for 30 seconds", "Gain temporary Wallhack.", undefined, ::roll_wallhack, undefined );
+    add_roll( 0.90, "Trophy Hunter", "Gain Wallhack on the Trophies", undefined, ::roll_trophyhunter, undefined );
+    add_roll( 1.90, "Wallhack for 30 seconds", "Gain temporary Wallhack.", undefined, ::roll_wallhack, undefined );
     add_roll( 3.60, "Cold Blooded", "Undetected by Air Support, Sentries & Thermal", undefined, ::roll_coldblooded, undefined );
     
-    add_roll( 3.30, "Jump Boost", "You have higher jump Height!", ( 0, .8, .8 ), ::roll_jumpboost, undefined );
-    add_roll( 2.80, "Frog Jump", "**Put Frog Sound here**", ( 0, .8, .8 ), ::roll_frogjump, undefined );
+    add_roll( 3.10, "Jump Boost", "You have higher jump Height!", ( 0, .8, .8 ), ::roll_jumpboost, undefined );
+    add_roll( 2.60, "Frog Jump", "**Put Frog Sound here**", ( 0, .8, .8 ), ::roll_frogjump, undefined );
 
 
     print(  "^1infected::init()^7: level.roll_cur_percent = ^2" + level.roll_cur_percent );
@@ -153,10 +157,15 @@ roll_random_effect()
     self thread scripts\core\ui::send_hud_notification_handler(roll.rollname, roll.description, roll.color );
 }
 
+roll_trophyhunter()
+{
+    self.isTrophyHunter = 1;
+    level notify( "update_bombsquad" );
+}
+
 roll_supportjuggernaut()
 {
     self scripts\jugg\killstreaks\juggernaut::givejuggernaut();
-
 }
 
 roll_maaws()
@@ -183,6 +192,9 @@ ondeath_delete( owner )
 
 spawn_blackhole( origin ) 
 {
+    fx = SpawnFX( level.fx_airstrike_afterburner, origin );
+    TriggerFX( fx );
+
     for( i = 0; i < 50; i++ ) 
     {
         foreach( player in level.players ) 
@@ -217,6 +229,8 @@ spawn_blackhole( origin )
     {
     	player allowjump( 1 );
     }
+
+    fx delete();
 }
 
 roll_blackhole() 
@@ -241,9 +255,87 @@ roll_blackhole()
             {
                 ent notify( "exploded" );
 
-                playfx( level.fx_airstrike_afterburner, ent.origin );
-
                 level thread spawn_blackhole( ent.origin );
+                
+                ent playsound( "harrier_fly_away" );
+
+                if( isdefined( ent ) )
+                {
+                    ent delete();
+                }
+            }
+
+			break;
+		}
+	}
+}
+
+spawn_whitehole( origin ) 
+{
+    fx = SpawnFX( level.harrier_afterburnerfx, origin );
+    TriggerFX( fx );
+
+    for( i = 0; i < 50; i++ ) 
+    {
+        foreach( player in level.players ) 
+        {
+        	if( player.sessionteam != "allies" ) 
+            {
+                continue;
+            }
+
+            distance_tocenter = distance( player.origin, origin );
+
+            if( distance_tocenter < 500 && player isonground() ) 
+            {
+                player allowjump( 0 );
+
+                direction = ( origin - player.origin );
+                direction_normalized = direction / sqrt( direction[ 0 ] * direction[ 0 ] + direction[ 1 ] * direction[ 1 ] + direction[ 2 ] * direction[ 2 ] );
+                forceMagnitude = -1 * ( ( 500 - distance_tocenter ) / 300 * 130 );
+                force = direction_normalized * forceMagnitude;
+
+                player SetVelocity( force );
+            }
+        
+        }
+
+        wait .1;
+    }
+
+    wait .1;
+
+    foreach( player in level.players )
+    {
+    	player allowjump( 1 );
+    }
+
+    fx delete();
+}
+
+roll_whitehole() 
+{
+    self endon( "death" );
+    self endon( "disconnect" );
+
+	self GiveWeapon( "semtex_mp" );
+    self maps\mp\_utility::_SetActionSlot( 4, "weapon", "semtex_mp" );
+
+    for( ;; )
+    {
+		self waittill( "grenade_fire", ent, name );
+
+		if( name == "semtex_mp" ) 
+        {
+            ent thread ondeath_delete( self );
+
+			wait 1.45;
+
+            if( isdefined( ent ) ) 
+            {
+                ent notify( "exploded" );
+
+                level thread spawn_whitehole( ent.origin );
                 
                 ent playsound( "harrier_fly_away" );
 
@@ -789,6 +881,7 @@ play_explosiveknivestuck( owner )
 play_explosionknive( owner ) 
 {
     self thread play_explosiveknivestuck( owner );
+
     self playsound( "ac130_40mm_fire" );
 
     wait .1;

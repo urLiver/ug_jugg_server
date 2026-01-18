@@ -221,37 +221,41 @@ on_spawned() {
             self maps\mp\_utility::giveperk("specialty_tacticalinsertion", 1);
 			self setViewKickScale( 0.5 );
 
-            if(!isdefined(self.isInitialInfected)) {
+            if( ! isdefined( self.isInitialInfected ) ) 
+			{
                 self GiveWeapon("iw5_usp45_mp_tactical");
                 self SetWeaponAmmoClip("iw5_usp45_mp_tactical", 0);
                 self SetWeaponAmmoStock("iw5_usp45_mp_tactical", 0);
                 self setspawnweapon("iw5_usp45_mp_tactical");
-				self notify("force_end_exp_tk");
+				
+
                 self maps\mp\killstreaks\_killstreaks::clearKillstreaks();
 
-                if(self.rtd_canroll == 1 ) 
+				wait .05;
+				self notify("force_end_exp_tk");
+				self notify("stopKnifes");
+				self notify("stopSpeed");
+
+				self ThermalVisionFOFOverlayOff();
+				self thermalvisionoff();
+				self laseroff();
+
+				self.maxhealth = 100;
+				self.Health = 100;
+				self.rtd_canroll = 0;
+				self.has_maaws = undefined;
+				self.isTrophyHunter = undefined;
+
+				self.moveSpeedScaler = 1;
+				self maps\mp\gametypes\_weapons::updateMoveSpeedScale();
+
+                if( self.rtd_canroll == 1 ) 
 				{
-					wait .05;
-
-					self notify("stopKnifes");
-					self notify("stopSpeed");
-
-					self ThermalVisionFOFOverlayOff();
-					self thermalvisionoff();
-               	 	self laseroff();
-
-					self.maxhealth = 100;
-					self.Health = 100;
-					self.rtd_canroll = 0;
-					self.moveSpeedScaler = 1;
-					self.has_maaws = undefined;
-					
-					self maps\mp\gametypes\_weapons::updateMoveSpeedScale();
-
                     self thread scripts\jugg\infected::roll_random_effect();
                 }
             }
-            else {
+            else 
+			{
                 self scripts\jugg\infected::PowerfulJuggernaut();
                 self GiveWeapon("riotshield_mp");
                 self GiveWeapon("at4_mp");

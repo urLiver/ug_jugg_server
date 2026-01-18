@@ -1,5 +1,5 @@
 Name,Percentage
-Nothing!,0.40
+Nothing,0.40
 ,
 Temu SMAW,1.40
 SMAW,1.40
@@ -17,10 +17,10 @@ Smoke Launcher,4.20
 One Bullet,1.20
 ,
 C4,2.50
-Flash Bang,5.50
-Concussion Grenade,5.60
-EMP Grenade,5.50
-Smoke Grenade,5.50
+Flash Bang,5.40
+Concussion Grenade,5.50
+EMP Grenade,5.40
+Smoke Grenade,5.40
 ,
 Extra Speed,4.10
 Increased Speed,2.80
@@ -33,17 +33,19 @@ Explosive Juggernaut,1.20
 Support Juggernaut,1.70
 ,
 Smoker,2.00
-Godmode for 5 seconds,0.70
+God Mode,0.70
 ,
 Extra Knifes,1.20
 Exploding Throwingknife,2.40
 ,
 Freeze Grenade,2.30
-Confusion Grenade,3.00
-Black Hole Grenade!,1.40
+Confusion Grenade,2.50
+Black Hole Grenade,1.40
+White Hole Grenade,1.40
 ,
-Wallhack for 30 seconds,2.90
+Trophy Hunter,0.90
+Wallhack,1.90
 Cold Blooded,3.60
 ,
-Jump Boost,3.30
-Frog Jump,2.80
+Jump Boost,3.10
+Frog Jump,2.60
