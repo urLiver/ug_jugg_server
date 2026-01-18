@@ -75,6 +75,7 @@ init()
     thread scripts\jugg\killstreaks\helicopter_guard::init();
     thread scripts\jugg\killstreaks\helicopter::init();
     thread scripts\jugg\killstreaks\ims::init();
+    thread scripts\jugg\killstreaks\juggernaut::init();
     thread scripts\jugg\killstreaks\killstreaks::init();
     thread scripts\jugg\killstreaks\nuke::init();
     thread scripts\jugg\killstreaks\recondrone::init();

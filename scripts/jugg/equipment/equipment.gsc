@@ -77,7 +77,7 @@ on_trophyActive( owner )
 
 			grenadeDistanceSquared = DistanceSquared( grenade.origin, ( self.origin + ( 0,0,20 ) ) );
 			
-            // 147456 is the original value, increased by 20% too 176947
+            // 147456 is the original value, increased it by 20ish%
 			if ( grenadeDistanceSquared < 176947 )
 			{
 				if ( BulletTracePassed( grenade.origin, ( self.origin + ( 0,0,10 ) ), false, self ) || BulletTracePassed( grenade.origin, ( self.origin + ( 0,0,30 ) ), false, self ) )

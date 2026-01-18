@@ -566,7 +566,7 @@ on_airdropDetonateOnStuck()
 
 	self notify( "on_airdropDetonateOnStuck", self.origin );
 
-	playfx( level._effect[ "ac130_flare" ], self.origin, ( 0, 0, 0 ) );
+	playfx( level._effect[ "ac130_flare" ], self.origin );
 }
 
 on_airDropMarkerActivate( type, lifeId ) 

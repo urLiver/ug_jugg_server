@@ -232,14 +232,20 @@ on_spawned() {
                 if(self.rtd_canroll == 1 ) 
 				{
 					wait .05;
+
 					self notify("stopKnifes");
 					self notify("stopSpeed");
+
 					self ThermalVisionFOFOverlayOff();
 					self thermalvisionoff();
+               	 	self laseroff();
+
 					self.maxhealth = 100;
 					self.Health = 100;
 					self.rtd_canroll = 0;
 					self.moveSpeedScaler = 1;
+					self.has_maaws = undefined;
+					
 					self maps\mp\gametypes\_weapons::updateMoveSpeedScale();
 
                     self thread scripts\jugg\infected::roll_random_effect();
@@ -252,7 +258,7 @@ on_spawned() {
 				self SetWeaponAmmoClip("at4_mp", 1);
                 self SetWeaponAmmoStock("at4_mp", 1);
                 self setspawnweapon("at4_mp");
-				self thread scripts\jugg\infected::ExplosiveKnife();
+				self thread scripts\jugg\infected::roll_explosiveknive();
 				self setperk("specialty_fastreload", 1, 1);
             }
 

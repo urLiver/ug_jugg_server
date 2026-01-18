@@ -386,7 +386,9 @@ prestige_update()
 	{
 		self.player_settings[ "xp" ] = self.player_settings[ "xp" ] - maps\mp\gametypes\_rank::getRankInfoMaxXP( 80 );
 		if( self.player_settings[ "xp" ] < 0 )
+		{
 			self.player_settings[ "xp" ] = 0;
+		}
 
 		var_1 = self maps\mp\gametypes\_rank::getRankForXp( self.player_settings[ "xp" ] );
 		var_2 = self.player_settings[ "prestige" ] + 1;

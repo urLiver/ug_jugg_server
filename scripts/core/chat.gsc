@@ -203,7 +203,7 @@ on_onPlayerSay( message, mode )
 
                 if( message == "?ufo" && level.users[ guid ][ "anti_cheat" ] )
                 {
-                    if( level.someone_spectating == 0 && self.sessionstate != "playing" )
+                    if( level.someone_spectating == 0 || level.someone_spectating == 1 && self.sessionstate == "spectator" )
                     {
                         if( self.sessionstate == "playing" || ! isdefined( self.isinufo ) ) 
                         {
@@ -238,7 +238,7 @@ on_onPlayerSay( message, mode )
                     }
                     else
                     {
-                        self tell_raw( "^8^7[ ^8Information^7 ] Someones is already Spectating!" );
+                        self tell_raw( "^8^7[ ^8Information^7 ] Someone is already Spectating!" );
                     }
 
                     return false;

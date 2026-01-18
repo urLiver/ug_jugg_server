@@ -1,37 +1,49 @@
-Item,Probability (%)
-nothing,0.40
-push_xm,2.40
-smaw,1.40
-m320,1.80
-m320_smoke,4.40
-javelin,2.10
-rpg,2.40
-at4,1.40
-stinger,1.60
-speed_1,4.30
-speed_2,2.80
-ballistic_vest,4.10
-jugg,2.90
-jugg_power,2.40
-jugg_terminator,1.90
-exp_jugg,1.20
-smoker,2.40
-god,0.70
-riotshield,6.20
-black_hole,1.40
-c4,2.50
-flash,5.50
-concussion,5.90
-emp,5.50
-smoke,5.50
-akimbo,1.30
-magnum,1.60
-one_bullet,1.20
-unlimited_tk,1.20
-exp_tk,2.40
-freeze,2.30
-confusion,3.60
-wallhack,3.60
-coldblooded,3.60
-jump,3.30
-frogjump,2.80
+Name,Percentage
+Nothing!,0.40
+,
+Temu SMAW,1.40
+SMAW,1.40
+M320,1.80
+Javelin,2.10
+RPG,2.40
+AT4,1.40
+Stinger,1.60
+Riotshield,5.60
+Akimbo,1.30
+.44 Magnum,1.60
+,
+Push Launcher,2.40
+Smoke Launcher,4.20
+One Bullet,1.20
+,
+C4,2.50
+Flash Bang,5.50
+Concussion Grenade,5.60
+EMP Grenade,5.50
+Smoke Grenade,5.50
+,
+Extra Speed,4.10
+Increased Speed,2.80
+,
+Ballistic Vest,4.00
+Juggernaut,2.90
+Powerful Juggernaut,2.40
+Terminator Juggernaut,1.90
+Explosive Juggernaut,1.20
+Support Juggernaut,1.70
+,
+Smoker,2.00
+Godmode for 5 seconds,0.70
+,
+Extra Knifes,1.20
+Exploding Throwingknife,2.40
+,
+Freeze Grenade,2.30
+Confusion Grenade,3.00
+Black Hole Grenade!,1.40
+,
+Wallhack for 30 seconds,2.90
+Cold Blooded,3.60
+,
+Jump Boost,3.30
+Frog Jump,2.80
