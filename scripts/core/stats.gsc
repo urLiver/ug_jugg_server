@@ -470,7 +470,7 @@ player_settings_main() {
     self.player_settings                = [];
     needs_update                        = undefined;
 
-    int_columns = strTok("masked,inf_ks_5,inf_ks_10,inf_ks_15,inf_ks_20,inf_ks_25,inf_ks_30,challenge_halloween,called_in_moabs,assists,xp,prestige,deaths,suicides,died_by_moabs,kills,headshots,gc_hud,custom_ents,ui_scorelimit,render_skybox,cj_challenge_01,bb_deaths,inf_teamcolor_inf,inf_teamcolor_surv,conv_card,chicken_kill,ti_cancel,choosen_pres,cl_voice,xp_bar,velocity,cancelled_moabs,inf_kills,surv_kills,bounces,tk_kills,nade_kills,betty_kills,melee_kills,knife_moab_challenge", ",");
+    int_columns = strTok("noabs,masked,inf_ks_5,inf_ks_10,inf_ks_15,inf_ks_20,inf_ks_25,inf_ks_30,challenge_halloween,called_in_moabs,assists,xp,prestige,deaths,suicides,died_by_moabs,kills,headshots,gc_hud,custom_ents,ui_scorelimit,render_skybox,cj_challenge_01,bb_deaths,inf_teamcolor_inf,inf_teamcolor_surv,conv_card,chicken_kill,ti_cancel,choosen_pres,cl_voice,xp_bar,velocity,cancelled_moabs,inf_kills,surv_kills,bounces,tk_kills,nade_kills,betty_kills,melee_kills,knife_moab_challenge", ",");
 
     if(!isDefined(player_csv_data) || player_csv_data == "") {
         keys = getarraykeys(level.base_values);

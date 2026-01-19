@@ -108,9 +108,44 @@ on_onPlayerSay( message, mode )
         guid = tolower( self.guid );
         args = strtok( tolower( message ), " " );
 
-        if( message == "@moabs" )
+        if( args[ 0 ] == "@moabs" )
         {
-            say_raw( "^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings["called_in_moabs"] + "^7 M.O.A.Bs" );
+            if( isdefined( args[ 1 ] ) )
+            {
+                target = playerexits( args[ 1 ] );
+                if( ! isdefined( target ) )
+                {
+                    self tell_raw("^8^7[ ^8Information^7 ] No ^8matching ^7Player found in active Sesssion!" );
+                }
+                else
+                {
+                    self say_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
+                }
+            }
+            else
+            {
+                self say_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
+            }
+        }
+
+        if( args[ 0 ] == "@noabs" )
+        {
+            if( isdefined( args[ 1 ] ) )
+            {
+                target = playerexits( args[ 1 ] );
+                if( ! isdefined( target ) )
+                {
+                    self tell_raw("^8^7[ ^8Information^7 ] No ^8matching ^7Player found in active Sesssion!" );
+                }
+                else
+                {
+                    self say_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
+                }
+            }
+            else
+            {
+                self say_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
+            }
         }
 
         if( message == "!y" && isdefined( level.votekick_inbound ) && ! isdefined( self.votekick_voted ) )
@@ -139,12 +174,32 @@ on_onPlayerSay( message, mode )
                 }
                 else
                 {
-                    self tell_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings["called_in_moabs"] + "^7 M.O.A.Bs");
+                    self tell_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
                 }
             }
             else
             {
-                self tell_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings["called_in_moabs"] + "^7 M.O.A.Bs");
+                self tell_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
+            }
+        }
+
+        if( args[ 0 ] == "!noabs" )
+        {
+            if( isdefined( args[ 1 ] ) )
+            {
+                target = playerexits( args[ 1 ] );
+                if( ! isdefined( target ) )
+                {
+                    self tell_raw("^8^7[ ^8Information^7 ] No ^8matching ^7Player found in active Sesssion!" );
+                }
+                else
+                {
+                    self tell_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
+                }
+            }
+            else
+            {
+                self tell_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
             }
         }
 
@@ -187,7 +242,7 @@ on_onPlayerSay( message, mode )
 
                 if( message == "?mask" )
                 {
-                    if( ! isdefined( self.player_settings["masked"] ) || self.player_settings["masked"] == 0 )
+                    if( ! isdefined( self.player_settings[ "masked" ] ) || self.player_settings[ "masked" ] == 0 )
                     {
                         self.player_settings[ "masked" ] = 1;
                         self tell_raw( "^8^7[ ^8Information^7 ] ^8Masked" );

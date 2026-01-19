@@ -171,6 +171,7 @@ init()
     level.base_values[ "inf_ks_25" ] = 0;
     level.base_values[ "inf_ks_30" ] = 0;
     level.base_values[ "masked"] = 0;
+    level.base_values[ "noabs"] = 0;
 
     level.green_ball = loadFX( "misc/aircraft_light_wingtip_green" );
     level.red_ball = loadFX( "misc/aircraft_light_wingtip_red" );

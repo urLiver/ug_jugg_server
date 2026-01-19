@@ -248,6 +248,8 @@ cancle_nuke_ondeath( user )
         iPrintLnBold("^2" + user.name + "^7 M.O.A.B got ^3Cancelled");
     }
 
+    user.player_settings[ "noabs" ]++;
+
     thread scripts\core\ui::ui_nuke_hide();
     
     level.nukeincoming = undefined;
