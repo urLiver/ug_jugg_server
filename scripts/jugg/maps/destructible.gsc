@@ -66,5 +66,4 @@ init()
     }
 
     print( "^1_destructible::init()^7: End of Printing Toys" );
-
 }

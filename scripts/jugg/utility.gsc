@@ -240,7 +240,8 @@ on_handleNormalDeath( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath )
 
 			if( ! maps\mp\_utility::isKillstreakWeapon( sWeapon ) && attacker.pers["cur_kill_streak_for_nuke"] == 24 && ! isdefined( attacker.hasnuke ) ) 
 			{
-                attacker.hasnuke = 1;
+            	attacker maps\mp\killstreaks\_killstreaks::giveallperks();
+				attacker.hasnuke = 1;
 				attacker thread maps\mp\killstreaks\_killstreaks::giveKillstreak( "nuke", false, true, attacker, true );
 				attacker thread maps\mp\gametypes\_hud_message::killstreakSplashNotify( "nuke", 24 );
 			}
@@ -371,6 +372,7 @@ on_handleNormalDeath( lifeId, attacker, eInflictor, sWeapon, sMeansOfDeath )
 				//if( player.pers[ "cur_kill_streak" ] == 24 && ! isdefined( player.hasnuke ) ) 
 				if( player.pers[ "cur_kill_streak_for_nuke" ] == 24 && ! isdefined( player.hasnuke ) ) 
 				{
+            		player maps\mp\killstreaks\_killstreaks::giveallperks();
 					player.hasnuke = 1;
 					player thread maps\mp\killstreaks\_killstreaks::giveKillstreak( "nuke", false, true, player, true );
 					player thread maps\mp\gametypes\_hud_message::killstreakSplashNotify( "nuke", 24 );
