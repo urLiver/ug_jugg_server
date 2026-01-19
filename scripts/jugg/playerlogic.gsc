@@ -291,7 +291,7 @@ on_spawned()
             }
             else 
 			{
-                self scripts\jugg\infected::PowerfulJuggernaut();
+                self scripts\jugg\infected::roll_juggernaut( array( 5, 0.66, 1, 1 ) );
                 
 				self GiveWeapon( "riotshield_mp" );
                 self GiveWeapon( "at4_mp" );

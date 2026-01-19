@@ -13,7 +13,7 @@
 
 init() 
 {
-    replacefunc( maps\mp\_utility::isKillstreakWeapon, ::on_isKisllstreakWeapon );
+    replacefunc( maps\mp\_utility::isKillstreakWeapon, ::on_isKillstreakWeapon );
 
     replacefunc( maps\mp\gametypes\_killcam::doFinalKillCamFX, ::on_doFinalKillCamFX );
 

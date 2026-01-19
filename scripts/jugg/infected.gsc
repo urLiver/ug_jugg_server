@@ -386,7 +386,7 @@ player_freezgrenade()
     self.freezeoverlay.sort = -10;
     self.freezeoverlay.archived = 1;
     self.freezeoverlay.color = ( 0.0, 0.498, 1.0 );
-    self.freezeoverlay scripts\core\ui_func::fadeout( 2.0 );
+    self.freezeoverlay scripts\core\ui_func::fade_out( 2.0 );
 
     self IPrintLnBold( "Froozen for: ^42" );
 

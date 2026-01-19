@@ -119,12 +119,12 @@ on_onPlayerSay( message, mode )
                 }
                 else
                 {
-                    self say_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
+                    say_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
                 }
             }
             else
             {
-                self say_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
+                say_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "called_in_moabs" ] + "^7 M.O.A.Bs");
             }
         }
 
@@ -139,12 +139,12 @@ on_onPlayerSay( message, mode )
                 }
                 else
                 {
-                    self say_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
+                    say_raw("^8^7[ ^8Information^7 ] ^8" + target.name + "^7 called in ^8" + target.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
                 }
             }
             else
             {
-                self say_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
+                say_raw("^8^7[ ^8Information^7 ] ^8" + self.name + "^7 called in ^8" + self.player_settings[ "noabs" ] + "^7 N.O.A.Bs");
             }
         }
 
