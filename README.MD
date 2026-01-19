@@ -24,6 +24,5 @@ Forked from: [github.com/ZECxR3ap3r/gc_server](https://github.com/ZECxR3ap3r/gc_
 Enjoy :D
 
 ## Main TODOS:
-* Turn chat.gsc into chat_commands.gsc and chat_handler.gsc for easiness
 * Start work on Ohm -> Menu Style in the Good Old Bo2 GSC Menu Days, main focus will be just fun stuff
 * Finish rewriting the ui.gsc, removing not needed stuff from the main.gsc and also pt all stats related things into playerstats.gsc

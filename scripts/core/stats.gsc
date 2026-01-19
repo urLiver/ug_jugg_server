@@ -686,3 +686,18 @@ _rank_init_edit() {
 	level thread maps\mp\gametypes\_rank::patientZeroWaiter();
 	level thread maps\mp\gametypes\_rank::onPlayerConnect();
 }
+
+track_insertions() 
+{
+    self endon( "disconnect" );
+
+    while( 1 ) 
+	{
+        self waittill( "destroyed_insertion", owner );
+
+        if( owner.name != self.name )
+		{
+            self.player_settings[ "ti_cancel" ]++;
+		}
+    }
+}

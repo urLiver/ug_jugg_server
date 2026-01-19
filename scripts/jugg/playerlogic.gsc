@@ -230,7 +230,7 @@ on_spawned()
 			self thread doFullbright();
 			self thread suicidePlayer();
 			self thread var_resetter();
-			self thread track_insertions();
+			self thread scripts\core\stats::track_insertions();
         	self thread adv_afk_check();
 
 			self thread scripts\core\ui::ui_hud();
@@ -623,42 +623,6 @@ suicidePlayer()
         self waittill( "suicide_action" );
 		
         self suicide();
-    }
-}
-
-track_chicken_damage() 
-{
-    while( 1 ) 
-	{
-        self waittill( "damage", damage, attacker );
-
-        if( isdefined( attacker ) && self.health <= 0 )
-		{
-            attacker.player_settings[ "chicken_kill" ]++;
-            attacker notify( "player_stats_updated" );
-
-			if( isdefined( self.origin ) )
-			{
-				PlayFX( level.money, self.origin );
-			}
-
-            break;
-        }
-    }
-}
-
-track_insertions() 
-{
-    self endon( "disconnect" );
-
-    while( 1 ) 
-	{
-        self waittill( "destroyed_insertion", owner );
-
-        if( owner.name != self.name )
-		{
-            self.player_settings[ "ti_cancel" ]++;
-		}
     }
 }
 

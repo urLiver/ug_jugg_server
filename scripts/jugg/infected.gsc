@@ -154,7 +154,7 @@ roll_random_effect()
         self thread [ [ roll.function ] ]( roll.paramlist );
     }
 
-    self thread scripts\core\ui::send_hud_notification_handler(roll.rollname, roll.description, roll.color );
+    self thread scripts\core\ui::send_hud_notification_handler( roll.rollname, roll.description, roll.color );
 }
 
 roll_trophyhunter()
