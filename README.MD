@@ -25,5 +25,5 @@ Enjoy :D
 
 ## Main TODOS:
 * Turn chat.gsc into chat_commands.gsc and chat_handler.gsc for easiness
-* Start work on Ohm -> Menu Still like Bring Back Memories
-* Finish ui.gsc, playerlogic.gsc, main.gsc rewritings
+* Start work on Ohm -> Menu Style in the Good Old Bo2 GSC Menu Days, main focus will be just fun stuff
+* Finish rewriting the ui.gsc, removing not needed stuff from the main.gsc and also pt all stats related things into playerstats.gsc
