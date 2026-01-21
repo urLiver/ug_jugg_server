@@ -1,24 +1,3 @@
-/*
-
-    File includes the system for map edits by urLiver, used on custom edits by him
-
-    TODOS:
-    - Check if replacing getspawnpoint works flawlessly without fucking up the main spawn shit hole
-*/
-
-/*
-
-    INFO:
-        - This File Includes the custom logic for any future edit
-
-    TODO:
-		- Add more Elements, Elevator, Cannon and so on
-
-    DONE:
-        - Created
-        
-*/
-
 init()
 {
     level.ObjectiveID = 1;

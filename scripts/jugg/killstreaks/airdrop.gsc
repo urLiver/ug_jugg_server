@@ -1,22 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Functions Replacing certain parts of the Airdrop
-
-    TODO:
-		- Killstreaks to maybe add:
-			- Turret that is useable, like the ones in the edit
-			- Drone Strike or something similar to it like bo2
-			- Helicopter Flock but with three Littlebirds
-		
-		hook on otherake anf change time too 4000
-
-    DONE:
-        - Total Weight of Assault Airdrops is 100 so percentages are not decimal point numbers
-		- Added EMP, Remote UAV, Juggernaut, Helicopter Flock ( littlebird flock ), to assault and trap airdrop
-        
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_airdrop::airDropMarkerActivate, ::on_airDropMarkerActivate );

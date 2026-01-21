@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Functions Replacing certain parts of the Helicopter Flock Killstreak
-
-    TODO:
-        - Add in a second version using littlebirds for fun time but with a random chance of like 25%
-
-    DONE:
-        - Removed the outter two copters so killstreak isnt to overpowered for inf jugg
-        
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_helicopter_flock::tryuselbflock, ::on_tryuselbflock );

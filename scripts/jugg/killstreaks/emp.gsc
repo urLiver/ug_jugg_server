@@ -1,18 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Functions Replacing certain parts of the EMP
-
-    TODO:
-        - None
-
-    DONE:
-        - Added the ability to both emp_jam functions to block the infected rolls
-        - Shortend Duration to 20 seconds instead of 60 seconds
-        - Removed the vision re-set of the Nuke Vision when a nuke detonated
-        
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_emp::emp_jamplayers, ::on_emp_jamplayers );

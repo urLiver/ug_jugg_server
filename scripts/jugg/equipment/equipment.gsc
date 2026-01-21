@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-
-
-*/
-
 init()
 {
 	replacefunc( maps\mp\_equipment::trophyActive, ::on_trophyActive );

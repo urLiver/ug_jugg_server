@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-        
-
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_autosentry::updateSentryPlacement, ::on_updateSentryPlacement );

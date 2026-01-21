@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-        
-
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_ac130::overlay, ::on_overlay );

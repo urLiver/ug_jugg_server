@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-        
-
-*/
-
 init()
 {
 	replacefunc( maps\mp\killstreaks\_ims::updateImsPlacement, ::on_updateImsPlacement );

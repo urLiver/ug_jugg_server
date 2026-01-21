@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - Calling init and main / loads all needed for the core of all servers
-
-    TODO:
-        - Re-move not needed stuff
-
-    DONE:
-        - Created and filled
-        
-*/
-
 init()
 {
 	level.basepath = "C:/IW5-Data/global_stats";
@@ -134,7 +121,7 @@ init()
     thread scripts\core\ui_func::init();
     thread scripts\core\ui::init();
 
-	ents = getentarray(); // move to stats
+	ents = getentarray();
     foreach( ent in ents ) 
     {
         if( isdefined( ent.targetname ) && ent.targetname == "destructible_toy" ) 

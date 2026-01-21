@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Functions Replacing certain parts of the Harrier Airstrike
-
-    TODO:
-        - None
-
-    DONE:
-        - None
-        
-*/
-
 init() 
 {
     replacefunc( maps\mp\killstreaks\_airstrike::tryUseAirstrike, ::on_tryUseAirstrike );

@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the System for the Weapon Roll on Survivors
-
-    TODO:
-        - Learn Weapon Porting xD
-
-    DONE:
-        - Changed Weapon Roll System from GilletteClans one to fully custom one
-        
-*/
-
 init() 
 {
     replacefunc( maps\mp\gametypes\_weapons::mayDropWeapon, ::hook_mayDropWeapon );

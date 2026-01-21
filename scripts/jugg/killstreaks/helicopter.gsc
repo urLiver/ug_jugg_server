@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-        
-
-*/
-
 init()
 {
 	replacefunc( maps\mp\killstreaks\_helicopter::heli_explode, ::on_heli_explode );

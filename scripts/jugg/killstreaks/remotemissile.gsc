@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Functions Replacing certain parts of the Predator Missile / Remote Missile
-
-    TODO:
-        - None
-
-    DONE:
-        - Maybe add cool fx when missile gets destroyed that way
-        
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_remotemissile::MissileEyes, ::on_MissileEyes );

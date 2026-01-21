@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-        
-
-*/
-
 init()
 {
 	replacefunc( maps\mp\gametypes\_spawnlogic::getSpawnpointArray, ::on_getSpawnpointArray );

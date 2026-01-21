@@ -1,17 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the stats system
-
-    TODO:
-		- Re-write for a simpler coding style
-		- Move the on_connect into jugg\playerlogic.gsc
-		
-    DONE:
-        - Fixed Prestige Logic, removed not needed code
-        
-*/
-
 init()
 {
     replacefunc( maps\mp\_utility::isBuffUnlockedForWeapon, ::isBuffUnlockedForWeaponReplace );
@@ -350,7 +336,6 @@ on_connect()
         player setclientdvar("inf_xp", getdvarint("inf_xp"));
     }
 }
-
 
 update_stats_aftertime( time ) 
 {

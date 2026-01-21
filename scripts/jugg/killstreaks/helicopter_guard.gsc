@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-        
-
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_helicopter_guard::lbSupport_followPlayer, ::on_lbSupport_followPlayer );

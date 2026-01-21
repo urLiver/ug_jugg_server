@@ -1,19 +1,3 @@
-/*
-
-    INFO:
-        - the main init() and main() used to load any of the scripts
-    
-    TODO:
-        - Implement Ohm loading
-
-    DONE:
-        - None
-    
-    IMPORTANT:
-        - I'm aware a simple switch case would have workd tho i wanan log and make it easy to add to so this is the way
-
-*/
-
 main() 
 {
     level.port = getdvar( "net_port" );

@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Functions Replacing for the general _killstreaks.gsc file
-
-    TODO:
-        - None
-
-    DONE:
-        - None
-        
-*/
-
 init()
 {
     replacefunc( maps\mp\killstreaks\_killstreaks::getKillstreakInformEnemy, ::on_getKillstreakInformEnemy );

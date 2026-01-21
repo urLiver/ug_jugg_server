@@ -1,21 +1,7 @@
-/*
-
-    INFO:
-        - This File Includes the original Logic behind the GiletteClan Edits
-
-    TODO:
-		- Do not touch :D
-
-    DONE:
-        - None
-        
-*/
-
 init()
 {
 
 }
-
 
 new_getspawnpoint() {
 	spawnPoint = self [[level.original_getSpawnPoint]]();
@@ -35,7 +21,6 @@ delete_remote_spawnpoints() {
 		spawn delete();
 	}
 }
-
 
 enable_damage_from_owner() {
     self endon("death");

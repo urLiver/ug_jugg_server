@@ -1,17 +1,3 @@
-/*
-
-    INFO:
-        - Calling init and main / loads all needed for jugg servers
-
-    TODO:
-        - Move replace func in utility
-        - Re-move nont needed stuff
-
-    DONE:
-        - Created and filled
-        
-*/
-
 init()
 {
     level.infect_loadouts[ "allies" ][ "loadoutPrimary" ] = "none";
@@ -210,6 +196,7 @@ init()
     thread scripts\jugg\killstreaks\remotemissile::init();
     thread scripts\jugg\killstreaks\straferun::init();
 
+    thread scripts\jugg\maps\animatedmodels::init();
     thread scripts\jugg\maps\destructible::init();
     thread scripts\jugg\maps\edits::init();
     thread scripts\jugg\maps\map_list::init();

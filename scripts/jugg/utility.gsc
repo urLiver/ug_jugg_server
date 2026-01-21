@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes Functions who's categorizing doesnt make sense or would bloat the project 
-
-    TODO:
-        - None
-
-    DONE:
-        - Added in Death Icon and Resized it to be always the size for Splittscreen, removed not needed checks, fadeouts speed up
-        
-*/
-
 init() 
 {
     replacefunc( maps\mp\_utility::isKillstreakWeapon, ::on_isKillstreakWeapon );

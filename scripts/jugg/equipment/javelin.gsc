@@ -1,10 +1,3 @@
-/*
-
-    INFO:
-        
-
-*/
-
 init()
 {
 	replacefunc( maps\mp\_javelin::EyeTraceForward, ::on_EyeTraceForward );

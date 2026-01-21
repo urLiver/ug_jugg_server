@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the ui and its creation
-
-    TODO:
-		- Re-write to fully only use core\ui_func.gsc
-
-    DONE:
-        - Created and rewrote parts of the ui to use core\ui_func.gsc
-        
-*/
-
 init()
 {
 

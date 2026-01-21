@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the voting System, its ui drawing and so on
-
-    TODO:
-		- Rework for better / simpler ui, animations and so on
-
-    DONE:
-        - None
-        
-*/
-
 init() 
 {
     replacefunc( maps\mp\gametypes\_gamelogic::waittillFinalKillcamDone, ::on_waittillFinalKillcamDone );

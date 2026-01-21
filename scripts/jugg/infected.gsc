@@ -1,32 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the System for the Infected Rolls
-
-    TODO:
-        - Fix Syntax
-        - Fix bug with frogjump and jumpboost, if this current untested fix doesnt work
-        - Add In Rolls:
-            - Commander -> Wears a Flag on back and speeds up ( 20% increase ) close mates for 4 seconds every 7 seconds
-            - White Hole -> Black Hole, but pushes the enemies away
-            - Hunter -> The Jugg from Call of Duty Ghost that is fast and has only a knive
-            - Revenger -> Gains Revenger Perk tho on down we dont down him, instead he gets hidden, cant kill and after 3 seconds reappears
-            - Rocket Ride -> You get an rpg with one bullet and when you shit it it links to the rocket till impact could work goodly out tho unsure
-            - Push Nade -> Pushes anyone like the pushlauncher but a bit harder
-            - Trophy Hunter -> See trophies throught walls
-        - Combine jumpboost and frogjump into one using paramlist
-
-        fuck not revenge the downed one perk thingy i forgot name of
-
-    DONE:
-        - Changed add_roll and get_random_roll for simplicity and also moved away from weight to actuall percentage system
-        - Modified the add_roll color to get a random color for if undefined is passed
-        - Rolls added:
-            - Smoker -> Explodes in a cloud of smoke on death, wears a red nade as hat
-            - Frog Jump -> Jump boost but forward
-        
-*/
-
 init() 
 {
     level.roll_items = [];

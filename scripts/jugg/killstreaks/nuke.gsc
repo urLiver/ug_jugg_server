@@ -1,18 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Functions Replacing certain parts of the Nuke
-
-    TODO:
-        - Maybe add back slowmo and fully the vision
-        - Change timer to OG Timer but unsure for now
-        - Something causes that infected cant use airstrikes with a msg of "Moab Fallout 60s" never heard of it
-
-    DONE:
-        - Replaces the Nuke fully, calls in two jets and a b2 bomber before going off
-        
-*/
-
 init()
 {
     

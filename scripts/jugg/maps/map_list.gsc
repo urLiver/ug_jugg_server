@@ -1,17 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the Map List for every playable maps, some breach logic
-
-    TODO:
-		- Add more edits
-		- Re-write for a simpler coding style
-
-    DONE:
-        - Added Dome and Undeground Edit
-        
-*/
-
 init() 
 {
 	wait 1;

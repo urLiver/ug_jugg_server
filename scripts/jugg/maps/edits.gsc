@@ -1,19 +1,5 @@
 #include scripts\jugg\maps\objects;
 
-/*
-
-    INFO:
-        - This File Includes the all the edits for each map
-		- Only file that will use #include at all
-
-    TODO:
-		- Make more edits
-
-    DONE:
-        - Added the Dome and Underground Edit
-        
-*/
-
 init()
 {
 

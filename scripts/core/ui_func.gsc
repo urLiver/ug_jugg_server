@@ -1,19 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the wrapper functions for the ui, to be used in core\ui_func.gsc
-        - Function Prefixes explained:
-            - server_ = server sided ui elements
-            - client_ = client sided ui elements
-
-    TODO:
-		- Add more elemnts
-
-    DONE:
-        - Created
-        
-*/
-
 init()
 {
 

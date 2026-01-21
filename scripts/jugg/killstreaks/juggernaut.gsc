@@ -1,9 +1,3 @@
-/*
-
-    INFO:
-
-*/
-
 init()
 {
 
@@ -21,6 +15,8 @@ givejuggernaut()
     self.isjuggernautrecon = 1;
     self.juggmovespeedscaler = 0.75;
     self.movespeedscaler = 0.75;
+    self.maxhealth = 50;
+    self.health = self.maxhealth;
     var_1 = spawn( "script_model", self.origin );
     var_1.team = self.team;
     var_1 makeportableradar( self );

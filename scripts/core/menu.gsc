@@ -1,16 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes the fix ( kick if used ) for the openmenu "bug" in plutonium allowing to switch teams and so on in gamemodes that normaly wont all that
-
-    TODO:
-		- None
-
-    DONE:
-        - Created
-        
-*/
-
 init()
 {
     replacefunc( maps\mp\gametypes\_menus::onmenuresponse, ::on_onmenuresponse );

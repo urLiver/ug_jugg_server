@@ -1,20 +1,3 @@
-/*
-
-    INFO:
-        - This File Includes anything related to the logic of the Player, spawning, conneting, whatever
-
-    TODO:
-        - Move on_connect from core\stats.gsc in here
-		- Shorten down the Functions
-		- Remove "in edit" check, to allow new players to learn easier
-		- Change AFK Check to use onNotifyPlayerCommand if that works on movement commands
-
-    DONE:
-        - Moved all ui components into core\ui 
-		- Added TK Regen to Infected
-        
-*/
-
 init()
 {
 	replacefunc( maps\mp\gametypes\_playerlogic::spawnplayer, ::on_spawnplayer );
