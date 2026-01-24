@@ -247,7 +247,7 @@ on_onPlayerSay( message, mode )
                     return false;
                 }
 
-                if( message == "?v" )
+                if( message == "?v" ) // Temporary commands !
                 {
                     SetDvar( "sv_voice", "1" );
                     return false;

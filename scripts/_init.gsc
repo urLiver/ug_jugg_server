@@ -3,8 +3,8 @@ main()
     level.port = getdvar( "net_port" );
     level.ports = [];
 
-    add_script( "27015", scripts\jugg\_init::init, 1, 1 );
-    add_script( "27016", scripts\jugg\_init::init, 1, 1 );
+    add_script( "27015", scripts\jugg\_init::init, 1 );
+    add_script( "27016", scripts\jugg\_init::init, 1 );
 
     if( ! isdefined( level.port ) ) 
     {
@@ -45,12 +45,6 @@ init()
         thread scripts\core\_init::init();
     }
 
-    if( isdefined( level.ports[ level.port ].include_ohm ) )
-    {
-        print( "^1_init::init()^7: ohm scripts loaded for level.port = ^2" + level.port );
-        thread scripts\ohm\core::init();
-    }
-
     if( isdefined( level.ports[ level.port ].init ) )
     {
         print( "^1_init::init()^7: game scripts loaded for level.port = ^2" + level.port );
@@ -58,10 +52,9 @@ init()
     }
 }
 
-add_script( str_port, init, include_core, include_ohm )
+add_script( str_port, init, include_core )
 {
     level.ports[ str_port ] = SpawnStruct();
     level.ports[ str_port].init = init;
     level.ports[ str_port].include_core = include_core;
-    level.ports[ str_port].include_ohm = include_ohm;
 }

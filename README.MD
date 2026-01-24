@@ -21,11 +21,9 @@ Forked from: [github.com/ZECxR3ap3r/gc_server](https://github.com/ZECxR3ap3r/gc_
 Enjoy :D
 
 ## Known Bugs:
-* Team chat not using and working for commands, will be changed when custom say_raw wrapper gets implemented 
+* Team chat not working for commands, will be changed when custom say_raw wrapper gets implemented 
 
 ## TODO List:
-* Ohm:
-  * Start Work on it, main focus is on Trolling / Enhancing Expierence with Fun Mods
 * Finish the re-writing of gc scripts such as objects.gsc, voting.gsc
 * Finish switching systems such as in ui.gsc to only use ui_func.gsc
 * Killstreaks:
