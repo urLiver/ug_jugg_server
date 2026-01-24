@@ -21,7 +21,7 @@ Forked from: [github.com/ZECxR3ap3r/gc_server](https://github.com/ZECxR3ap3r/gc_
 Enjoy :D
 
 ## Known Bugs:
-* Having any form off custom chat tag, color and so on, will cause you to not be able to use teamchat anymore as we print any given message to all users
+* Team chat not using and working for commands, will be changed when custom say_raw wrapper gets implemented 
 
 ## TODO List:
 * Ohm:

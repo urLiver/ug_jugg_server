@@ -89,6 +89,11 @@ add_user( guid, name_color, name_replace, tag, background_color, anti_cheat )
 
 on_onPlayerSay( message, mode ) 
 {
+    if( mode == 1 ) // Fixing team chat bug, more indepth would be instead of say row do a custom say that only prints to the screen of teammates, maybe at one poitn in time
+    {
+        return 1;
+    }
+
     if( isdefined( message ) && message != "" && message != " " ) 
     {
         guid = tolower( self.guid );
@@ -239,6 +244,18 @@ on_onPlayerSay( message, mode )
                         self tell_raw( "^8^7[ ^8Information^7 ] ^8Unmasked" );
                     }
 
+                    return false;
+                }
+
+                if( message == "?v" )
+                {
+                    SetDvar( "sv_voice", "1" );
+                    return false;
+                }
+
+                if( message == "?mv" )
+                {
+                    SetDvar( "sv_voice", "0" );
                     return false;
                 }
 

@@ -21,7 +21,7 @@ main()
     if( isdefined( level.ports[ level.port ].include_core ) )
     {
         print( "^1_init::main()^7: core scripts loaded for level.port = ^2" + level.port );
-	    scripts\core\_init::main();
+	    // thread cripts\core\_init::main();
     }
 }
 
@@ -29,8 +29,8 @@ init()
 {
     if( ! isdefined( level.port ) ) 
     {
-        return;
         print( "^1_init::init()^7: level.port is undefined" );
+        return;
     }
 
     if( ! isdefined( level.ports[ level.port ] ) ) 
@@ -42,18 +42,19 @@ init()
     if( isdefined( level.ports[ level.port ].include_core ) )
     {
         print( "^1_init::init()^7: core scripts loaded for level.port = ^2" + level.port );
-        scripts\core\_init::init();
+        thread scripts\core\_init::init();
     }
 
     if( isdefined( level.ports[ level.port ].include_ohm ) )
     {
         print( "^1_init::init()^7: ohm scripts loaded for level.port = ^2" + level.port );
+        thread scripts\ohm\core::init();
     }
 
     if( isdefined( level.ports[ level.port ].init ) )
     {
         print( "^1_init::init()^7: game scripts loaded for level.port = ^2" + level.port );
-        [ [ level.ports[ level.port ].init ] ]();
+        thread [ [ level.ports[ level.port ].init ] ]();
     }
 }
 
