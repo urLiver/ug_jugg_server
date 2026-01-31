@@ -21,7 +21,7 @@ main()
     if( isdefined( level.ports[ level.port ].include_core ) )
     {
         print( "^1_init::main()^7: core scripts loaded for level.port = ^2" + level.port );
-	    // thread cripts\core\_init::main();
+	    thread scripts\core\_init::main();
     }
 }
 
