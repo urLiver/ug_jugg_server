@@ -260,7 +260,6 @@ on_spawned()
 
 				self.maxhealth = 100;
 				self.Health = 100;
-				self.rtd_canroll = 0;
 				self.has_maaws = undefined;
 				self.isTrophyHunter = undefined;
 
@@ -837,7 +836,11 @@ on_player_killed( eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, s
 
     if( isdefined( attacker.classname ) ) 
 	{
-        if( ! self maps\mp\gametypes\_damage::killedSelf( attacker ) && attacker.classname != "trigger_hurt" )
+        if( self maps\mp\gametypes\_damage::killedSelf( attacker ) || attacker.classname == "trigger_hurt" )
+		{
+            self.rtd_canroll = 0;
+		}
+		else
 		{
             self.rtd_canroll = 1;
 		}
