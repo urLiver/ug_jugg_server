@@ -3,6 +3,7 @@ init()
 	level.basepath = "C:/IW5-Data/global_stats";
    
     level.users = [];
+    level.users_perma_muted = [];
     level.kenker_sounds = [];
     level.calling_cards = [];
     level.base_values = [];

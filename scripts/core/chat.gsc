@@ -3,11 +3,12 @@ init()
     onPlayerSay( ::on_onPlayerSay );
 
     /*
-
         Normally a bad way of doing, best here tho allowing for custom tags and infinite possibile ones.
         Works too without using iw4m + purpose for also setting the anti cheat team up
+       
+        Some Examples:
 
-    */
+    add_user( "0100000000608C77", "8", "FemboyyBunni.", undefined, "8", false );
 
     add_user( "0100000000434F72", "5", undefined, "^5Co-Owner^7", "5", true ); // liver
     add_user( "01000000000D3E9A", "7", "^6Zop^0.", "^1O^0wner", "8", false ); // zop
@@ -49,6 +50,10 @@ init()
     add_supporter( "01000000003EA63D" ); // kermit
     add_supporter( "01000000001471E1" ); //XBLwatson
     add_supporter( "01000000000C0B53" ); //bunni
+
+    add_perma_mute( "0100000000308E00", "Harassment, Abuse, Victim Mentality, Ignorin of Staff tellings and so on" );
+
+    */
 }
 
 add_mod( guid )
@@ -87,8 +92,21 @@ add_user( guid, name_color, name_replace, tag, background_color, anti_cheat )
     level.users[ guid ][ "anti_cheat" ] = anti_cheat;
 }
 
+add_perma_mute( guid, reason ) 
+{
+    guid = tolower( guid );
+	level.users_perma_muted[ guid ] = reason;
+}
+
 on_onPlayerSay( message, mode ) 
 {
+    guid = tolower( self.guid );
+
+    if( isdefined( level.users_perma_muted[ guid ] ) ) 
+    {
+        return false;
+    }
+
     if( mode == 1 ) // Fixing team chat bug, more indepth would be instead of say row do a custom say that only prints to the screen of teammates, maybe at one poitn in time
     {
         return 1;
@@ -96,7 +114,6 @@ on_onPlayerSay( message, mode )
 
     if( isdefined( message ) && message != "" && message != " " ) 
     {
-        guid = tolower( self.guid );
         args = strtok( tolower( message ), " " );
 
         if( args[ 0 ] == "@moabs" )
