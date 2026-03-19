@@ -15,6 +15,10 @@ Forked from: [github.com/ZECxR3ap3r/gc_server](https://github.com/ZECxR3ap3r/gc_
 * Sloth
 * Revox
 
+### Fine-tuning and testing
+* sevdabeast
+* aseit
+
 ### Active Maintainer
 * urLiver
 
